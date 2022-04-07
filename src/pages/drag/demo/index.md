@@ -32,8 +32,7 @@ const Template = () => {
       return <div key={item.id} 
                   style={{
                       padding: '11px 15px', 
-                      background: '#bac1e3', 
-                      marginBottom: '3px', 
+                      background: '#bac1e3',
                       borderRadius: '3px'
                   }}
       >

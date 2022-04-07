@@ -3,7 +3,7 @@ import { marked } from "marked";
 import Template from './../../components/template';
 import codes from './../../codes/codes.json';
 
-import HightlightCodehightlightJsx from './demo/hightlightCodehightlight-jsx';
+import HightlightCodeindex from './demo/hightlightCodeindex';
 
 let introductionStr = `
 # 高亮代码块
@@ -33,8 +33,8 @@ const TemplateWrapper = () => {
                 代码演示
             </h2>
 
-                                    <Template code={codes['hightlightCodehightlight-jsx']} describe={"可以 npx generateblock 下载使用"} title={"高亮jsx"}>
-                                        <HightlightCodehightlightJsx />
+                                    <Template code={codes['hightlightCodeindex']} describe={"可以 npx generateblock 下载使用"} title={"高亮jsx"}>
+                                        <HightlightCodeindex />
                                     </Template>
                                 </div>
     );

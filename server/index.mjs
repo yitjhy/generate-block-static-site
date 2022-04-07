@@ -119,6 +119,16 @@ const transform = () => {
                 const mdAst = fromMarkdown(mdString);
                 const jsxCode = mdAst.children[mdAst.children.length - 1].value;
 
+
+
+                const mdFileName = file.split('/').reverse()[0].split('.')[0];
+                if (mdFileName === 'index') {
+                    writeFileSync(`./../docs/${codeBlockFolderName}/demo/index.jsx`, jsxCode);
+                }
+
+
+
+
                 const titleRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 1);
                 const title = titleRes?.children[0]?.value;
                 const desRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 2);
@@ -219,13 +229,13 @@ glob('./../docs/**/demo/', (err, files) => {
         })
     })
 
-    const watcher = chokidar.watch('./../docs', {
-        ignoreInitial: true,
-    });
-    watcher.on('change', () => {
-        console.log('update');
-        transform()
-    });
+    // const watcher = chokidar.watch('./../docs', {
+    //     ignoreInitial: true,
+    // });
+    // watcher.on('change', () => {
+    //     console.log('update');
+    //     transform()
+    // });
     transform();
 })
 

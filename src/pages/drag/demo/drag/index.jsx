@@ -2,7 +2,9 @@ import React from "react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import styled from "@emotion/styled";
 
-const QuoteItem = styled.div``;
+const QuoteItem = styled.div`
+  margin-bottom: 3px
+`;
 
 export const DragDropContextCom = ({ children, onDragEndFn }) => {
   const onDragEnd = (result) => {

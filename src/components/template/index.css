@@ -1,0 +1,52 @@
+.templateWrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: 0 0 16px;
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 2px;
+    transition: all .2s;
+
+}
+.template > h2 {
+    text-align: left;
+    margin-bottom: 16px;
+    font-size: 22px;
+}
+.example {
+    padding: 30px 24px;
+}
+.introduce {
+    padding: 10px 24px 12px;
+}
+
+.ant-divider-horizontal.ant-divider-with-text {
+    padding: 0;
+}
+.ant-divider-horizontal{
+    margin: 0 !important;
+}
+
+.operationWrapper {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+}
+.code-expand-icon-show {
+    opacity: .55;
+    pointer-events: auto;
+    width: 16px;
+}
+.code {
+    padding: 24px;
+}
+
+.template p > code,
+p > code{
+    margin: 0 1px;
+    padding: 0.2em 0.4em;
+    font-size: .9em;
+    background: #f2f4f5;
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 3px;
+}

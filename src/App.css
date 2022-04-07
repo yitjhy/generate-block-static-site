@@ -1,0 +1,34 @@
+#components-layout-demo-responsive .logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.site-layout-sub-header-background {
+  background: #fff;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+.ant-layout-sider {
+  background: #fff;
+}
+
+.ant-layout-header {
+  padding: 0 !important;
+  padding-left: 38px !important;
+  background: #fff !important;
+  height: 75px !important;
+}
+.logo {
+  height: 32px;
+}
+.siteName {
+  font-weight: bolder;
+  padding-left: 10px;
+  font-size: 18px;
+}
+.ant-menu-item {
+  padding-left: 38px !important;
+}

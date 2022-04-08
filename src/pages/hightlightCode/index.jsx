@@ -7,7 +7,11 @@ import HightlightCodeindex from './demo/hightlightCodeindex';
 
 let introductionStr = `
 # 高亮代码块
-显示当前页面在系统层级结构中的位置，并能向上返回。
+
+- 命令式生成:  \`generateblock hightlightCode\`
+
+- [代码地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/hightlightCode/demo)
+
 
 ## 何时使用
 

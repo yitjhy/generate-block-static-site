@@ -3,14 +3,10 @@ import { marked } from "marked";
 import Template from './../../components/template';
 import codes from './../../codes/codes.json';
 
-import Dragindex from './demo/dragindex';
+import Testindex from './demo/testindex';
+import Testindex2 from './demo/testindex2';
 
-let introductionStr = `
-# 拖拽代码块
-
-- 命令式生成:  \`generateblock drag\`
-
-- [代码地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/drag/demo)`;
+let introductionStr = ``;
 let html = marked(introductionStr, {
     renderer: new marked.Renderer(),
     gfm: true,
@@ -27,8 +23,12 @@ const TemplateWrapper = () => {
                 代码演示
             </h2>
 
-                                    <Template code={codes['dragindex']} describe={"可以 npx generateblock 下载使用"} title={"拖拽"}>
-                                        <Dragindex />
+        <Template code={codes['testindex']} describe={"默认"} title={"基本用法"}>
+            <Testindex />
+        </Template>
+
+                                    <Template code={codes['testindex2']} describe={"默认"} title={"基本用法"}>
+                                        <Testindex2 />
                                     </Template>
                                 </div>
     );

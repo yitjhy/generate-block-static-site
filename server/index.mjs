@@ -103,8 +103,8 @@ const transform = () => {
             const codeBlockFolderName = file.split('/').reverse()[2];
             if (!codeTemplate[codeBlockFolderName]) {
                 let introductionMdStr = '';
-                if (existsSync(`./../docs/${codeBlockFolderName}/index.md`)) {
-                    introductionMdStr = readFileSync(`./../docs/${codeBlockFolderName}/index.md`, {encoding: 'utf-8'});
+                if (existsSync(`./../docs/${codeBlockFolderName}/README.md`)) {
+                    introductionMdStr = readFileSync(`./../docs/${codeBlockFolderName}/README.md`, {encoding: 'utf-8'});
                     // 转义
                     introductionMdStr = introductionMdStr.replace(/`/g, '\\`');
                 }
@@ -174,7 +174,7 @@ const transform = () => {
                 const res = mdAst.children.find(item => item.type === 'heading' && item.depth === 1);
                 codeBlockNames.push({
                     codeBlockName: codeBlockFolderName2,
-                    menuName: res?.children[0]?.value
+                    menuName: res?.children[0]?.value || codeBlockFolderName2
                 })
             }
         })

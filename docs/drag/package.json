@@ -1,0 +1,17 @@
+{
+  "name": "drag",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "react-beautiful-dnd": "^13.1.0",
+    "react": "^18.0.0"
+  }
+}

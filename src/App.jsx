@@ -26,7 +26,7 @@ const App = ({history}) => {
                       </Menu>
                   </div>
               </Col>
-              <Col span={18}>
+              <Col span={20}>
                   <Content style={{ margin: '68px 62px 0' }}>
                       <div className="site-layout-background" style={{ minHeight: 360 }}>
                           <Router />

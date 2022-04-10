@@ -117,8 +117,9 @@ const transform = () => {
                 // if (!codeBlockNames.includes(codeBlockFolderName)) codeBlockNames.push(codeBlockFolderName);
                 const mdString = readFileSync(file, {encoding: 'utf-8'});
                 const mdAst = fromMarkdown(mdString);
-                const jsxCode = mdAst.children[mdAst.children.length - 1].value;
 
+                // TODO 后面根据type类型获取
+                const jsxCode = mdAst.children[mdAst.children.length - 1].value;
 
 
                 const mdFileName = file.split('/').reverse()[0].split('.')[0];

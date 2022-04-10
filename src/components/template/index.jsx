@@ -17,7 +17,7 @@ const Template = ({children, code, title, describe}) => {
             <div className='introduce'>{describe}</div>
             <Divider dashed />
             <div className='operationWrapper'>
-                <Tooltip placement="top" title={isShowCode ? '显示代码' : '收起代码'}>
+                <Tooltip placement="top" title={!isShowCode ? '显示代码' : '收起代码'}>
                     <img style={{cursor: 'pointer'}} onClick={() => setIsShowCode(!isShowCode)} alt="expand code" src="https://gw.alipayobjects.com/zos/antfincdn/Z5c7kzvi30/expand.svg" className="code-expand-icon-show" />
                 </Tooltip>
             </div>

@@ -15,9 +15,6 @@ const getPath = (url2) => {
     return {__filename,__dirname}
 }
 const {__filename,__dirname} = getPath(import.meta.url)
-console.log(path.join(__dirname, '../docs/**/*.md'));
-
-
 
 const getMenuData = componentNames => {
     return componentNames.map((item, index) => {
@@ -102,7 +99,11 @@ const transform = () => {
                 const mdAst = fromMarkdown(mdString);
 
                 // TODO 后面根据type类型获取
-                const jsxCode = mdAst.children[mdAst.children.length - 1].value;
+                // const jsxCode = mdAst.children[mdAst.children.length - 1].value;
+
+
+                const jsxCode = mdAst.children.find(item => item.type === 'code').value;
+
 
 
                 const mdFileName = file.split('/').reverse()[0].split('.')[0];

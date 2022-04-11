@@ -4,7 +4,19 @@ import $ from 'gogocode';
 import glob from 'glob';
 import chokidar from 'chokidar';
 import pkg from 'fs-extra';
+import path from "path";
+import url from 'url';
 const { copySync } = pkg;
+
+
+const getPath = (url2) => {
+    const __filename = url.fileURLToPath(url2);
+    const __dirname = path.dirname(__filename);
+    return {__filename,__dirname}
+}
+const {__filename,__dirname} = getPath(import.meta.url)
+console.log(path.join(__dirname, '../docs/**/*.md'));
+
 
 
 const getMenuData = componentNames => {
@@ -29,32 +41,6 @@ const ToUpperCase = str => {
         res = str.slice(0,1).toUpperCase() +str.slice(1);
     }
     return res
-}
-
-const haveImport = (ast, targetBlock) => {
-    let flag = false
-    ast
-        .find(`import "$_$source"`)
-        .each(item => {
-            if(item.match['source'][0].value === `./pages/${targetBlock}`) {
-                flag = true
-            }
-        })
-    return flag
-}
-
-const insertImport = (rootAst, fileName) => {
-    let newContent = '';
-    if (haveImport(rootAst, fileName)) {
-        newContent = rootAst.generate();
-    } else {
-        const importAst = rootAst.find(`import '$_$source'`);
-        importAst.each((importNode, index) => {
-            if (importAst.length - 1  === index) {
-                newContent = importNode.after(`import ${ToUpperCase(fileName)} from './pages/${fileName}'; \n`).root().generate();
-            }
-        })
-    }
 }
 
 const getRouteCom = componentNames => {
@@ -92,19 +78,16 @@ const transform = () => {
     const codeJson = {};
     const componentNames = [];
     const codeBlockNames = [];
-    // const rootAst = $.loadFile('./../src/router.jsx', {});
-    const codeTemplate = {
-
-    };
-    glob('./../docs/**/*.md', (err, files) => {
+    const codeTemplate = {};
+    glob(path.join(__dirname, '../docs/**/*.md'), (err, files) => {
         files.forEach((file) => {
             const fileName = file.split('/').reverse()[0].split('.')[0];
             const parentFileName = file.split('/').reverse()[1];
             const codeBlockFolderName = file.split('/').reverse()[2];
             if (!codeTemplate[codeBlockFolderName]) {
                 let introductionMdStr = '';
-                if (existsSync(`./../docs/${codeBlockFolderName}/README.md`)) {
-                    introductionMdStr = readFileSync(`./../docs/${codeBlockFolderName}/README.md`, {encoding: 'utf-8'});
+                if (existsSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`))) {
+                    introductionMdStr = readFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`), {encoding: 'utf-8'});
                     // 转义
                     introductionMdStr = introductionMdStr.replace(/`/g, '\\`');
                 }
@@ -124,7 +107,7 @@ const transform = () => {
 
                 const mdFileName = file.split('/').reverse()[0].split('.')[0];
                 if (mdFileName === 'index') {
-                    writeFileSync(`./../docs/${codeBlockFolderName}/demo/index.jsx`, jsxCode);
+                    writeFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/demo/index.jsx`), jsxCode);
                 }
 
 
@@ -140,15 +123,15 @@ const transform = () => {
 
 
 
-                if (!existsSync(`./../src/pages/${codeBlockFolderName}`)) {
-                    mkdirSync(`./../src/pages/${codeBlockFolderName}`);
+                if (!existsSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}`))) {
+                    mkdirSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}`));
                 }
 
-                if (!existsSync(`./../src/pages/${codeBlockFolderName}/demo`)) {
-                    mkdirSync(`./../src/pages/${codeBlockFolderName}/demo`);
+                if (!existsSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo`))) {
+                    mkdirSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo`));
                 }
 
-                writeFileSync(`./../src/pages/${codeBlockFolderName}/demo/${componentName}.jsx`, jsxCode);
+                writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo/${componentName}.jsx`), jsxCode);
 
                 const ast = codeTemplate[codeBlockFolderName].find(`import '$_$source'`);
                 ast.each((importNode, index) => {
@@ -166,7 +149,7 @@ const transform = () => {
                             </Template>
                         </div>`
                 );
-                writeFileSync(`./../src/pages/${codeBlockFolderName}/index.jsx`, codeTemplate[codeBlockFolderName].root().generate());
+                writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/index.jsx`), codeTemplate[codeBlockFolderName].root().generate());
             } else {
                 // 获取代码块描述信息
                 const codeBlockFolderName2 = file.split('/').reverse()[1];
@@ -179,7 +162,7 @@ const transform = () => {
                 })
             }
         })
-        writeFileSync('./../src/codes/codes.json', JSON.stringify(codeJson));
+        writeFileSync(path.join(__dirname, '../src/codes/codes.json'), JSON.stringify(codeJson));
 
 
         const getRouterImport = () => {
@@ -200,37 +183,24 @@ const Router = () => {
 }
 
 export default Router`
-
-
-
-        // `import ${ToUpperCase(fileName)} from './pages/${fileName}'; \n`
-
-        // rootAst.replace(
-        //     `<Switch $$$1>$$$2</Switch>`,
-        //     `<Switch $$$1>${getRouteCom(codeBlockNames)}</Switch>`
-        // );
-        // codeBlockNames.forEach(item => {
-        //     insertImport(rootAst, item.codeBlockName)
-        // })
-        // writeFileSync('./../src/router.jsx', rootAst.generate(), 'utf-8');
-        writeFileSync('./../src/router.jsx', routerTemplate, 'utf-8');
+        writeFileSync(path.join(__dirname, '../src/router.jsx'), routerTemplate, 'utf-8');
         const menuData = getMenuData(codeBlockNames);
-        writeFileSync('./../src/constant/index.js', `export default ${JSON.stringify(menuData)}`, 'utf-8');
-
+        writeFileSync(path.join(__dirname, '../src/constant/index.js'), `export default ${JSON.stringify(menuData)}`, 'utf-8');
     })
 }
 
 
 
-glob('./../docs/**/demo/', (err, files) => {
+glob(path.join(__dirname, '../docs/**/demo/'), (err, files) => {
     files.forEach(source => {
         const folderName = source.split('/').reverse()[2];
-        copySync(source, `./../src/pages/${folderName}/demo`, {
+        copySync(source, path.join(__dirname, `../src/pages/${folderName}/demo`), {
             overwrite: true,
         })
     })
 
-    // const watcher = chokidar.watch('./../docs', {
+    // TODO 监听这里有点问题,后续更改
+    // const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
     //     ignoreInitial: true,
     // });
     // watcher.on('change', () => {

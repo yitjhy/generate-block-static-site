@@ -27,7 +27,7 @@ const TemplateWrapper = () => {
                 代码演示
             </h2>
 
-                                    <Template code={codes['dragindex']} describe={"可以 npx generateblock 下载使用"} title={"拖拽"}>
+                                    <Template code={codes['dragindex']} describe={"generateblock drag 下载使用"} title={"拖拽"}>
                                         <Dragindex />
                                     </Template>
                                 </div>

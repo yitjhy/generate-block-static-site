@@ -3,7 +3,7 @@
 # 高亮jsx
 
 
-## 可以 npx generateblock 下载使用
+## generateblock hightlightCode 下载使用
 
 
 ```jsx

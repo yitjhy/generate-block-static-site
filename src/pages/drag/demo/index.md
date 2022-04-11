@@ -1,6 +1,6 @@
 # 拖拽
 
-## 可以 npx generateblock 下载使用
+## generateblock drag 下载使用
 
 ```jsx
 import React, { useState } from 'react';

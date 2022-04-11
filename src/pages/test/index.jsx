@@ -22,7 +22,7 @@ const TemplateWrapper = () => {
                 代码演示
             </h2>
 
-                                    <Template code={codes['testindex']} describe={"默认"} title={"基本用法"}>
+                                    <Template code={codes['testindex']} describe={"generateblock test 下载使用"} title={"test"}>
                                         <Testindex />
                                     </Template>
                                 </div>

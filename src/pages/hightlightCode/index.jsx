@@ -37,7 +37,7 @@ const TemplateWrapper = () => {
                 代码演示
             </h2>
 
-                                    <Template code={codes['hightlightCodeindex']} describe={"可以 npx generateblock 下载使用"} title={"高亮jsx"}>
+                                    <Template code={codes['hightlightCodeindex']} describe={"generateblock hightlightCode 下载使用"} title={"高亮jsx"}>
                                         <HightlightCodeindex />
                                     </Template>
                                 </div>

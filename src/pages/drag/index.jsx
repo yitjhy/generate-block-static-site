@@ -1,5 +1,5 @@
 import React from 'react';
-import { marked } from "marked";
+import {marked} from "marked";
 import Template from './../../components/template';
 import codes from './../../codes/codes.json';
 
@@ -20,17 +20,17 @@ let html = marked(introductionStr, {
 const TemplateWrapper = () => {
     return (
         <div className="template">
-                                    
-        <div dangerouslySetInnerHTML={{__html: html}} />
 
-        <h2>
+            <div dangerouslySetInnerHTML={{__html: html}}/>
+
+            <h2>
                 代码演示
             </h2>
 
-                                    <Template code={codes['dragindex']} describe={"generateblock drag 下载使用"} title={"拖拽"}>
-                                        <Dragindex />
-                                    </Template>
-                                </div>
+            <Template code={codes['dragindex']} describe={"generateblock drag 下载使用"} title={"拖拽"}>
+                <Dragindex/>
+            </Template>
+        </div>
     );
 }
 export default TemplateWrapper

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { highlight, languages } from 'prismjs/components/prism-core';
+import React, {useEffect, useState} from 'react';
+import {highlight, languages} from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-markup';
 import 'prismjs/components/prism-javascript';
@@ -19,7 +19,7 @@ const HighlightCode = ({code}) => {
     }, [])
     return <div>
         <pre className="language-jsx">
-                <code dangerouslySetInnerHTML={{ __html: highlightCodes }} />
+                <code dangerouslySetInnerHTML={{__html: highlightCodes}}/>
         </pre>
     </div>
 }

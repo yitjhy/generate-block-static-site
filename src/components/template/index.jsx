@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Divider, Tooltip } from 'antd';
+import {Divider, Tooltip} from 'antd';
 import './index.css';
 import HighlightCode from './../../components/hightCode'
 
@@ -15,17 +15,19 @@ const Template = ({children, code, title, describe}) => {
             </div>
             <Divider orientation="left" orientationMargin={24}>{title}</Divider>
             <div className='introduce'>{describe}</div>
-            <Divider dashed />
+            <Divider dashed/>
             <div className='operationWrapper'>
                 <Tooltip placement="top" title={!isShowCode ? '显示代码' : '收起代码'}>
-                    <img style={{cursor: 'pointer'}} onClick={() => setIsShowCode(!isShowCode)} alt="expand code" src="https://gw.alipayobjects.com/zos/antfincdn/Z5c7kzvi30/expand.svg" className="code-expand-icon-show" />
+                    <img style={{cursor: 'pointer'}} onClick={() => setIsShowCode(!isShowCode)} alt="expand code"
+                         src="https://gw.alipayobjects.com/zos/antfincdn/Z5c7kzvi30/expand.svg"
+                         className="code-expand-icon-show"/>
                 </Tooltip>
             </div>
             {
                 isShowCode && <div>
-                    <Divider dashed />
+                    <Divider dashed/>
                     <div className='code'>
-                        <HighlightCode code={code} />
+                        <HighlightCode code={code}/>
                     </div>
                 </div>
             }

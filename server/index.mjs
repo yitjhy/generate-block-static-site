@@ -1,75 +1,22 @@
-import { fromMarkdown } from 'mdast-util-from-markdown';
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs';
+import {fromMarkdown} from 'mdast-util-from-markdown';
+import {existsSync, readFileSync, writeFileSync, mkdirSync} from 'fs';
 import $ from 'gogocode';
 import glob from 'glob';
 import chokidar from 'chokidar';
 import pkg from 'fs-extra';
 import path from "path";
 import url from 'url';
-const { copySync } = pkg;
+import {getMenuData, ToUpperCase, getRouteCom, getTemplate} from './utils/index.mjs'
+
+const {copySync} = pkg;
 
 
 const getPath = (url2) => {
     const __filename = url.fileURLToPath(url2);
     const __dirname = path.dirname(__filename);
-    return {__filename,__dirname}
+    return {__filename, __dirname}
 }
-const {__filename,__dirname} = getPath(import.meta.url)
-
-const getMenuData = componentNames => {
-    return componentNames.map((item, index) => {
-        return {
-            key: index,
-            title: item.menuName,
-            path: `/${item.codeBlockName}`
-        }
-    })
-}
-
-const ToUpperCase = str => {
-    let res;
-    if (str.indexOf('-') !== -1) {
-        const arr = str.split('-');
-        res = arr.reduce((pre, cur) => {
-            pre += cur.slice(0,1).toUpperCase() +cur.slice(1);
-            return pre
-        }, '');
-    } else {
-        res = str.slice(0,1).toUpperCase() +str.slice(1);
-    }
-    return res
-}
-
-const getRouteCom = componentNames => {
-    return componentNames.reduce((pre, cur) => {
-        pre += `<Route path="/${cur.codeBlockName}" component={${ToUpperCase(cur.codeBlockName)}} /> \n`;
-        return pre
-    }, `<Route path="/" exact render={() => <Redirect to="/${componentNames[0].codeBlockName}" />} />`)
-}
-
-const getTemplate = str => {
-    return `import React from 'react';
-import { marked } from "marked";
-import Template from './../../components/template';
-import codes from './../../codes/codes.json';
-
-let introductionStr = \`${str}\`;
-let html = marked(introductionStr, {
-    renderer: new marked.Renderer(),
-    gfm: true,
-    breaks: false,
-});
-
-const TemplateWrapper = () => {
-    return <div className="template">
-    <div dangerouslySetInnerHTML={{__html: html}} />
-    <h2>
-            代码演示
-        </h2>
-</div>
-}
-export default TemplateWrapper`
-}
+const {__filename, __dirname} = getPath(import.meta.url)
 
 const transform = () => {
     const codeJson = {};
@@ -105,13 +52,10 @@ const transform = () => {
                 const jsxCode = mdAst.children.find(item => item.type === 'code').value;
 
 
-
                 const mdFileName = file.split('/').reverse()[0].split('.')[0];
                 if (mdFileName === 'index') {
                     writeFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/demo/index.jsx`), jsxCode);
                 }
-
-
 
 
                 const titleRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 1);
@@ -121,7 +65,6 @@ const transform = () => {
 
 
                 codeJson[componentName] = jsxCode;
-
 
 
                 if (!existsSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}`))) {
@@ -136,7 +79,7 @@ const transform = () => {
 
                 const ast = codeTemplate[codeBlockFolderName].find(`import '$_$source'`);
                 ast.each((importNode, index) => {
-                    if (ast.length - 1  === index) {
+                    if (ast.length - 1 === index) {
                         importNode.after(`import ${ToUpperCase(componentName)} from './demo/${componentName}'; \n`)
                     }
                 })
@@ -189,7 +132,6 @@ export default Router`
         writeFileSync(path.join(__dirname, '../src/constant/index.js'), `export default ${JSON.stringify(menuData)}`, 'utf-8');
     })
 }
-
 
 
 glob(path.join(__dirname, '../docs/**/demo/'), (err, files) => {

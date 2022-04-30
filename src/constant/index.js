@@ -1,1 +1,1 @@
-export default [{"key":0,"title":"拖拽代码块","path":"/drag"},{"key":1,"title":"高亮代码块","path":"/hightlightCode"},{"key":2,"title":"md转html代码块","path":"/md2html"},{"key":3,"title":"test","path":"/test"}]
+export default [{"title":"拖拽代码块","path":"/drag"},{"title":"高亮代码块","path":"/hightlightCode"},{"title":"md转html代码块","path":"/md2html"},{"title":"test","path":"/test"}]

@@ -6,12 +6,10 @@
 import React  from 'react';
 const Test = () => {
     return <div>
-        test
-        test
-        test
-        test
-        test
-        test
+        test2
+        test2
+        test2
+        test2
     </div>
 }
 

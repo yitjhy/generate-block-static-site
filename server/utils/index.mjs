@@ -1,7 +1,6 @@
 export const getMenuData = componentNames => {
-    return componentNames.map((item, index) => {
+    return componentNames.map(item => {
         return {
-            key: index,
             title: item.menuName,
             path: `/${item.codeBlockName}`
         }

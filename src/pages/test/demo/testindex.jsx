@@ -1,7 +1,12 @@
 import React  from 'react';
 const Test = () => {
     return <div>
-        testtesttesttesttesttest
+        test
+        test
+        test
+        test
+        test
+        test
     </div>
 }
 

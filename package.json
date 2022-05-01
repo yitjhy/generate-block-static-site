@@ -32,6 +32,7 @@
     "publish2ghpages": "npm run create && CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prepare": "husky install",
     "publish2private": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block"
   },
   "eslintConfig": {

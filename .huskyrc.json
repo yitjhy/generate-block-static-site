@@ -1,5 +1,0 @@
-{
-  "hooks": {
-    "pre-push": "npm run publish2private"
-  }
-}

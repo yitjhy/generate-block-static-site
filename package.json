@@ -29,10 +29,10 @@
     "start": "npm run create && react-scripts start",
     "create": "node server/index.mjs",
     "build": "npm run create && react-scripts build",
-    "build:ci": "npm run create && CI=false && react-scripts build",
+    "publish2ghpages": "npm run create && CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "buildAndPublish": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block"
+    "publish2private": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block"
   },
   "eslintConfig": {
     "extends": [
@@ -53,7 +53,6 @@
     ]
   },
   "devDependencies": {
-    "less": "^4.1.2",
-    "less-loader": "^10.2.0"
+    "husky": "^7.0.4"
   }
 }

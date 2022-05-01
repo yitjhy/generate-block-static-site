@@ -8,7 +8,7 @@ import {BrowserRouter} from 'react-router-dom';
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename='/generate-block-static-site'>
             <App/>
         </BrowserRouter>
     </React.StrictMode>,

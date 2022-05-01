@@ -12,10 +12,6 @@ const initList = [
   {title: '333', id: 'xdcsd'},
   {title: '444', id: 'sdaqw'},
   {title: '555', id: 'sdfsdxcvc'},
-  {title: '666', id: 'dfvxc'},
-  {title: '777', id: 'vcbv'},
-  {title: '888', id: 'yuf'},
-  {title: '999', id: 'dfgcvqqw'},
 ]
 
 const Template = () => {

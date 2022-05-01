@@ -4,13 +4,13 @@ import App from './App.jsx';
 import './index.css';
 import './default.css';
 import 'antd/dist/antd.css';
-import {BrowserRouter} from 'react-router-dom';
+import {BrowserRouter, HashRouter} from 'react-router-dom';
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter basename='/generate-block-static-site'>
+        <HashRouter basename='/generate-block-static-site'>
             <App/>
-        </BrowserRouter>
+        </HashRouter>
     </React.StrictMode>,
     document.getElementById('root'),
 );

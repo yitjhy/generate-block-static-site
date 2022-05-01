@@ -8,7 +8,7 @@ import {BrowserRouter, HashRouter} from 'react-router-dom';
 
 ReactDOM.render(
     <React.StrictMode>
-        <HashRouter basename='/generate-block-static-site'>
+        <HashRouter>
             <App/>
         </HashRouter>
     </React.StrictMode>,

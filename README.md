@@ -13,5 +13,6 @@
 
 ## 访问地址
 
-http://block.yitjhy.com
+- http://block.yitjhy.com
+- https://yitjhy.github.io/generate-block-static-site
 

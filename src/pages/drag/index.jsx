@@ -23,9 +23,7 @@ const TemplateWrapper = () => {
                                     
         <div dangerouslySetInnerHTML={{__html: html}} />
 
-        <h2>
-                代码演示
-            </h2>
+        <h2>代码演示</h2>
 
                                     <Template code={codes['dragindex']} describe={"generateblock drag 下载使用"} title={"拖拽"}>
                                         <Dragindex />

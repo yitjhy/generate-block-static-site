@@ -4,7 +4,7 @@ import App from './App.jsx';
 import './index.css';
 import './default.css';
 import 'antd/dist/antd.css';
-import {BrowserRouter, HashRouter} from 'react-router-dom';
+import {HashRouter} from 'react-router-dom';
 
 ReactDOM.render(
     <React.StrictMode>

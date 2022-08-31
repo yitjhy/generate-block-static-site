@@ -3,7 +3,7 @@
 ## generateblock md2html 下载使用
 
 ```jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import { marked } from "marked";
 

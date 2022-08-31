@@ -18,9 +18,7 @@ const TemplateWrapper = () => {
                                     
         <div dangerouslySetInnerHTML={{__html: html}} />
 
-        <h2>
-                代码演示
-            </h2>
+        <h2>代码演示</h2>
 
                                     <Template code={codes['testindex']} describe={"generateblock test 下载使用"} title={"test"}>
                                         <Testindex />

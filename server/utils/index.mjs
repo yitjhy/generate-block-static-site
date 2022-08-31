@@ -28,8 +28,7 @@ export const getRouteCom = componentNames => {
     }, `<Route path="/" exact render={() => <Redirect to="/${componentNames[0].codeBlockName}" />} />`)
 }
 
-export const getTemplate = str => {
-    return `import React from 'react';
+export const getTemplate = str => `import React from 'react';
 import { marked } from "marked";
 import Template from './../../components/template';
 import codes from './../../codes/codes.json';
@@ -43,14 +42,11 @@ let html = marked(introductionStr, {
 
 const TemplateWrapper = () => {
     return <div className="template">
-    <div dangerouslySetInnerHTML={{__html: html}} />
-    <h2>
-            代码演示
-        </h2>
-</div>
+              <div dangerouslySetInnerHTML={{__html: html}} />
+              <h2>代码演示</h2>
+    </div>
 }
 export default TemplateWrapper`
-}
 
 
 

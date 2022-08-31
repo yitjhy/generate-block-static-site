@@ -33,9 +33,7 @@ const TemplateWrapper = () => {
                                     
         <div dangerouslySetInnerHTML={{__html: html}} />
 
-        <h2>
-                代码演示
-            </h2>
+        <h2>代码演示</h2>
 
                                     <Template code={codes['hightlightCodeindex']} describe={"generateblock hightlightCode 下载使用"} title={"高亮jsx"}>
                                         <HightlightCodeindex />

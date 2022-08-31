@@ -57,7 +57,7 @@ const transform = () => {
                     writeFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/demo/index.jsx`), jsxCode);
                 }
 
-
+                // 获取框内标题信息,描述信息
                 const titleRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 1);
                 const title = titleRes?.children[0]?.value;
                 const desRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 2);

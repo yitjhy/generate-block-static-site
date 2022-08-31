@@ -26,9 +26,7 @@ const TemplateWrapper = () => {
                                     
         <div dangerouslySetInnerHTML={{__html: html}} />
 
-        <h2>
-                代码演示
-            </h2>
+        <h2>代码演示</h2>
 
                                     <Template code={codes['md2htmlindex']} describe={"generateblock md2html 下载使用"} title={"md转html"}>
                                         <Md2htmlindex />

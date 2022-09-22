@@ -11,7 +11,7 @@ pre code {
   line-height: 2;
   white-space: pre;
   background: white;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 code[class*='language-'],
@@ -27,7 +27,7 @@ pre[class*='language-'] {
   word-spacing: normal;
   tab-size: 4;
   hyphens: none;
-  background: none;
+  background: #f8f8f8;
 }
 
 code[class*='css'] {
@@ -140,5 +140,4 @@ pre {
 code[class*='language-'], pre[class*='language-'] {
   box-shadow: none !important;
   border: none !important;
-  padding: 0 !important;
 }

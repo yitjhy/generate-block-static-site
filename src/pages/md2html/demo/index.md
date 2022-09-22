@@ -16,15 +16,6 @@ const Md2Html = () => {
           gfm: true,
           breaks: false,
       });
-      html = html.replace('<p><strong>', '<p class="first"><strong></strong>');
-      html = html.replace(
-          /<pre><code/g,
-          '<pre><span class="pre-header"></span><code',
-      );
-      html = html.replace(
-          /<h2([^>]+?)>([^<]+?)<\/h2>/g,
-          '<h2$1><span>$2</span></h2>',
-      );
       return html
   }
 

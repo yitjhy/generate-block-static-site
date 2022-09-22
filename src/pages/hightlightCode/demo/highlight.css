@@ -1,8 +1,9 @@
 pre, code {
-    color: #000;
+    color: black;
     font-family: 'Lucida Console', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     line-height: 2;
     direction: ltr;
+
     white-space: pre;
     text-align: left;
     word-wrap: normal;
@@ -12,5 +13,5 @@ pre, code {
     hyphens: none;
     background: #f8f8f8 !important;
     font-size: 12px !important;
-    padding: 10px 20px;
+    padding: 12px 22px;
 }

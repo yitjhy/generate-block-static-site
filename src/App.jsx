@@ -32,7 +32,7 @@ const App = ({history, location}) => {
                 <Col span={4}>
                     <div style={{
                         paddingLeft: 0,
-                        height: 'calc(100vh - 75px)',
+                        height: 'max(calc(100%), calc(100vh - 75px))',
                         display: 'flex',
                         flexDirection: 'column'
                     }}>

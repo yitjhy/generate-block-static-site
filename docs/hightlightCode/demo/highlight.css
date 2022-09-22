@@ -3,6 +3,7 @@ pre, code {
     font-family: 'Lucida Console', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     line-height: 2;
     direction: ltr;
+    
     white-space: pre;
     text-align: left;
     word-wrap: normal;

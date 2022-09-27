@@ -2,7 +2,7 @@
     background: #e1e3e3;
     width: 150px;
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 6px;
     z-index: 5
 }
 .react-contextmenu-item--selected .in_wrapper {

@@ -2,11 +2,24 @@
 
 
 
+
 1. ### 断点续传原理  【http1.1提出来的，研究过，代码没在电脑上，只有回成都再看了】
 
 2. ### ES6模块静态分析
 
-3. ### [CSP](https://juejin.cn/post/6867941386025435149)  [参考地址2](https://juejin.cn/post/6844903841238876174)
+3. ### [正向代理和反向代理的区别](https://cloud.tencent.com/developer/article/1418457)
+
+   ```
+   1、正向代理其实是客户端的代理，帮助客户端访问其无法访问的服务器资源。反向代理则是服务器的代理，帮助服务器做负载均衡，安全防护等。
+   
+   2、正向代理一般是客户端架设的，比如在自己的机器上安装一个代理软件。而反向代理一般是服务器架设的，比如在自己的机器集群中部署一个反向代理服务器。
+   
+   3、正向代理中，服务器不知道真正的客户端到底是谁，以为访问自己的就是真实的客户端。而在反向代理中，客户端不知道真正的服务器是谁，以为自己访问的就是真实的服务器。
+   
+   4、正向代理和反向代理的作用和目的不同。正向代理主要是用来解决访问限制问题。而反向代理则是提供负载均衡、安全防护等作用。二者均能提高访问速度。
+   ```
+
+4. ### [CSP](https://juejin.cn/post/6867941386025435149)  [参考地址2](https://juejin.cn/post/6844903841238876174)
 
    > 开发者明确告诉客户端（制定比较严格的策略和规则），哪些外部资源是可以加载和执行的 ，即使攻击者发现漏洞，但是它是没办法注入脚本的
 
@@ -23,7 +36,7 @@
    		<meta http-equiv="Content-Security-Policy" content="script-src 'self'">
    ```
 
-4. ### [前端工程化的理解](https://zhuanlan.zhihu.com/p/141195603)
+5. ### [前端工程化的理解](https://zhuanlan.zhihu.com/p/141195603)
 
    > 工程化是一种思想，而不是某种技术。其主要目的为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间等
 
@@ -48,53 +61,53 @@
    		简单重复的工作交给机器来做，自动化也就是有很多自动化工具代替我们来完成，例如持续集成、自动化构建、自动化部署、自动化测试等等
    ```
 
-5. ### Node开启子进程的方法有哪些? 进程间如何通信?
+6. ### Node开启子进程的方法有哪些? 进程间如何通信?
 
-6. ### [Websocket底层原理分析](https://juejin.cn/post/6844904194470576136)
+7. ### [Websocket底层原理分析](https://juejin.cn/post/6844904194470576136)
 
-7. ### [Nodejs事件循环](https://juejin.cn/post/7010308647792148511)
+8. ### [Nodejs事件循环](https://juejin.cn/post/7010308647792148511)
 
-8. ### [Nodejs 异步IO模型](https://zhuanlan.zhihu.com/p/93289115)   [参考地址2](https://juejin.cn/post/6997761014192144420)
+9. ### [Nodejs 异步IO模型](https://zhuanlan.zhihu.com/p/93289115)   [参考地址2](https://juejin.cn/post/6997761014192144420)
 
    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/74f82e6d48c24912b5f395504d9466e2~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp" style="zoom:100%;" />
 
-9. ### 尾递归
+10. ### 尾递归
 
-10. ### 二叉树的非递归遍历 【和深度 广度其实是一样的】
+11. ### 二叉树的非递归遍历 【和深度 广度其实是一样的】
 
-11. ### 手写ajax 手写ajax拦截器
+12. ### 手写ajax 手写ajax拦截器
 
     > ajax拦截器其实是直接ajax原生对象的原型上做的手脚, 利用的aop
 
-12. ### [flexible源码结合webpack-px2rem-loader](https://github.com/amfe/lib-flexible/tree/master)
+13. ### [flexible源码结合webpack-px2rem-loader](https://github.com/amfe/lib-flexible/tree/master)
 
     > 做移动端适配用的，还是18年看过这个源码，但是当时没有解决1px像素问题，现在听说已经解决了，需要再研究
 
-13. ### blob对象 【这个用的有点少，就怕面试官问细节】
+14. ### blob对象 【这个用的有点少，就怕面试官问细节】
 
-14. ### cookie的跨域携带 【这个可以扯的地方就有点多了，啥子微服务，啥子代理，面试千万莫问我】
+15. ### cookie的跨域携带 【这个可以扯的地方就有点多了，啥子微服务，啥子代理，面试千万莫问我】
 
-15. ### 原型 原型链 【这个得结合块级作用域和函数作用域一起和面试官吹牛】
+16. ### 原型 原型链 【这个得结合块级作用域和函数作用域一起和面试官吹牛】
 
-16. ### webpack热加载实现机制  【好像是socket实现的，具体没怎么研究】
+17. ### webpack热加载实现机制  【好像是socket实现的，具体没怎么研究】
 
-17. ### require寻址  【没研究，这是18年面腾讯时问的一道面试题】
+18. ### require寻址  【没研究，这是18年面腾讯时问的一道面试题】
 
-18. ### [webpack4 5区别](https://juejin.cn/post/6990869970385109005#heading-6)
+19. ### [webpack4 5区别](https://juejin.cn/post/6990869970385109005#heading-6)
 
-19. ### webpack的hash计算方式 contentHash  chunkHash hash等根据什么计算
+20. ### webpack的hash计算方式 contentHash  chunkHash hash等根据什么计算
 
-20. ### 手写curry
+21. ### 手写curry
 
-21. ### 数据结构算法
+22. ### 数据结构算法
 
-22. ### threejs 【能拿出来说的只有切换旋转中心，和threejs中的坐标系的0，1在屏幕上不是全屏时怎么计算切换，有空再研究下吧】
+23. ### threejs 【能拿出来说的只有切换旋转中心，和threejs中的坐标系的0，1在屏幕上不是全屏时怎么计算切换，有空再研究下吧】
 
-23. ### cesium 【莫法研究，莫法写，删不删？？？？？？？？？？？？？？？？？？？   这个根据面的公司看看简历上写不写这个技术】
+24. ### cesium 【莫法研究，莫法写，删不删？？？？？？？？？？？？？？？？？？？   这个根据面的公司看看简历上写不写这个技术】
 
-24. ### rn 【这个根据面的公司看看简历上写不写这个技术】
+25. ### rn 【这个根据面的公司看看简历上写不写这个技术】
 
-25. ### 虚拟dom优缺点
+26. ### 虚拟dom优缺点
 
     ```
     优点:
@@ -107,7 +120,7 @@
     2. 首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。
     ```
 
-26. ### 浏览器渲染过程
+27. ### 浏览器渲染过程
 
     ```html
     1. 解析HTML，生成DOM树（DOM）
@@ -117,7 +130,7 @@
     5. 将布局渲染到屏幕上（Paint）
     ```
 
-27. ### xss
+28. ### xss
 
     > 类型
 
@@ -133,7 +146,7 @@
     (2) 输入检查
     ```
 
-28. ### csrf
+29. ### csrf
 
     > 防御
 
@@ -144,56 +157,56 @@
     4. 网站重要操作增加验证码 CSRF攻击过程中，用户在不知情的情况下构造了网络请求，添加验证码后，强制用户必须与应用进行交互
     ```
 
-29. ### [防抖 节流](https://juejin.cn/post/6844903669389885453)
+30. ### [防抖 节流](https://juejin.cn/post/6844903669389885453)
 
     ```
     防抖: 在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。
     截流: 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
     ```
 
-30. ### webpack原理和过程
+31. ### webpack原理和过程
 
-31. ### [creatPortal](https://zh-hans.reactjs.org/docs/portals.html) 插槽 【16版本后出来的，这个得结合antd的modal来和面试官吹】
+32. ### [creatPortal](https://zh-hans.reactjs.org/docs/portals.html) 插槽 【16版本后出来的，这个得结合antd的modal来和面试官吹】
 
-32. ### componentdidcatch
+33. ### componentdidcatch
 
-33. ### [react事件委托](https://zhuanlan.zhihu.com/p/165089379)
+34. ### [react事件委托](https://zhuanlan.zhihu.com/p/165089379)
 
-34. ### pureComponent进行浅对比和component区别就是效率更高，但是写法会注意不少东西，还是没感觉出来优势在哪里，需要再研究
+35. ### pureComponent进行浅对比和component区别就是效率更高，但是写法会注意不少东西，还是没感觉出来优势在哪里，需要再研究
 
-35. ### [memo、useMemo及useCallback解析](https://juejin.cn/post/6844904119358980110)
+36. ### [memo、useMemo及useCallback解析](https://juejin.cn/post/6844904119358980110)
 
     ```
     memo 将函数组件或类组件转换成pureComponent，所以也就有memo功能（高频高渲染时比如列表使用，建议分开使用） props没有改变时，将不会渲染【这里主要在组件嵌套时候有多个兄弟组件时，父组件props更新了，可以不用触发memo的组件视图更新】
     ```
 
-36. ### Suspense
+37. ### Suspense
 
-37. ### context 【这里估计面试的时候连带着react-redux一起给面试官吹牛】
+38. ### context 【这里估计面试的时候连带着react-redux一起给面试官吹牛】
 
-38. ### 即将渲染或者正在渲染的生命周期没法使用setState【这个其实很好理解，我他妈正在下崽或者怀起了，你说再造一个，这不扯蛋吗】
+39. ### 即将渲染或者正在渲染的生命周期没法使用setState【这个其实很好理解，我他妈正在下崽或者怀起了，你说再造一个，这不扯蛋吗】
 
-39. ### 生命周期. 	取消了哪些  16以下有哪些  16有哪些  取消的基本都是will相关的生命周期，为什么取消，为什么增加【这个面试前得背一下】
+40. ### 生命周期. 	取消了哪些  16以下有哪些  16有哪些  取消的基本都是will相关的生命周期，为什么取消，为什么增加【这个面试前得背一下】
 
-40. ### redux流程 [redux-thunk](https://github.com/reduxjs/redux-thunk/blob/v2.0.0/src/index.js)
+41. ### redux流程 [redux-thunk](https://github.com/reduxjs/redux-thunk/blob/v2.0.0/src/index.js)
 
     ```
     面试主要说明redux的思想以及createStore  combineReducers  applyMiddleware  connect，这个肯定得结合 redux-thunk 一起和面试官吹牛, 这里可以和面试官聊的很多,例如:纯函数,高阶组件,插件设计思想,插件编写,其他状态管理,其他插件编写
     ```
 
-41. ### 魔法注释避免webpack4打包生成的数字js文件。或者配置chunId和moduleId
+42. ### 魔法注释避免webpack4打包生成的数字js文件。或者配置chunId和moduleId
 
-42. ### webpack打包原理，过程
+43. ### webpack打包原理，过程
 
-43. ### Tapable
+44. ### Tapable
 
-44. ### webgl矩阵变换 【这个了解就行】
+45. ### webgl矩阵变换 【这个了解就行】
 
-45. ### loader执行顺序，从右到左。 plugin根据绑定的事件触发机制触发
+46. ### loader执行顺序，从右到左。 plugin根据绑定的事件触发机制触发
 
-46. ### 先执行plugin再执行loader  loader是在chunk后执行
+47. ### 先执行plugin再执行loader  loader是在chunk后执行
 
-47. ### 数据类型检测的方式
+48. ### 数据类型检测的方式
 
     **（1）typeof**
 
@@ -267,7 +280,7 @@
     console.log(a.call(null));
     ```
 
-48. ### 排序【插入排序和快排】
+49. ### 排序【插入排序和快排】
 
     ```javascript
     // 快排
@@ -289,23 +302,23 @@
     }
     ```
 
-49. ### react-router-dom react-dom 区别 【还没看的】
+50. ### react-router-dom react-dom 区别 【还没看的】
 
-50. ### fis 百度的一个构建工具（准备面百度的时候再看）
+51. ### fis 百度的一个构建工具（准备面百度的时候再看）
 
-51. ### 发布订阅者模式【必须非常非常非常非常熟悉，在redux中，react-redux中，webpack的tapable中，基本只要是库都使用了这个设计模式】
+52. ### 发布订阅者模式【必须非常非常非常非常熟悉，在redux中，react-redux中，webpack的tapable中，基本只要是库都使用了这个设计模式】
 
-52. ### 手写二叉树  树  链表等数据结构
+53. ### 手写二叉树  树  链表等数据结构
 
-53. ### [事件循环](https://segmentfault.com/a/1190000039819691)
+54. ### [事件循环](https://segmentfault.com/a/1190000039819691)
 
-54. ### 深度优先，和广度优先，各自优势
+55. ### 深度优先，和广度优先，各自优势
 
-55. ### [Object.create()、new Object()和{}的区别](https://juejin.cn/post/6844903917835436045)
+56. ### [Object.create()、new Object()和{}的区别](https://juejin.cn/post/6844903917835436045)
 
     > 寄生组合继承就是用的Object.create()
 
-56. ### [react优化减少render](https://juejin.cn/post/7062247271026393118#heading-22)    [参考sorryc文章](https://juejin.cn/post/7143430508481871886)
+57. ### [react优化减少render](https://juejin.cn/post/7062247271026393118#heading-22)    [参考sorryc文章](https://juejin.cn/post/7143430508481871886)
 
     ```
     1.使用防抖函数来减少不必要的setState，从而减少render次数
@@ -318,15 +331,15 @@
     8.避免使用对象字面量，改用useMemo，ref
     ```
 
-57. ### webpack的一些关键钩子
+58. ### webpack的一些关键钩子
 
     <img src="https://raw.githubusercontent.com/yitjhy/cloudImgs/master/Snipaste_2022-02-11_10-57-17.png" style="zoom:100%;" />
 
-58. ### [协议缓存](https://blog.csdn.net/fuzhongmin05/article/details/73610436)
+59. ### [协议缓存](https://blog.csdn.net/fuzhongmin05/article/details/73610436)
 
     ![协议缓存](https://raw.githubusercontent.com/yitjhy/cloudImgs/master/%E5%8D%8F%E8%AE%AE%E7%BC%93%E5%AD%98.png)
 
-59. ### 协议缓存的etag计算方式(HTTP1.1)
+60. ### 协议缓存的etag计算方式(HTTP1.1)
 
     > nginx 中 etag 由响应头的 Last-Modified 与 Content-Length 表示为十六进制组合而成
 
@@ -350,7 +363,7 @@
     92797
        ```
 
-60. ### tree-shaking      important { add } from 'ramda'真的只引入了add这个方法吗？  为什么组件库按需加载还需要单独的loader?
+61. ### tree-shaking      important { add } from 'ramda'真的只引入了add这个方法吗？  为什么组件库按需加载还需要单独的loader?
 
     ```javascript
     ES6的模块引入是静态分析的，故而可以在编译时正确判断到底加载了什么代码。
@@ -381,7 +394,7 @@
 
 
 
-61. ### HTTP的发展过程   http3
+62. ### HTTP的发展过程   http3
 
     - http1
 
@@ -442,7 +455,7 @@
       > 
       >   ```
 
-62. ### amd   cmd   commonjs   es6 Module区别
+63. ### amd   cmd   commonjs   es6 Module区别
 
     > 参考地址：
 
@@ -563,7 +576,7 @@
         - CommonJs：同步加载模块，一般用于服务器端。对外暴露的接口是值的拷贝
         - ES6：实现简单。对外暴露的接口是值的引用。可以用于浏览器端和服务端。
 
-63. ### 手写图
+64. ### 手写图
 
     > 包含最短路径，等，主要采用的堆栈思想
 
@@ -649,7 +662,7 @@
 
 
 
-64. ### [手写二叉搜索树](https://note.youdao.com/ynoteshare/index.html?id=f3511cf552c64d1db014015d6ccee1eb&type=note&_time=1661529355065)
+65. ### [手写二叉搜索树](https://note.youdao.com/ynoteshare/index.html?id=f3511cf552c64d1db014015d6ccee1eb&type=note&_time=1661529355065)
 
     > 创建二叉树
 
@@ -754,7 +767,7 @@
     console.log(inOrder(tree));
     ```
 
-65. ### 轮询 长轮询 websocket
+66. ### 轮询 长轮询 websocket
 
 - 轮询
 
@@ -907,6 +920,48 @@
               loginLayer.style.display = 'block';
           };
       })()
+      ```
+
+    - 观察者模式
+
+      ```javascript
+      function EventTarget() {
+          this.handlers = {};
+      }
+      
+      EventTarget.prototype = {
+          constructor: EventTarget,
+          addEvent: function (type, execFn) {
+              if (type) {
+                  this.handlers[type] = execFn;
+              }
+          },
+          fire: function (type, msg) {
+              this.__eventObj__ = msg;
+              this.handlers[type](this)
+          }
+      };
+      
+      function Person (name, age) {
+          EventTarget.call(this);
+          this.name = name;
+          this.age = age;
+      }
+      Person.prototype = new EventTarget();
+      
+      Person.prototype.say = function (msg) {
+        this.fire('message', msg)
+      };
+      
+      let person = new Person('yitjhy', 27);
+      
+      person.addEvent('message', function (event) {
+          console.log(`我是${event.name}，我今年${event.age}岁,我说${event.__eventObj__}`)
+      });
+      
+      person.say(999999);
+      person.say(666666);
+      
       ```
 
 48. ### 实现继承的方式

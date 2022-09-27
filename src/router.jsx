@@ -5,7 +5,6 @@ import HightlightCode from './pages/hightlightCode';
 import Md2html from './pages/md2html'; 
 import Note from './pages/note'; 
 import Test from './pages/test'; 
-import Zeze from './pages/zeze'; 
 
 const Router = () => {
     return <Switch >
@@ -14,7 +13,6 @@ const Router = () => {
 <Route path="/md2html" component={Md2html} /> 
 <Route path="/note" component={Note} /> 
 <Route path="/test" component={Test} /> 
-<Route path="/zeze" component={Zeze} /> 
 
     </Switch>;
 }

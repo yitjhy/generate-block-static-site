@@ -33,7 +33,9 @@ const transform = () => {
                 if (existsSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`))) {
                     introductionMdStr = readFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`), {encoding: 'utf-8'});
                     // 转义
-                    introductionMdStr = introductionMdStr.replace(/`/g, '\\`');
+                    introductionMdStr = introductionMdStr
+                        .replaceAll(/`/g, '\\`')
+                        .replaceAll(/{/g, '\\{');
                 }
                 codeTemplate[codeBlockFolderName] = $(getTemplate(introductionMdStr));
             }

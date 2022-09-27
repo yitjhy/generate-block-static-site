@@ -26,12 +26,12 @@
   },
   "homepage": ".",
   "scripts": {
-    "start": "npm run create && react-scripts start",
+    "start": "npm run create && react-app-rewired start",
     "create": "node server/index.mjs",
-    "build": "npm run create && react-scripts build",
-    "publish2ghpages": "npm run create && CI=false && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "build": "npm run create && react-app-rewired build",
+    "publish2ghpages": "npm run create && CI=false && react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
     "prepare": "husky install",
     "publish2release": "git add . && git commit -m '发布' && git push prod release",
     "publish2private": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block"
@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "react-app-rewired": "^2.2.1"
   }
 }

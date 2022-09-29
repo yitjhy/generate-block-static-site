@@ -5,11 +5,8 @@ module.exports = function override(config, env) {
         moduleIds: 'deterministic',
     };
     config.externals = {
-        ...config.externals,
-        externals: {
-            react: 'react',
-            'react-dom': 'react-dom',
-        },
+        "react": "React",
+        "react-dom": "ReactDOM"
     }
     return config;
 }

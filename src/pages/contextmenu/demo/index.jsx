@@ -13,7 +13,7 @@ const MyContextMenu = () => {
             <ContextMenuTrigger id="same_unique_identifier">
                 <span className="well" style={{color: '#1890ff'}}>右键点击</span>
             </ContextMenuTrigger>
-            <ContextMenu id="same_unique_identifier" className={'kjh'} style={{background: '#e1e3e3', width: '150px', padding: '8px 8px', borderRadius: '4px', zIndex: 5}}>
+            <ContextMenu id="same_unique_identifier" className='contextmenu'>
                 <MenuItem data={{foo: 'copy'}} onClick={handleClick}>
                     <div className='in_wrapper'>
                         <WeiboOutlined style={{marginRight: '9px'}} />复制

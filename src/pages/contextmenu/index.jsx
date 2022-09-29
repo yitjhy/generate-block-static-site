@@ -5,7 +5,11 @@ import codes from './../../codes/codes.json';
 
 import Contextmenuindex from './demo/contextmenuindex';
 
-let introductionStr = `# 右键菜单`;
+let introductionStr = `# 右键菜单
+
+- 命令式生成:  \`generateblock contextmenu\`
+
+- [代码地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/contextmenu/demo)`;
 let html = marked(introductionStr, {
     renderer: new marked.Renderer(),
     gfm: true,

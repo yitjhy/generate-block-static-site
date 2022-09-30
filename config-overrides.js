@@ -7,7 +7,8 @@ module.exports = function override(config, env) {
     config.externals = {
         "react": "React",
         "react-dom": "ReactDOM",
-        "react-router-dom": "ReactRouterDOM"
+        "react-router-dom": "ReactRouterDOM",
+        "marked": "marked",
     }
     return config;
 }

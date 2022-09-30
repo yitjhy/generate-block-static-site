@@ -7,8 +7,33 @@
 1. ### 断点续传原理  【http1.1提出来的，研究过，代码没在电脑上，只有回成都再看了】
 
 2. ### ES6模块静态分析
+1. ##### 技术选型
 
-3. ### [正向代理和反向代理的区别](https://cloud.tencent.com/developer/article/1418457)
+   ```
+   1.看团队技术实力
+   2.看团队技术栈偏重
+   3.看技术生态是否活跃
+   4.看技术学习成本
+   ```
+
+2. ### 插件机制
+
+   ```
+   优点:
+       (1) 代码逻辑解耦
+       (2) 开源方便生态社区共建   
+   缺点:
+   		(1) 比如webpack插件太多, 不容易理清楚关系
+   设计插件考虑因素:
+   		(1) 插件的执行时机
+   		(2) 插件的执行顺序
+   		(3) 插件的合并
+   		(4) 插件的代码设计
+   ```
+
+3. ### 
+
+4. ### [正向代理和反向代理的区别](https://cloud.tencent.com/developer/article/1418457)
 
    ```
    (1) 正向代理其实是客户端的代理，帮助客户端访问其无法访问的服务器资源。反向代理则是服务器的代理，帮助服务器做负载均衡，安全防护等。
@@ -20,7 +45,7 @@
    (4) 正向代理和反向代理的作用和目的不同。正向代理主要是用来解决访问限制问题。而反向代理则是提供负载均衡、安全防护等作用。二者均能提高访问速度。
    ```
 
-4. ### [CSP](https://juejin.cn/post/6867941386025435149)  [参考地址2](https://juejin.cn/post/6844903841238876174)
+5. ### [CSP](https://juejin.cn/post/6867941386025435149)  [参考地址2](https://juejin.cn/post/6844903841238876174)
 
    > 开发者明确告诉客户端（制定比较严格的策略和规则），哪些外部资源是可以加载和执行的 ，即使攻击者发现漏洞，但是它是没办法注入脚本的
 
@@ -30,25 +55,25 @@
 
    ```nginx
    (方式一) 添加HTTP头信息的Content-Security-Policy的字段,一般通过nginx配置
-   		location  ~* .(html)$ {
+           location  ~* .(html)$ {
          add_header Content-Security-Policy "img-src http: data:; style-src 'self'";
        }
    (方式二) 通过网页的<meta>标签
-   		<meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+           <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
    ```
 
-5. ### [前端工程化的理解](https://zhuanlan.zhihu.com/p/141195603)
+6. ### [前端工程化的理解](https://zhuanlan.zhihu.com/p/141195603)
 
    > 工程化是一种思想，而不是某种技术。其主要目的为了提高效率和降低成本，即提高开发过程中的开发效率，减少不必要的重复工作时间等
 
    ```
    (1) 模块化
-   		模块化就是把一个大的文件，拆分成多个相互依赖的小文件，按一个个模块来划分
+           模块化就是把一个大的文件，拆分成多个相互依赖的小文件，按一个个模块来划分
    (2) 组件化
-   		页面上所有的东西都可以看成组件，页面是个大型组件，可以拆成若干个中型组件，然后中型组件还可以再拆，拆成若干个小型组件,
-   		组件化≠模块化。模块化只是在文件层面上，对代码和资源的拆分；组件化是在设计层面上，对于UI的拆分
+           页面上所有的东西都可以看成组件，页面是个大型组件，可以拆成若干个中型组件，然后中型组件还可以再拆，拆成若干个小型组件,
+           组件化≠模块化。模块化只是在文件层面上，对代码和资源的拆分；组件化是在设计层面上，对于UI的拆分
    (3) 规范化
-     	在项目规划初期制定的好坏对于后期的开发有一定影响。包括的规范有:
+         在项目规划初期制定的好坏对于后期的开发有一定影响。包括的规范有:
        a: 目录结构的制定
        b: 编码规范
        c: 前后端接口规范
@@ -59,56 +84,56 @@
        h: 定期codeReview
        i: 视觉图标规范
    (4) 自动化
-   		简单重复的工作交给机器来做，自动化也就是有很多自动化工具代替我们来完成，例如持续集成、自动化构建、自动化部署、自动化测试等等
+           简单重复的工作交给机器来做，自动化也就是有很多自动化工具代替我们来完成，例如持续集成、自动化构建、自动化部署、自动化测试等等
    ```
 
-6. ### Node开启子进程的方法有哪些? 进程间如何通信?
+7. ### Node开启子进程的方法有哪些? 进程间如何通信?
 
-7. ### [Websocket底层原理分析](https://juejin.cn/post/6844904194470576136)
+8. ### [Websocket底层原理分析](https://juejin.cn/post/6844904194470576136)
 
-8. ### [Nodejs事件循环](https://juejin.cn/post/7010308647792148511)
+9. ### [Nodejs事件循环](https://juejin.cn/post/7010308647792148511)
 
-9. ### [Nodejs 异步IO模型](https://zhuanlan.zhihu.com/p/93289115)   [参考地址2](https://juejin.cn/post/6997761014192144420)
+10. ### [Nodejs 异步IO模型](https://zhuanlan.zhihu.com/p/93289115)   [参考地址2](https://juejin.cn/post/6997761014192144420)
 
-   <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/74f82e6d48c24912b5f395504d9466e2~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp" style="zoom:100%;" />
+    <img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/74f82e6d48c24912b5f395504d9466e2~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp" style="zoom:100%;" />
 
-10. ### 尾递归
+11. ### 尾递归
 
-11. ### 二叉树的非递归遍历 【和深度 广度其实是一样的】
+12. ### 二叉树的非递归遍历 【和深度 广度其实是一样的】
 
-12. ### 手写ajax 手写ajax拦截器
+13. ### 手写ajax 手写ajax拦截器
 
     > ajax拦截器其实是直接ajax原生对象的原型上做的手脚, 利用的aop
 
-13. ### [flexible源码结合webpack-px2rem-loader](https://github.com/amfe/lib-flexible/tree/master)
+14. ### [flexible源码结合webpack-px2rem-loader](https://github.com/amfe/lib-flexible/tree/master)
 
     > 做移动端适配用的，还是18年看过这个源码，但是当时没有解决1px像素问题，现在听说已经解决了，需要再研究
 
-14. ### blob对象 【这个用的有点少，就怕面试官问细节】
+15. ### blob对象 【这个用的有点少，就怕面试官问细节】
 
-15. ### cookie的跨域携带 【这个可以扯的地方就有点多了，啥子微服务，啥子代理，面试千万莫问我】
+16. ### cookie的跨域携带 【这个可以扯的地方就有点多了，啥子微服务，啥子代理，面试千万莫问我】
 
-16. ### 原型 原型链 【这个得结合块级作用域和函数作用域一起和面试官吹牛】
+17. ### 原型 原型链 【这个得结合块级作用域和函数作用域一起和面试官吹牛】
 
-17. ### webpack热加载实现机制  【好像是socket实现的，具体没怎么研究】
+18. ### webpack热加载实现机制  【好像是socket实现的，具体没怎么研究】
 
-18. ### require寻址  【没研究，这是18年面腾讯时问的一道面试题】
+19. ### require寻址  【没研究，这是18年面腾讯时问的一道面试题】
 
-19. ### [webpack4 5区别](https://juejin.cn/post/6990869970385109005#heading-6)
+20. ### [webpack4 5区别](https://juejin.cn/post/6990869970385109005#heading-6)
 
-20. ### webpack的hash计算方式 contentHash  chunkHash hash等根据什么计算
+21. ### webpack的hash计算方式 contentHash  chunkHash hash等根据什么计算
 
-21. ### 手写curry
+22. ### 手写curry
 
-22. ### 数据结构算法
+23. ### 数据结构算法
 
-23. ### threejs 【能拿出来说的只有切换旋转中心，和threejs中的坐标系的0，1在屏幕上不是全屏时怎么计算切换，有空再研究下吧】
+24. ### threejs 【能拿出来说的只有切换旋转中心，和threejs中的坐标系的0，1在屏幕上不是全屏时怎么计算切换，有空再研究下吧】
 
-24. ### cesium 【莫法研究，莫法写，删不删？？？？？？？？？？？？？？？？？？？   这个根据面的公司看看简历上写不写这个技术】
+25. ### cesium 【莫法研究，莫法写，删不删？？？？？？？？？？？？？？？？？？？   这个根据面的公司看看简历上写不写这个技术】
 
-25. ### rn 【这个根据面的公司看看简历上写不写这个技术】
+26. ### rn 【这个根据面的公司看看简历上写不写这个技术】
 
-26. ### 虚拟dom优缺点
+27. ### 虚拟dom优缺点
 
     ```
     优点:
@@ -121,7 +146,7 @@
     2. 首次渲染大量 DOM 时，由于多了一层虚拟 DOM 的计算，会比 innerHTML 插入慢。
     ```
 
-27. ### 浏览器渲染过程
+28. ### 浏览器渲染过程
 
     ```html
     1. 解析HTML，生成DOM树（DOM）
@@ -131,7 +156,7 @@
     5. 将布局渲染到屏幕上（Paint）
     ```
 
-28. ### xss
+29. ### xss
 
     > 类型
 
@@ -147,7 +172,7 @@
     (2) 输入检查
     ```
 
-29. ### csrf
+30. ### csrf
 
     > 防御
 
@@ -158,56 +183,56 @@
     4. 网站重要操作增加验证码 CSRF攻击过程中，用户在不知情的情况下构造了网络请求，添加验证码后，强制用户必须与应用进行交互
     ```
 
-30. ### [防抖 节流](https://juejin.cn/post/6844903669389885453)
+31. ### [防抖 节流](https://juejin.cn/post/6844903669389885453)
 
     ```
     防抖: 在事件被触发n秒后再执行回调，如果在这n秒内又被触发，则重新计时。
     截流: 规定在一个单位时间内，只能触发一次函数。如果这个单位时间内触发多次函数，只有一次生效。
     ```
 
-31. ### webpack原理和过程
+32. ### webpack原理和过程
 
-32. ### [creatPortal](https://zh-hans.reactjs.org/docs/portals.html) 插槽 【16版本后出来的，这个得结合antd的modal来和面试官吹】
+33. ### [creatPortal](https://zh-hans.reactjs.org/docs/portals.html) 插槽 【16版本后出来的，这个得结合antd的modal来和面试官吹】
 
-33. ### componentdidcatch
+34. ### componentdidcatch
 
-34. ### [react事件委托](https://zhuanlan.zhihu.com/p/165089379)
+35. ### [react事件委托](https://zhuanlan.zhihu.com/p/165089379)
 
-35. ### pureComponent进行浅对比和component区别就是效率更高，但是写法会注意不少东西，还是没感觉出来优势在哪里，需要再研究
+36. ### pureComponent进行浅对比和component区别就是效率更高，但是写法会注意不少东西，还是没感觉出来优势在哪里，需要再研究
 
-36. ### [memo、useMemo及useCallback解析](https://juejin.cn/post/6844904119358980110)
+37. ### [memo、useMemo及useCallback解析](https://juejin.cn/post/6844904119358980110)
 
     ```
     memo 将函数组件或类组件转换成pureComponent，所以也就有memo功能（高频高渲染时比如列表使用，建议分开使用） props没有改变时，将不会渲染【这里主要在组件嵌套时候有多个兄弟组件时，父组件props更新了，可以不用触发memo的组件视图更新】
     ```
 
-37. ### Suspense
+38. ### Suspense
 
-38. ### context 【这里估计面试的时候连带着react-redux一起给面试官吹牛】
+39. ### context 【这里估计面试的时候连带着react-redux一起给面试官吹牛】
 
-39. ### 即将渲染或者正在渲染的生命周期没法使用setState【这个其实很好理解，我他妈正在下崽或者怀起了，你说再造一个，这不扯蛋吗】
+40. ### 即将渲染或者正在渲染的生命周期没法使用setState【这个其实很好理解，我他妈正在下崽或者怀起了，你说再造一个，这不扯蛋吗】
 
-40. ### 生命周期. 	取消了哪些  16以下有哪些  16有哪些  取消的基本都是will相关的生命周期，为什么取消，为什么增加【这个面试前得背一下】
+41. ### 生命周期. 	取消了哪些  16以下有哪些  16有哪些  取消的基本都是will相关的生命周期，为什么取消，为什么增加【这个面试前得背一下】
 
-41. ### redux流程 [redux-thunk](https://github.com/reduxjs/redux-thunk/blob/v2.0.0/src/index.js)
+42. ### redux流程 [redux-thunk](https://github.com/reduxjs/redux-thunk/blob/v2.0.0/src/index.js)
 
     ```
     面试主要说明redux的思想以及createStore  combineReducers  applyMiddleware  connect，这个肯定得结合 redux-thunk 一起和面试官吹牛, 这里可以和面试官聊的很多,例如:纯函数,高阶组件,插件设计思想,插件编写,其他状态管理,其他插件编写
     ```
 
-42. ### 魔法注释避免webpack4打包生成的数字js文件。或者配置chunId和moduleId
+43. ### 魔法注释避免webpack4打包生成的数字js文件。或者配置chunId和moduleId
 
-43. ### webpack打包原理，过程
+44. ### webpack打包原理，过程
 
-44. ### Tapable
+45. ### Tapable
 
-45. ### webgl矩阵变换 【这个了解就行】
+46. ### webgl矩阵变换 【这个了解就行】
 
-46. ### loader执行顺序，从右到左。 plugin根据绑定的事件触发机制触发
+47. ### loader执行顺序，从右到左。 plugin根据绑定的事件触发机制触发
 
-47. ### 先执行plugin再执行loader  loader是在chunk后执行
+48. ### 先执行plugin再执行loader  loader是在chunk后执行
 
-48. ### 数据类型检测的方式
+49. ### 数据类型检测的方式
 
     **（1）typeof**
 
@@ -281,7 +306,7 @@
     console.log(a.call(null));
     ```
 
-49. ### 排序【插入排序和快排】
+50. ### 排序【插入排序和快排】
 
     ```javascript
     // 快排
@@ -303,23 +328,23 @@
     }
     ```
 
-50. ### react-router-dom react-dom 区别 【还没看的】
+51. ### react-router-dom react-dom 区别 【还没看的】
 
-51. ### fis 百度的一个构建工具（准备面百度的时候再看）
+52. ### fis 百度的一个构建工具（准备面百度的时候再看）
 
-52. ### 发布订阅者模式【必须非常非常非常非常熟悉，在redux中，react-redux中，webpack的tapable中，基本只要是库都使用了这个设计模式】
+53. ### 发布订阅者模式【必须非常非常非常非常熟悉，在redux中，react-redux中，webpack的tapable中，基本只要是库都使用了这个设计模式】
 
-53. ### 手写二叉树  树  链表等数据结构
+54. ### 手写二叉树  树  链表等数据结构
 
-54. ### [事件循环](https://segmentfault.com/a/1190000039819691)
+55. ### [事件循环](https://segmentfault.com/a/1190000039819691)
 
-55. ### 深度优先，和广度优先，各自优势
+56. ### 深度优先，和广度优先，各自优势
 
-56. ### [Object.create()、new Object()和{}的区别](https://juejin.cn/post/6844903917835436045)
+57. ### [Object.create()、new Object()和{}的区别](https://juejin.cn/post/6844903917835436045)
 
     > 寄生组合继承就是用的Object.create()
 
-57. ### [react优化减少render](https://juejin.cn/post/7062247271026393118#heading-22)    [参考sorryc文章](https://juejin.cn/post/7143430508481871886)
+58. ### [react优化减少render](https://juejin.cn/post/7062247271026393118#heading-22)    [参考sorryc文章](https://juejin.cn/post/7143430508481871886)
 
     ```
     1.使用防抖函数来减少不必要的setState，从而减少render次数
@@ -332,15 +357,15 @@
     8.避免使用对象字面量，改用useMemo，ref
     ```
 
-58. ### webpack的一些关键钩子
+59. ### webpack的一些关键钩子
 
     <img src="https://raw.githubusercontent.com/yitjhy/cloudImgs/master/Snipaste_2022-02-11_10-57-17.png" style="zoom:100%;" />
 
-59. ### [协议缓存](https://blog.csdn.net/fuzhongmin05/article/details/73610436)
+60. ### [协议缓存](https://blog.csdn.net/fuzhongmin05/article/details/73610436)
 
     ![协议缓存](https://raw.githubusercontent.com/yitjhy/cloudImgs/master/%E5%8D%8F%E8%AE%AE%E7%BC%93%E5%AD%98.png)
 
-60. ### 协议缓存的etag计算方式(HTTP1.1)
+61. ### 协议缓存的etag计算方式(HTTP1.1)
 
     > nginx 中 etag 由响应头的 Last-Modified 与 Content-Length 表示为十六进制组合而成
 
@@ -364,7 +389,7 @@
     92797
        ```
 
-61. ### tree-shaking      important { add } from 'ramda'真的只引入了add这个方法吗？  为什么组件库按需加载还需要单独的loader?
+62. ### tree-shaking      important { add } from 'ramda'真的只引入了add这个方法吗？  为什么组件库按需加载还需要单独的loader?
 
     ```javascript
     ES6的模块引入是静态分析的，故而可以在编译时正确判断到底加载了什么代码。

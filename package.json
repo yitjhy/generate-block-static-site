@@ -1,6 +1,6 @@
 {
   "name": "block-static-site",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": false,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",

@@ -41,6 +41,7 @@
     opacity: .55;
     pointer-events: auto;
     width: 16px;
+    height: 16px;
 }
 
 .code {

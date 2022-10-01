@@ -18,7 +18,7 @@ const App = ({history, location}) => {
         <div className="App">
             <Header style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div>
-                    <img className="logo" alt="logo"
+                    <img className="logo" alt="logo" width='32px' height='32px'
                          src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"/>
                     <span className='siteName'>YITJHY</span>
                 </div>

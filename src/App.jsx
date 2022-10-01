@@ -8,7 +8,6 @@ import menus from './constant/index'
 const {Header, Content} = Layout;
 
 const App = ({history, location}) => {
-    console.log(location.pathname);
     const [selectedKeys, setSelectedKeys] = useState([]);
 
     useEffect(() => {

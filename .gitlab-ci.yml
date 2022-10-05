@@ -6,25 +6,19 @@ cache:
   key: node_modules
   paths:
     - node_modules
-
 # 任务阶段，默认的有 .pre 、 build 、 test 、deploy 、.post(执行有先后顺序)
 # 也可以自定义阶段，自己定义的阶段，执行顺序是从上往下依次执行
 # 例如下面的例子job_2会比jon_1先执行
 stages:
-  - install
   - build2deploy
-# 具体的任务
-job_1:
-  stage: install
-  script:
-    - yarn
-    - echo '依赖下载完成'
 job_2:
   stage: build2deploy
   script:
+    - yarn
+    - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
     - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
-    - cp -r `ls build | grep -v static | xargs` /usr/local/nginx/html/block
+    - cp -r build/* /usr/local/nginx/html/block
     - echo 'html页面部署完成'

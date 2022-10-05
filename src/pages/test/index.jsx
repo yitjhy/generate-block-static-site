@@ -5,7 +5,7 @@ import codes from './../../codes/codes.json';
 
 import Testindex from './demo/testindex';
 
-let introductionStr = `# 测试23re`;
+let introductionStr = `# 测试gitlab`;
 let html = marked(introductionStr, {
     renderer: new marked.Renderer(),
     gfm: true,

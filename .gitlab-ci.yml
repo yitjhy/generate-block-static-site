@@ -6,27 +6,15 @@ cache:
   key: node_modules
   paths:
     - node_modules
-    - build
 
 # 任务阶段，默认的有 .pre 、 build 、 test 、deploy 、.post(执行有先后顺序)
 # 也可以自定义阶段，自己定义的阶段，执行顺序是从上往下依次执行
 # 例如下面的例子job_2会比jon_1先执行
 stages:
-  - view-env
   - install
   - generatecode
   - build
-  - deploy-static-to-cdn
-  - deploy-html
-
 # 具体的任务
-job_1:
-  stage: view-env
-  script:
-    - pwd
-    - node -v
-    - npm -v
-  retry: 2  #任务失败后重试的次数
 job_2:
   stage: install
   script:
@@ -43,17 +31,11 @@ job_3:
     - npm run create
     - echo '代码生成完成'
 job_4:
-  stage: build
+  stage: build2deploy
   script:
     - npm run justbuild
     - echo '构建完成'
-job_5:
-  stage: deploy-static-to-cdn
-  script:
     - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
-job_6:
-  stage: deploy-html
-  script:
     - cp -r build/* /usr/local/nginx/html/block
     - echo 'html页面部署完成'

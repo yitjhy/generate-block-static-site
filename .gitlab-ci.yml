@@ -7,14 +7,23 @@ cache:
   paths:
     - node_modules
 
-# 任务阶段，默认的有 .pre 、 build 、 test 、deploy 、.post(执行有先后顺序) 
+# 任务阶段，默认的有 .pre 、 build 、 test 、deploy 、.post(执行有先后顺序)
 # 也可以自定义阶段，自己定义的阶段，执行顺序是从上往下依次执行
 # 例如下面的例子job_2会比jon_1先执行
 stages:
+  - view-env
   - install
+  - generatecode
   - build
 
-
+# 具体的任务
+job_1:
+  stage: view-env
+  script:
+    - pwd
+    - node -v
+    - npm -v
+  retry: 2  #任务失败后重试的次数
 job_2:
   stage: install
   script:
@@ -25,8 +34,13 @@ job_2-2:
   script: echo 'hello world2-2'
   only:
     - release  #当分支名是release的时候才执行
+job_3:
+  stage: generatecode
+  script:
+    - npm run create
+    - echo '代码生成完成'
 job_4:
   stage: build
   script:
-    - npm run build
+    - npm run justbuild
     - echo '构建完成'

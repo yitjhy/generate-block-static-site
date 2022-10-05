@@ -31,6 +31,7 @@
     "start": "npm run create && react-app-rewired start",
     "create": "node server/index.mjs",
     "build": "npm run create && react-app-rewired build",
+    "justbuild": "npm run create && react-app-rewired build",
     "publish2ghpages": "npm run create && CI=false && react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",

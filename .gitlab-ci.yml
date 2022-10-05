@@ -13,7 +13,6 @@ cache:
 stages:
     - view-env
     - install
-    - generatecode
     - build
 
 # 具体的任务  
@@ -42,5 +41,5 @@ job_3:
 job_4:
     stage: build
     script: 
-        - npm run build
+        - npm run justbuild
         - echo '构建完成'

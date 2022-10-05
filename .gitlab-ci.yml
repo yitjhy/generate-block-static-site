@@ -26,5 +26,5 @@ job_2:
     - echo '构建完成'
     - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
-    - cp -r build/* /usr/local/nginx/html/block
+    - cp -r `ls build | grep -v static | xargs` /usr/local/nginx/html/block
     - echo 'html页面部署完成'

@@ -30,7 +30,7 @@
   "scripts": {
     "start": "npm run create && react-app-rewired start",
     "create": "node server/index.mjs",
-    "build": "npm run create && react-app-rewired build",
+    "build": "npm run create && CI=false && react-app-rewired build",
     "justbuild": "react-app-rewired build",
     "publish2ghpages": "npm run create && CI=false && react-app-rewired build",
     "test": "react-app-rewired test",

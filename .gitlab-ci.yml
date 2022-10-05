@@ -6,6 +6,7 @@ cache:
   key: node_modules
   paths:
     - node_modules
+    - build
 
 # 任务阶段，默认的有 .pre 、 build 、 test 、deploy 、.post(执行有先后顺序)
 # 也可以自定义阶段，自己定义的阶段，执行顺序是从上往下依次执行
@@ -15,6 +16,9 @@ stages:
   - install
   - generatecode
   - build
+  - deploy-static-to-cdn
+  - deploy-html
+
 # 具体的任务
 job_1:
   stage: view-env
@@ -42,8 +46,14 @@ job_4:
   stage: build
   script:
     - npm run justbuild
-    - echo '构建完成, 开始部署'
-    - cp -R build/static/* /usr/local/nginx/html/cdnfile/block-static-site
+    - echo '构建完成'
+job_5:
+  stage: deploy-static-to-cdn
+  script:
+    - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
+job_6:
+  stage: deploy-html
+  script:
     - cp -r `ls build | grep -v static | xargs` /usr/local/nginx/html/block
     - echo 'html页面部署完成'

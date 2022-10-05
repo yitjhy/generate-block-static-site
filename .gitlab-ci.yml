@@ -15,9 +15,6 @@ stages:
   - install
   - generatecode
   - build
-  - deploy-static-to-cdn
-  - deploy-html
-
 # 具体的任务
 job_1:
   stage: view-env
@@ -45,14 +42,8 @@ job_4:
   stage: build
   script:
     - npm run justbuild
-    - echo '构建完成'
-job_5:
-  stage: deploy-static-to-cdn
-  script:
+    - echo '构建完成, 开始部署'
     - cp -R build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
-job_6:
-  stage: deploy-html
-  script:
     - cp -r `ls test | grep -v static | xargs` /usr/local/nginx/html/block
-    - echo 'cdn静态资源部署完成'
+    - echo 'html页面部署完成'

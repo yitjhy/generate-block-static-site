@@ -11,18 +11,10 @@ cache:
 # 也可以自定义阶段，自己定义的阶段，执行顺序是从上往下依次执行
 # 例如下面的例子job_2会比jon_1先执行
 stages:
-  - view-env
   - install
   - build
 
-# 具体的任务  
-job_1:
-  stage: view-env
-  script:
-    - pwd
-    - node -v
-    - npm -v
-  retry: 2  #任务失败后重试的次数
+
 job_2:
   stage: install
   script:

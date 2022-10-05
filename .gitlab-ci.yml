@@ -1,45 +1,40 @@
 #当前流水线所需要的镜像环境
-image: node:alpine  
+image: node:alpine
 
 #缓存，gitlab流水线会将安装的node包移除，需要设置缓存
 cache:
   key: node_modules
-  paths: 
+  paths:
     - node_modules
 
 # 任务阶段，默认的有 .pre 、 build 、 test 、deploy 、.post(执行有先后顺序) 
 # 也可以自定义阶段，自己定义的阶段，执行顺序是从上往下依次执行
 # 例如下面的例子job_2会比jon_1先执行
 stages:
-    - view-env
-    - install
-    - build
+  - view-env
+  - install
+  - build
 
 # 具体的任务  
 job_1:
-    stage: view-env
-    script:
-        - pwd
-        - node -v 
-        - npm -v
-    retry: 2  #任务失败后重试的次数
+  stage: view-env
+  script:
+    - pwd
+    - node -v
+    - npm -v
+  retry: 2  #任务失败后重试的次数
 job_2:
-    stage: install
-    script: 
-        - yarn
-        - echo '依赖下载完成'
+  stage: install
+  script:
+    - yarn
+    - echo '依赖下载完成'
 job_2-2:
-    stage: install
-    script: echo 'hello world2-2'
-    only: 
-      - release  #当分支名是release的时候才执行
-job_3:
-    stage: generatecode
-    script: 
-        - npm run create
-        - echo '代码生成完成'
+  stage: install
+  script: echo 'hello world2-2'
+  only:
+    - release  #当分支名是release的时候才执行
 job_4:
-    stage: build
-    script: 
-        - npm run justbuild
-        - echo '构建完成'
+  stage: build
+  script:
+    - npm run justbuild
+    - echo '构建完成'

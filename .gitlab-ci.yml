@@ -49,7 +49,7 @@ job_4:
 job_5:
   stage: deploy-static-to-cdn
   script:
-    - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
+    - cp -R build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
 job_6:
   stage: deploy-html

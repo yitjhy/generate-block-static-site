@@ -18,7 +18,7 @@ stages:
 job_2:
   stage: install
   script:
-    - yarn
+    - pnpm i
     - echo '依赖下载完成'
 job_2-2:
   stage: install

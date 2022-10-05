@@ -12,28 +12,17 @@ cache:
 # 例如下面的例子job_2会比jon_1先执行
 stages:
   - install
-  - generatecode
   - build2deploy
 # 具体的任务
-job_2:
+job_1:
   stage: install
   script:
     - yarn
     - echo '依赖下载完成'
-job_2-2:
-  stage: install
-  script: echo 'hello world2-2'
-  only:
-    - release  #当分支名是release的时候才执行
-job_3:
-  stage: generatecode
-  script:
-    - npm run create
-    - echo '代码生成完成'
-job_4:
+job_2:
   stage: build2deploy
   script:
-    - npm run justbuild
+    - npm run build
     - echo '构建完成'
     - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'

@@ -27,7 +27,7 @@ job_1:
 job_2:
     stage: install
     script: 
-        - npm i
+        - pnpm i
         - echo '依赖下载完成'
 job_2-2:
     stage: install
@@ -37,10 +37,10 @@ job_2-2:
 job_3:
     stage: generatecode
     script: 
-        - npm run create
+        - pnpm run create
         - echo '代码生成完成'
 job_4:
     stage: build
     script: 
-        - npm run build 
+        - pnpm run build
         - echo '构建完成'

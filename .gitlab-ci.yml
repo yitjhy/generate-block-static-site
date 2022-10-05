@@ -13,7 +13,7 @@ cache:
 stages:
   - install
   - generatecode
-  - build
+  - build2deploy
 # 具体的任务
 job_2:
   stage: install

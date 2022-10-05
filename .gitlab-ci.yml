@@ -27,7 +27,7 @@ job_1:
 job_2:
     stage: install
     script: 
-        - npm ci
+        - npm i
         - echo '依赖下载完成'
 job_2-2:
     stage: install

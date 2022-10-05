@@ -11,7 +11,7 @@ cache:
 # 例如下面的例子job_2会比jon_1先执行
 stages:
   - build2deploy
-job_2:
+job_1:
   stage: build2deploy
   script:
     - yarn

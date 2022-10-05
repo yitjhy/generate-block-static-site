@@ -55,6 +55,5 @@ job_5:
 job_6:
   stage: deploy-html
   script:
-    - cd build && cp -r !static /usr/local/nginx/html/block
-    - cd ..
+    - cp -r build/* /usr/local/nginx/html/block
     - echo 'html页面部署完成'

@@ -18,7 +18,7 @@ job_1:
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
-    - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
+    - docker cp -R 11520d8fd0e5: build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
-    - cp -r build/* /usr/local/nginx/html/block
+    - docker cp -r 11520d8fd0e5: build/* /usr/local/nginx/html/block
     - echo 'html页面部署完成'

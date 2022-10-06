@@ -21,7 +21,6 @@ job_1:
     - npm run build
     - echo '构建完成'
 job_2:
-  image: docker
   stage: deploy
   script:
     - docker cp  11520d8fd0e5:build/static/* /usr/local/nginx/html/cdnfile/block-static-site

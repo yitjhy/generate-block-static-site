@@ -25,6 +25,7 @@ job_2:
   stage: deploy
   script:
     - pwd
+    - docker ps
     - ls /usr/local/nginx/html
     - ls /usr/local/nginx/html/cdnfile
     - docker cp  11520d8fd0e5:build/static/* /usr/local/nginx/html/cdnfile/block-static-site

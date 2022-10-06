@@ -13,7 +13,7 @@ stages:
 job_1:
   stage: build2deploy
   script:
-    - pnpm i
+    - yarn
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'

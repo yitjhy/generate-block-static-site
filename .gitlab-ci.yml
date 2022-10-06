@@ -6,29 +6,18 @@ cache:
   key: node_modules
   paths:
     - node_modules
-    - build
 
 stages:
   - build2deploy
-  - deploy
 
 job_1:
   stage: build2deploy
   script:
-    - pwd
     - yarn
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
-job_2:
-  image: docker
-  stage: deploy
-  script:
-    - pwd
-    - docker ps
-    - ls /usr/local/nginx/html
-    - ls /usr/local/nginx/html/cdnfile
-    - docker cp  11520d8fd0e5:build/static/* /usr/local/nginx/html/cdnfile/block-static-site
+    - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
-    - docker cp -r 11520d8fd0e5:build/* /usr/local/nginx/html/block
+    - cp -r build/* /usr/local/nginx/html/block
     - echo 'html页面部署完成'

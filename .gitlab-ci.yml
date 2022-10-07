@@ -12,6 +12,8 @@ stages:
 
 job_1:
   stage: build2deploy
+  tags:
+    - docker-tag
   script:
     - yarn
     - echo '依赖下载完成'

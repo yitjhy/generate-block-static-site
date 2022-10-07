@@ -22,13 +22,13 @@ job_1:
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
+    - scp -r build/* root@101.43.248.55:/usr/local/nginx/html/block
 job_2:
   image: docker
   stage: deploy
   tags:
     - docker-tag
   script:
-    - docker ps
     - docker cp build/static/*  11520d8fd0e5:/workspace
     - echo 'cdn静态资源部署完成'
     - docker cp  11520d8fd0e5:build/* /usr/local/nginx/html/block

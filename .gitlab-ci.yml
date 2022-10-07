@@ -21,6 +21,8 @@ job_1:
     - echo '构建完成'
     - cd /
     - ls
+    - cd home
+    - ls
     - cp -R ./build/static/* /usr/local/nginx/html/cdnfile/block-static-site
     - echo 'cdn静态资源部署完成'
     - cp -r build/* /usr/local/nginx/html/block

@@ -22,7 +22,6 @@ job_1:
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
-    - scp -r build/* root@101.43.248.55:/usr/local/nginx/html/block
 job_2:
   image: docker
   stage: deploy

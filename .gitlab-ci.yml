@@ -14,6 +14,8 @@ stages:
 
 job_1:
   stage: build2deploy
+  tags:
+    - docker-tag
   script:
     - pwd
     - yarn
@@ -23,6 +25,8 @@ job_1:
 job_2:
   image: docker
   stage: deploy
+  tags:
+    - docker-tag
   script:
     - docker cp build/static/* 11520d8fd0e5:/workspace
     - echo 'cdn静态资源部署完成'

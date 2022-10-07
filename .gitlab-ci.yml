@@ -28,7 +28,7 @@ job_2:
   tags:
     - docker-tag
   script:
-    - docker cp build/static/* 11520d8fd0e5:/workspace
+    - docker cp build/static/*  11520d8fd0e5:/workspace
     - echo 'cdn静态资源部署完成'
-    - docker cp -r 11520d8fd0e5:build/* /usr/local/nginx/html/block
+    - docker cp  11520d8fd0e5:build/* /usr/local/nginx/html/block
     - echo 'html页面部署完成'

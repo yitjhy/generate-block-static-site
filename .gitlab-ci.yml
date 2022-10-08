@@ -17,7 +17,7 @@ job_1:
     - shell-runner
   script:
     - pwd
-    - npm i
+    - yarn
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'

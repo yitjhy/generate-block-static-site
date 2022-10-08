@@ -1,10 +1,13 @@
-# Docker安装Gitlab、Gitlab-Runner并实现项目CICD
+import React from 'react';
+import { marked } from "marked";
+
+let introductionStr = `# Docker安装Gitlab、Gitlab-Runner并实现项目CICD
 
 ## 1、安装Gitlab、Gitlab-Runner
 
 **新建docker-compose.yml文件**
 
-```yaml
+\`\`\`yaml
 version: '3'
 
 services:
@@ -41,15 +44,15 @@ services:
 	  - /usr/local/nginx/html:/workspace/nginx/html  # 映射打包后的地址与宿主机的nginx的静态资源目录
     environment:
       pull_policy: if-not-present
-```
+\`\`\`
 
 
 **docker-compose.yml目录下使用docker-compose启动**
 
 
-```doc
+\`\`\`doc
 docker-compose up -d
-```
+\`\`\`
 
 **启动成功后，根据自己的ip+端口(http://101.43.248.55:2210)即可访问自己的gitlab，自己注册登录即可。**
 
@@ -57,22 +60,22 @@ docker-compose up -d
 
 ### 2.1、进入Gitlab-Runner容器内
 
-```bash
+\`\`\`bash
 docker exec -it gitlab-runner bash
-```
+\`\`\`
 
 ### 2.2、注册runner
 
-```arduino
+\`\`\`arduino
 gitlab-runner register
-```
+\`\`\`
 
 ### 2.3、输入Gitlab实例的地址
 
-```less
+\`\`\`less
 Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/):
 http://192.0.0.171/
-```
+\`\`\`
 
 ### 2.4、输入token
 
@@ -82,40 +85,40 @@ token查看位置
 
 
 
-```kotlin
+\`\`\`kotlin
 Please enter the gitlab-ci token for this runner:
 3eJL3283UYjJGp9WxvZG
-```
+\`\`\`
 
 ### 2.5、输入Runner的描述
 
-```markdown
+\`\`\`markdown
 Please enter the gitlab-ci description for this runner:
 [5ab09191e6bf]: my-runner
-```
+\`\`\`
 
 ### 2.6、输入与Runner关联的标签
 
-```arduino
+\`\`\`arduino
 Please enter the gitlab-ci tags for this runner (comma separated):
 my-tag,another-tag
 Registering runner... succeeded                     runner=3eJL3283
-```
+\`\`\`
 
-### 2.7、输入Ruuner的执行者, 选择`shell`
+### 2.7、输入Ruuner的执行者, 选择\`shell\`
 
-```yaml
+\`\`\`yaml
 Please enter the executor: docker, docker-ssh, parallels, ssh, virtualbox, custom, docker+machine, docker-ssh+machine, kubernetes, shell:
 shell
-```
+\`\`\`
 
 ### 2.8、指定docker版本
 
-```vbnet
+\`\`\`vbnet
 Please enter the default Docker image (e.g. ruby:2.6):
 alpine:latest
 Runner registered successfully. Feel free to start it, but if it's running already the config should be automatically reloaded!
-```
+\`\`\`
 
 **注册成功之后，我们可以看到注册的runner**
 
@@ -127,7 +130,7 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 ## 3、进入gitlab-runner容器, 修改gitlab-runner用户执行权限
 
-> 修改`/etc/passed`
+> 修改\`/etc/passed\`
 
 ![image-20221008153803570](https://raw.githubusercontent.com/yitjhy/cloudImgs/master/image-20221008153803570.png)
 
@@ -135,18 +138,18 @@ Runner registered successfully. Feel free to start it, but if it's running alrea
 
 > 否则在ci上会提示找不到npm, yarn等该命令
 
-```bash
+\`\`\`bash
 ln -s /root/.nvm/versions/node/v16.17.1/bin/node /usr/bin/node
 ln -s /root/.nvm/versions/node/v16.17.1/bin/npm /usr/bin/npm
 ln -s /root/.nvm/versions/node/v16.17.1/bin/yarn /usr/bin/yarn
 ln -s /root/.nvm/versions/node/v16.17.1/bin/pnpm /usr/bin/pnpm
-```
+\`\`\`
 
 ## 4、项目根目录创建 [.gitlab-ci.yml](/Users/jingshuai/workspace/block-static-site/.gitlab-ci.yml)
 
-> 配置下载静态资源不用`npm i` 换成使用`yarn`或`pnpm`; 用npm会很慢并且服务器较小时,还需要配置`swap`交换空间
+> 配置下载静态资源不用\`npm i\` 换成使用\`yarn\`或\`pnpm\`; 用npm会很慢并且服务器较小时,还需要配置\`swap\`交换空间
 
-```yaml
+\`\`\`yaml
 #当前流水线所需要的镜像环境
 image: node:alpine
 
@@ -173,10 +176,23 @@ job_1:
     - echo 'cdn静态资源部署完成'
     - cp -r build/static/* /workspace/nginx/html/cdnfile/block-static-site
     - echo '静态页面部署完成'
-```
+\`\`\`
 
 ## 其他常见命令
 gitlab-runner删除无效runner
-```
+\`\`\`
 gitlab-runner verify --delete --name xxx
-```
+\`\`\`
+`;
+let html = marked(introductionStr, {
+    renderer: new marked.Renderer(),
+    gfm: true,
+    breaks: false,
+});
+
+const TemplateWrapper = () => {
+    return <div className="template">
+              <div dangerouslySetInnerHTML={{__html: html}} />
+    </div>
+}
+export default TemplateWrapper

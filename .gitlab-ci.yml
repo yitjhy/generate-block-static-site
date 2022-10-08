@@ -21,6 +21,6 @@ job_1:
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
-    - cp build/static/* /root/block
+    - cp build/static/* /workspace/nginx/html/block
     - echo 'cdn静态资源部署完成'
     - echo 'html页面部署完成'

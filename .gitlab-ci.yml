@@ -9,15 +9,13 @@ cache:
 
 stages:
   - build2deploy
-  - deploy
 
 job_1:
   stage: build2deploy
   tags:
     - shell-runner
   script:
-    - pwd
-    - yarn
+    - pnpm i
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
@@ -25,4 +23,4 @@ job_1:
     - echo 'cdn静态资源部署完成'
     - cp -r build/static/* /workspace/nginx/html/cdnfile/block-static-site
     - echo '静态页面部署完成'
-    
+

@@ -63,7 +63,8 @@ const transform = () => {
                 const titleRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 1);
                 const title = titleRes?.children[0]?.value;
                 const desRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 2);
-                const describe = desRes?.children[0]?.value;
+                // const describe = desRes?.children[0]?.value;
+                const describe = `generateblock ${codeBlockFolderName} 下载使用`;
 
 
                 codeJson[componentName] = jsxCode;

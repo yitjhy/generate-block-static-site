@@ -6,7 +6,6 @@ cache:
   key: node_modules
   paths:
     - node_modules
-    - build
 
 stages:
   - build2deploy
@@ -15,20 +14,13 @@ stages:
 job_1:
   stage: build2deploy
   tags:
-    - docker-tag
+    - shell-runner
   script:
     - pwd
     - yarn
     - echo '依赖下载完成'
     - npm run build
     - echo '构建完成'
-job_2:
-  image: docker
-  stage: deploy
-  tags:
-    - docker-tag
-  script:
-    - docker cp build/static/*  11520d8fd0e5:/workspace
+    - cp build/static/* /root/block
     - echo 'cdn静态资源部署完成'
-    - docker cp  11520d8fd0e5:build/* /usr/local/nginx/html/block
     - echo 'html页面部署完成'

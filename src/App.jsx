@@ -19,7 +19,7 @@ const App = ({history, location}) => {
                 <div>
                     <img className="logo" alt="logo" width='32px' height='32px'
                          src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"/>
-                    <span className='siteName'>YITJHY</span>
+                    <span className='siteName'>YITJHY-BLOCK</span>
                 </div>
                 <div className='homeOperationWrapper'>
                     <span className='docs'>介绍</span>

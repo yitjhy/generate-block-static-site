@@ -63,7 +63,8 @@ const transform = () => {
                 const titleRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 1);
                 const title = titleRes?.children[0]?.value;
                 const desRes = mdAst.children.find(item => item.type === 'heading' && item.depth === 2);
-                const describe = desRes?.children[0]?.value;
+                // const describe = desRes?.children[0]?.value;
+                const describe = `generateblock ${codeBlockFolderName} 下载使用`;
 
 
                 codeJson[componentName] = jsxCode;
@@ -113,18 +114,22 @@ const transform = () => {
 
         const getRouterImport = () => {
             return codeBlockNames.reduce((pre, cur) => {
-                pre += `import ${ToUpperCase(cur.codeBlockName)} from './pages/${cur.codeBlockName}'; \n`
+                pre += `const ${ToUpperCase(cur.codeBlockName)} =  lazy(() => import('./pages/${cur.codeBlockName}')); \n`
                 return pre
             }, '')
         }
 
 
-        const routerTemplate = `import React from 'react';
+        const routerTemplate = `import React, { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 ${getRouterImport()}
 const Router = () => {
     return <Switch >
-        ${getRouteCom(codeBlockNames)}
+    <div>
+        <Suspense fallback={<div />}>
+            ${getRouteCom(codeBlockNames)}
+        </Suspense>
+    </div> 
     </Switch>;
 }
 

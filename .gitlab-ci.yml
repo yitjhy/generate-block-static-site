@@ -1,0 +1,26 @@
+#当前流水线所需要的镜像环境
+image: node:alpine
+
+#缓存，gitlab流水线会将安装的node包移除，需要设置缓存
+cache:
+  key: node_modules
+  paths:
+    - node_modules
+
+stages:
+  - build2deploy
+
+job_1:
+  stage: build2deploy
+  tags:
+    - shell-runner
+  script:
+    - yarn
+    - echo '依赖下载完成'
+    - npm run build
+    - echo '构建完成'
+    - cp -r build/* /workspace/nginx/html/block
+    - echo 'cdn静态资源部署完成'
+    - cp -r build/static/* /workspace/nginx/html/cdnfile/block-static-site
+    - echo '静态页面部署完成'
+

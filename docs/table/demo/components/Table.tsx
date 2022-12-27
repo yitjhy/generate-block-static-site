@@ -144,6 +144,7 @@ const Th = styled.span<{ width?: string; flex?: number; clickable?: boolean }>`
 const TableBody = styled.ul`
   width: 100%;
   position: relative;
+  padding: 0;
 `
 
 const TableRow = styled.li<{ gap?: string; clickable?: boolean }>`

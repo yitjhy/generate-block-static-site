@@ -128,7 +128,7 @@ const Line = styled.div<{ left: number; width: number }>`
     position: absolute;
     width: ${({ width }) => width + 'px'};
     height: 2px;
-    background: #73d37b;
+    background: #1677ff;
     left: ${({ left }) => left + 'px'};
     top: 0;
     transition: all linear 0.15s;

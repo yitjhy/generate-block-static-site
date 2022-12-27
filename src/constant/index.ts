@@ -1,4 +1,4 @@
-export default [
+const menuData = [
   { title: 'Collapse 折叠面板', path: '/collapse' },
   { title: '右键菜单', path: '/contextmenu' },
   { title: 'Descriptions 描述列表', path: '/description' },
@@ -10,3 +10,4 @@ export default [
   { title: 'Table 表格', path: '/table' },
   { title: 'Tabs 标签页', path: '/tabs' },
 ]
+export default menuData

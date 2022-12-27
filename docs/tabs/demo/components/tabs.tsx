@@ -42,7 +42,7 @@ const Tabs: FC<TabsProps> = ({ items, onChange, defaultTab }) => {
 
   useEffect(() => {
     !defaultTab && getDefaultActiveKey()
-  }, [items])
+  }, [defaultTab, getDefaultActiveKey, items])
   useEffect(() => {
     if (defaultTab) setCheckedId(defaultTab)
   }, [defaultTab])

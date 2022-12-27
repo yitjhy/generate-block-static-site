@@ -14,23 +14,20 @@ const Tabs = lazy(() => import('./pages/tabs'))
 const Router = () => {
   return (
     <Switch>
-      <div>
-        <Suspense fallback={<div />}>
-          <Route path="/" exact render={() => <Redirect to="/collapse" />} />
-          <Route path="/collapse" component={Collapse} />
-          <Route path="/contextmenu" component={Contextmenu} />
-          <Route path="/description" component={Description} />
-          <Route path="/drag" component={Drag} />
-          <Route path="/dropdown" component={Dropdown} />
-          <Route path="/highlightCode" component={HighlightCode} />
-          <Route path="/md2html" component={Md2html} />
-          <Route path="/popover" component={Popover} />
-          <Route path="/table" component={Table} />
-          <Route path="/tabs" component={Tabs} />
-        </Suspense>
-      </div>
+      <Suspense fallback={<div />}>
+        <Route path="/" exact render={() => <Redirect to="/collapse" />} />
+        <Route path="/collapse" component={Collapse} />
+        <Route path="/contextmenu" component={Contextmenu} />
+        <Route path="/description" component={Description} />
+        <Route path="/drag" component={Drag} />
+        <Route path="/dropdown" component={Dropdown} />
+        <Route path="/highlightCode" component={HighlightCode} />
+        <Route path="/md2html" component={Md2html} />
+        <Route path="/popover" component={Popover} />
+        <Route path="/table" component={Table} />
+        <Route path="/tabs" component={Tabs} />
+      </Suspense>
     </Switch>
   )
 }
-
 export default Router

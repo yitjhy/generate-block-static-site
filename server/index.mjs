@@ -79,13 +79,14 @@ const transform = () => {
         codeTemplate[codeBlockFolderName].replace(
           `<div $$$1>$$$2</div>`,
           `<div $$$1>
-                            $$$2
-                            <Template code={codes['${componentName}']} describe={"${describe || '默认'}"} title={"${
-            title || '基本用法'
-          }"}>
-                                <${ToUpperCase(componentName)} />
-                            </Template>
-                        </div>`
+             $$$2
+             <Template code={codes['${componentName}']} 
+                       describe={"${describe || '默认'}"} 
+                       title={"${title || '基本用法'}"}
+             >
+               <${ToUpperCase(componentName)} />
+             </Template>
+          </div>`
         )
         writeFileSync(
           path.join(__dirname, `../src/pages/${codeBlockFolderName}/index.tsx`),
@@ -112,25 +113,24 @@ const transform = () => {
       }, '')
     }
 
-    const routerTemplate = `import React, { lazy, Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-${getRouterImport()}
-const Router = () => {
-    return <Switch >
-    <div>
-        <Suspense fallback={<div />}>
+    const routerTemplate = `
+      import React, { lazy, Suspense } from 'react';
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      ${getRouterImport()}
+      const Router = () => {
+        return <Switch >
+          <Suspense fallback={<div />}>
             ${getRouteCom(codeBlockNames)}
-        </Suspense>
-    </div> 
-    </Switch>;
-}
-
-export default Router`
+          </Suspense>
+        </Switch>;
+      }
+      export default Router
+    `
     writeFileSync(path.join(__dirname, '../src/router.tsx'), routerTemplate, 'utf-8')
     const menuData = getMenuData(codeBlockNames)
     writeFileSync(
       path.join(__dirname, '../src/constant/index.ts'),
-      `export default ${JSON.stringify(menuData)}`,
+      `const menuData = ${JSON.stringify(menuData)}; export default menuData`,
       'utf-8'
     )
   })

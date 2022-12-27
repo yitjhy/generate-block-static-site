@@ -1,4 +1,4 @@
-import Dropdown, { MenuItemWrapper, MenuItemIcon, MenuItemText } from './components/dropdown'
+import Dropdown, { MenuItemWrapper, MenuItemText } from './components/dropdown'
 const Demo = () => {
   const onCopy = () => {}
   const onViewENS = () => {}

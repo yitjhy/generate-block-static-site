@@ -1,6 +1,6 @@
 # 拖拽
 
-## generateblock tabs 下载使用
+## `generateblock tabs` 下载使用
 
 ```tsx
 import Tabs, { TabsItemProps } from './components/tabs'

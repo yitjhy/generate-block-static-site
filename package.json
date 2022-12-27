@@ -36,7 +36,7 @@
   "homepage": ".",
   "scripts": {
     "start": "npm run create && react-app-rewired start",
-    "create": "node server/index.mjs",
+    "create": "node server/index.mjs && npm run prettier",
     "build": "npm run create && CI=false && react-app-rewired build",
     "justbuild": "CI=false && react-app-rewired build",
     "publish2ghpages": "npm run create && CI=false && react-app-rewired build",
@@ -45,7 +45,7 @@
     "prepare": "husky install",
     "publish2release": "git add . && git commit -m '发布' && git push prod release",
     "publish2private": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block",
-    "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx,jsx}"
+    "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx}"
   },
   "eslintConfig": {
     "extends": [

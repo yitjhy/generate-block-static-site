@@ -40,7 +40,7 @@ const transform = () => {
       }
       if (parentFileName === 'demo') {
         // 正常运行
-        const componentName = `${codeBlockFolderName}${fileName}`
+        const componentName = `${codeBlockFolderName}${ToUpperCase(fileName)}`
         componentNames.push(componentName)
         // if (!codeBlockNames.includes(codeBlockFolderName)) codeBlockNames.push(codeBlockFolderName);
         const mdString = readFileSync(file, { encoding: 'utf-8' })
@@ -67,12 +67,12 @@ const transform = () => {
           mkdirSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo`))
         }
 
-        writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo/${componentName}.tsx`), jsxCode)
+        // writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo/${componentName}.tsx`), jsxCode)
 
         const ast = codeTemplate[codeBlockFolderName].find(`import '$_$source'`)
         ast.each((importNode, index) => {
           if (ast.length - 1 === index) {
-            importNode.after(`import ${ToUpperCase(componentName)} from './demo/${componentName}'; \n`)
+            importNode.after(`import ${ToUpperCase(componentName)} from './demo/index'; \n`)
           }
         })
 
@@ -129,7 +129,7 @@ export default Router`
     writeFileSync(path.join(__dirname, '../src/router.tsx'), routerTemplate, 'utf-8')
     const menuData = getMenuData(codeBlockNames)
     writeFileSync(
-      path.join(__dirname, '../src/constant/index.js'),
+      path.join(__dirname, '../src/constant/index.ts'),
       `export default ${JSON.stringify(menuData)}`,
       'utf-8'
     )

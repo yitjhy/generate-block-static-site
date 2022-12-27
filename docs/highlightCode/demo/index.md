@@ -15,14 +15,17 @@ import 'prismjs/components/prism-markup'
 import 'prismjs/components/prism-javascript'
 import 'prismjs/components/prism-jsx'
 
-const jsxCode =
-  "import { Checkbox } from 'antd';\n" +
-  '\n' +
-  'function onChange(e) {\n' +
-  '  console.log(`checked1133 = ${e.target.checked}`);\n' +
-  '}\n' +
-  '\n' +
-  'ReactDOM.render(<Checkbox onChange={onChange}>Checkbox</Checkbox>, mountNode);'
+const jsxCode = `import React from 'react';
+import { Checkbox } from 'antd';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
+
+const onChange = (e: CheckboxChangeEvent) => {
+  console.log(e.target.checked);
+};
+
+const App: React.FC = () => <Checkbox onChange={onChange}>Checkbox</Checkbox>;
+
+export default App;`
 
 const HighlightCode = () => {
   const [highlightCodes, setHighlightCodes] = useState<string>('')

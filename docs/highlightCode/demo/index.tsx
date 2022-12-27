@@ -5,6 +5,8 @@ import 'prismjs/components/prism-clike'
 import 'prismjs/components/prism-markup'
 import 'prismjs/components/prism-javascript'
 import 'prismjs/components/prism-jsx'
+import 'prismjs/components/prism-typescript.js'
+import 'prismjs/components/prism-tsx.js'
 
 const jsxCode = `import React from 'react';
 import { Checkbox } from 'antd';
@@ -21,7 +23,7 @@ export default App;`
 const HighlightCode = () => {
   const [highlightCodes, setHighlightCodes] = useState<string>('')
   const getHighlightCode = () => {
-    const res = highlight(jsxCode, languages.jsx, 'jsx')
+    const res = highlight(jsxCode, languages.tsx, 'tsx')
     setHighlightCodes(res)
   }
   useEffect(() => {

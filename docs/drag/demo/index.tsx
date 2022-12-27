@@ -1,8 +1,3 @@
-# 拖拽
-
-## generateblock drag 下载使用
-
-```tsx
 import { useState } from 'react'
 import { DragDropContextCom, DroppableCom, TListItem } from './components'
 import { DropResult } from 'react-beautiful-dnd'
@@ -49,4 +44,3 @@ const DragBlock = () => {
 }
 
 export default DragBlock
-```

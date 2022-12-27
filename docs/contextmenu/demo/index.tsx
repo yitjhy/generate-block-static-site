@@ -1,8 +1,3 @@
-# test
-
-## generateblock contextmenu 下载使用
-
-```tsx
 // @ts-nocheck
 import React from 'react'
 import './index.css'
@@ -45,4 +40,3 @@ const MyContextMenu = () => {
 }
 
 export default MyContextMenu
-```

@@ -1,8 +1,3 @@
-# md转html
-
-## generateblock md2html 下载使用
-
-```tsx
 import React, { useState } from 'react'
 import './index.css'
 import { marked } from 'marked'
@@ -30,4 +25,3 @@ const Md2Html = () => {
 }
 
 export default Md2Html
-```

@@ -1,0 +1,7 @@
+/node_modules/
+# next.js
+/.next/
+
+.idea
+.history
+build

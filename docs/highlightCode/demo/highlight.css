@@ -1,0 +1,106 @@
+pre, code {
+    color: black;
+    font-family: 'Lucida Console', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    line-height: 2;
+    direction: ltr;
+
+    white-space: pre;
+    text-align: left;
+    word-wrap: normal;
+    word-break: normal;
+    word-spacing: normal;
+    tab-size: 4;
+    hyphens: none;
+    background: #f8f8f8 !important;
+    font-size: 12px !important;
+}
+pre {
+    padding: 12px 22px;
+    border-radius: 3px;
+    border: 1px solid #f1e9e9;
+}
+blockquote {
+    color: #666;
+    border-left: 5px solid #cbcbcb;
+    background-color: #f8f8f8;
+    font-size: 1em;
+    padding: 0 13px;
+}
+blockquote p {
+    padding: 8px 0;
+}
+
+
+
+/*高亮代码start*/
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: slategray;
+}
+
+.token.punctuation {
+    color: #999;
+}
+
+.namespace {
+    opacity: 0.7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+    color: #f81d22;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+    color: #0b8235;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #0b8235;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #008dff;
+}
+
+.token.function {
+    color: #f81d22;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #e90;
+}
+
+.token.important,
+.token.bold {
+    font-weight: bold;
+}
+
+.token.italic {
+    font-style: italic;
+}
+
+.token.entity {
+    cursor: help;
+}
+/*高亮代码start*/

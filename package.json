@@ -1,0 +1,78 @@
+{
+  "name": "block-static-site",
+  "version": "0.1.8",
+  "private": false,
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.2.4",
+    "@types/node": "^18.11.18",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "ahooks": "^3.7.4",
+    "antd": "^4.19.5",
+    "chokidar": "^3.5.3",
+    "glob": "^7.2.0",
+    "gogocode": "^1.0.52",
+    "marked": "^4.0.12",
+    "mdast-util-from-markdown": "^1.2.0",
+    "path": "^0.12.7",
+    "prismjs": "^1.27.0",
+    "react": "^18.0.0",
+    "react-beautiful-dnd": "^13.1.0",
+    "react-contextmenu": "^2.14.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "5.0.0",
+    "styled-components": "^5.3.6",
+    "typescript": "^4.9.4",
+    "url": "^0.11.0",
+    "web-vitals": "^2.1.4"
+  },
+  "homepage": ".",
+  "scripts": {
+    "start": "npm run create && react-app-rewired start",
+    "create": "node server/index.mjs && npm run prettier",
+    "build": "npm run create && CI=false && react-app-rewired build",
+    "justbuild": "CI=false && react-app-rewired build",
+    "publish2ghpages": "npm run create && CI=false && react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "prepare": "husky install",
+    "publish2release": "git add . && git commit -m '发布' && git push prod release",
+    "publish2private": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block",
+    "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx}"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/marked": "^4.0.8",
+    "@types/prismjs": "^1.26.0",
+    "@types/react-beautiful-dnd": "^13.1.3",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.26",
+    "husky": "^7.0.4",
+    "prettier": "^2.8.1",
+    "react-app-rewired": "^2.2.1"
+  }
+}

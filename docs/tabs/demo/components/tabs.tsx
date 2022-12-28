@@ -42,7 +42,7 @@ const Tabs: FC<TabsProps> = ({ items, onChange, defaultTab }) => {
 
   useEffect(() => {
     !defaultTab && getDefaultActiveKey()
-  }, [defaultTab, getDefaultActiveKey, items])
+  }, [defaultTab])
   useEffect(() => {
     if (defaultTab) setCheckedId(defaultTab)
   }, [defaultTab])
@@ -50,7 +50,7 @@ const Tabs: FC<TabsProps> = ({ items, onChange, defaultTab }) => {
     <>
       <TabsContentWrapper>
         <TabsWrapper>
-          {tabsHeaderData.map((item, index) => {
+          {tabsHeaderData.map((item) => {
             return (
               <TabsItem
                 isChecked={item.key === checkedId}
@@ -112,7 +112,7 @@ const TabsItem = styled.div<{ isChecked: boolean }>`
   display: flex;
   align-items: center;
   &:hover {
-    color: #73d37b;
+    color: #1677ff;
   }
 `
 

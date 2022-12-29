@@ -25,3 +25,7 @@ yarn-error.log*
 /.history
 /dist
 src/pages
+/.vscode
+
+package-lock.json
+yarn.lock

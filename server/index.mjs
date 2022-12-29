@@ -1,12 +1,11 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
-import $ from 'gogocode'
 import glob from 'glob'
 import chokidar from 'chokidar'
 import pkg from 'fs-extra'
 import path from 'path'
 import url from 'url'
-import { getMenuData, ToUpperCase, getRouteCom, getTemplate } from './utils/index.mjs'
+import { getMenuData, ToUpperCase, getRouteCom, getBlockIndexTsxTemplate, getRouterTemplate } from './utils/index.mjs'
 
 const { copySync } = pkg
 
@@ -18,46 +17,30 @@ const getPath = (url2) => {
 const { __filename, __dirname } = getPath(import.meta.url)
 
 const transform = () => {
-  const codeJson = {}
-  const componentNames = []
+  const highlightCodeData = {}
   const codeBlockNames = []
-  const codeTemplate = {}
+  const blockIndexTsxCodeData = {}
   glob(path.join(__dirname, '../docs/**/*.md'), (err, files) => {
     files.forEach((file) => {
       const fileName = file.split('/').reverse()[0].split('.')[0]
       const parentFileName = file.split('/').reverse()[1]
       const codeBlockFolderName = file.split('/').reverse()[2]
-      if (!codeTemplate[codeBlockFolderName]) {
-        let introductionMdStr = ''
-        if (existsSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`))) {
-          introductionMdStr = readFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`), {
-            encoding: 'utf-8',
-          })
-          // 转义
-          introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')
-        }
-        codeTemplate[codeBlockFolderName] = $(getTemplate(introductionMdStr))
-      }
       if (parentFileName === 'demo') {
         // 正常运行
         const componentName = `${codeBlockFolderName}${ToUpperCase(fileName)}`
-        componentNames.push(componentName)
-        // if (!codeBlockNames.includes(codeBlockFolderName)) codeBlockNames.push(codeBlockFolderName);
         const mdString = readFileSync(file, { encoding: 'utf-8' })
         const mdAst = fromMarkdown(mdString)
         const jsxCode = mdAst.children.find((item) => item.type === 'code').value
-        const mdFileName = file.split('/').reverse()[0].split('.')[0]
-        if (mdFileName === 'index') {
+        if (fileName === 'index') {
           writeFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/demo/index.tsx`), jsxCode)
         }
 
         // 获取框内标题信息,描述信息
         const titleRes = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
         const title = titleRes?.children[0]?.value
-        const desRes = mdAst.children.find((item) => item.type === 'heading' && item.depth === 2)
         const describe = `generateblock ${codeBlockFolderName} 下载使用`
 
-        codeJson[componentName] = jsxCode
+        highlightCodeData[componentName] = jsxCode
 
         if (!existsSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}`))) {
           mkdirSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}`))
@@ -67,66 +50,41 @@ const transform = () => {
           mkdirSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo`))
         }
 
-        // writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo/${componentName}.tsx`), jsxCode)
-
-        const ast = codeTemplate[codeBlockFolderName].find(`import '$_$source'`)
-        ast.each((importNode, index) => {
-          if (ast.length - 1 === index) {
-            importNode.after(`import ${ToUpperCase(componentName)} from './demo/index'; \n`)
-          }
-        })
-
-        codeTemplate[codeBlockFolderName].replace(
-          `<div $$$1>$$$2</div>`,
-          `<div $$$1>
-             $$$2
-             <Template code={codes['${componentName}']} 
-                       describe={"${describe || '默认'}"} 
-                       title={"${title || '基本用法'}"}
-             >
-               <${ToUpperCase(componentName)} />
-             </Template>
-          </div>`
+        // 获取 [block]/README.md 信息 start
+        let introductionMdStr = ''
+        if (existsSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`))) {
+          introductionMdStr = readFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`), {
+            encoding: 'utf-8',
+          })
+          // 转义
+          introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')
+        }
+        // 获取 [block]/README.md 信息 end
+        const tsxCode = getBlockIndexTsxTemplate(
+          introductionMdStr,
+          `import ${ToUpperCase(componentName)} from './demo/index'; \n`,
+          `<Template code={codes['${componentName}']}
+                                 describe={"${describe || '默认'}"}
+                                 title={"${title || '基本用法'}"}
+          >
+            <${ToUpperCase(componentName)} />
+          </Template>`
         )
-        writeFileSync(
-          path.join(__dirname, `../src/pages/${codeBlockFolderName}/index.tsx`),
-          codeTemplate[codeBlockFolderName].root().generate()
-        )
+        writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/index.tsx`), tsxCode)
       } else {
         // 获取代码块描述信息
-        const codeBlockFolderName2 = file.split('/').reverse()[1]
+        const blockName = file.split('/').reverse()[1]
         const mdString = readFileSync(file, { encoding: 'utf-8' })
         const mdAst = fromMarkdown(mdString)
         const res = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
         codeBlockNames.push({
-          codeBlockName: codeBlockFolderName2,
-          menuName: res?.children[0]?.value || codeBlockFolderName2,
+          blockName,
+          menuName: res?.children[0]?.value || blockName,
         })
       }
     })
-    writeFileSync(path.join(__dirname, '../src/codes/codes.json'), JSON.stringify(codeJson))
-
-    const getRouterImport = () => {
-      return codeBlockNames.reduce((pre, cur) => {
-        pre += `const ${ToUpperCase(cur.codeBlockName)} =  lazy(() => import('./pages/${cur.codeBlockName}')); \n`
-        return pre
-      }, '')
-    }
-
-    const routerTemplate = `
-      import React, { lazy, Suspense } from 'react';
-      import { Switch, Route, Redirect } from 'react-router-dom';
-      ${getRouterImport()}
-      const Router = () => {
-        return <Switch >
-          <Suspense fallback={<div />}>
-            ${getRouteCom(codeBlockNames)}
-          </Suspense>
-        </Switch>;
-      }
-      export default Router
-    `
-    writeFileSync(path.join(__dirname, '../src/router.tsx'), routerTemplate, 'utf-8')
+    writeFileSync(path.join(__dirname, '../src/codes/codes.json'), JSON.stringify(highlightCodeData))
+    writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
     const menuData = getMenuData(codeBlockNames)
     writeFileSync(
       path.join(__dirname, '../src/constant/index.ts'),

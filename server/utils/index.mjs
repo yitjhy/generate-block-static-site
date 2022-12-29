@@ -2,7 +2,7 @@ export const getMenuData = (componentNames) => {
   return componentNames.map((item) => {
     return {
       title: item.menuName,
-      path: `/${item.codeBlockName}`,
+      path: `/${item.blockName}`,
     }
   })
 }
@@ -23,27 +23,51 @@ export const ToUpperCase = (str) => {
 
 export const getRouteCom = (componentNames) => {
   return componentNames.reduce((pre, cur) => {
-    pre += `<Route path="/${cur.codeBlockName}" component={${ToUpperCase(cur.codeBlockName)}} /> \n`
+    pre += `<Route path="/${cur.blockName}" component={${ToUpperCase(cur.blockName)}} /> \n`
     return pre
-  }, `<Route path="/" exact render={() => <Redirect to="/${componentNames[0].codeBlockName}" />} />`)
+  }, `<Route path="/" exact render={() => <Redirect to="/${componentNames[0].blockName}" />} />`)
 }
 
-export const getTemplate = (str) => `import React from 'react';
-import { marked } from "marked";
-import Template from './../../components/template';
-import codes from './../../codes/codes.json';
+export const getBlockIndexTsxTemplate = (mdStr, importStr, templateStr) => `
+  import React from 'react';
+  import { marked } from "marked";
+  import Template from './../../components/template';
+  import codes from './../../codes/codes.json';
+  ${importStr}
+  
+  const introductionMdStr = \`${mdStr}\`;
+  let html = marked(introductionMdStr, {
+     renderer: new marked.Renderer(),
+     gfm: true,
+     breaks: false
+  });
+  
+  const TemplateWrapper = () => {
+     return <div className="template">
+       <div dangerouslySetInnerHTML={{__html: html}} />
+       <h2>代码演示</h2>
+       ${templateStr}
+     </div>
+  }
+export default TemplateWrapper
+`
 
-let introductionStr = \`${str}\`;
-let html = marked(introductionStr, {
-    renderer: new marked.Renderer(),
-    gfm: true,
-    breaks: false,
-});
-
-const TemplateWrapper = () => {
-    return <div className="template">
-              <div dangerouslySetInnerHTML={{__html: html}} />
-              <h2>代码演示</h2>
-    </div>
+export const getRouterTemplate = (codeBlockNames) => {
+  const routerImport = codeBlockNames.reduce((pre, cur) => {
+    pre += `const ${ToUpperCase(cur.blockName)} =  lazy(() => import('./pages/${cur.blockName}')); \n`
+    return pre
+  }, '')
+  return `
+      import React, { lazy, Suspense } from 'react';
+      import { Switch, Route, Redirect } from 'react-router-dom';
+      ${routerImport}
+      const Router = () => {
+        return <Switch >
+          <Suspense fallback={<div />}>
+            ${getRouteCom(codeBlockNames)}
+          </Suspense>
+        </Switch>;
+      }
+      export default Router
+    `
 }
-export default TemplateWrapper`

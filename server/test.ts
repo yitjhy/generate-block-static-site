@@ -1,19 +1,25 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
 import glob from 'glob'
-import chokidar from 'chokidar'
+// import chokidar from 'chokidar'
 import pkg from 'fs-extra'
 import path from 'path'
 import url from 'url'
-import { getMenuData, ToUpperCase, getBlockIndexTsxTemplate, getRouterTemplate } from './utils/index.mjs'
+import {
+  getMenuData,
+  ToUpperCase,
+  getBlockIndexTsxTemplate,
+  getRouterTemplate,
+  TCodeBlockNamesItem,
+} from './utils/util-test'
 
 const { copySync } = pkg
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const transform = () => {
-  const highlightCodeData = {}
-  const codeBlockNames = []
+  const highlightCodeData: Record<string, string> = {}
+  const codeBlockNames: TCodeBlockNamesItem[] = []
   glob(path.join(__dirname, '../docs/**/*.md'), (err, files) => {
     files.forEach((file) => {
       const fileName = file.split('/').reverse()[0].split('.')[0]
@@ -24,13 +30,15 @@ const transform = () => {
         const componentName = `${codeBlockFolderName}${ToUpperCase(fileName)}`
         const mdString = readFileSync(file, { encoding: 'utf-8' })
         const mdAst = fromMarkdown(mdString)
-        const jsxCode = mdAst.children.find((item) => item.type === 'code').value
+        // @ts-ignore
+        const jsxCode = mdAst.children.find((item) => item.type === 'code')?.value
         if (fileName === 'index') {
           writeFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/demo/index.tsx`), jsxCode)
         }
 
         // 获取框内标题信息,描述信息
         const titleRes = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
+        // @ts-ignore
         const title = titleRes?.children[0]?.value
         const describe = `generateblock ${codeBlockFolderName} 下载使用`
 
@@ -72,13 +80,11 @@ const transform = () => {
         const mdString = readFileSync(file, { encoding: 'utf-8' })
         const mdAst = fromMarkdown(mdString)
         const res = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
-        codeBlockNames.push({
-          blockName,
-          menuName: res?.children[0]?.value || blockName,
-        })
+        // @ts-ignore
+        codeBlockNames.push({ blockName, menuName: res?.children[0]?.value || blockName })
       }
     })
-    writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
+    writeFileSync(path.join(__dirname, '../src/codes/codes.json'), JSON.stringify(highlightCodeData))
     writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
     const menuData = getMenuData(codeBlockNames)
     writeFileSync(

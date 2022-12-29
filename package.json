@@ -16,6 +16,7 @@
     "ahooks": "^3.7.4",
     "antd": "^4.19.5",
     "chokidar": "^3.5.3",
+    "fs-extra": "^11.1.0",
     "glob": "^7.2.0",
     "gogocode": "^1.0.52",
     "marked": "^4.0.12",
@@ -45,7 +46,7 @@
     "prepare": "husky install",
     "publish2release": "git add . && git commit -m '发布' && git push prod release",
     "publish2private": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block",
-    "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx}"
+    "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx} ./**/*.{mjs,css,js,json,ts,tsx}"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +67,8 @@
     ]
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/glob": "^8.0.0",
     "@types/marked": "^4.0.8",
     "@types/prismjs": "^1.26.0",
     "@types/react-beautiful-dnd": "^13.1.3",

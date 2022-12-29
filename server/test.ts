@@ -16,6 +16,7 @@ import {
 const { copySync } = pkg
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const command = 'generateblock'
 
 const transform = () => {
   const highlightCodeData: Record<string, string> = {}
@@ -40,7 +41,7 @@ const transform = () => {
         const titleRes = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
         // @ts-ignore
         const title = titleRes?.children[0]?.value
-        const describe = `generateblock ${codeBlockFolderName} 下载使用`
+        const describe = `${command} ${codeBlockFolderName} 下载使用`
 
         highlightCodeData[componentName] = jsxCode
 

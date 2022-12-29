@@ -1,33 +1,33 @@
 .md2html {
-    display: flex;
-    width: 100%;
-  }
-  .block{
-    width: 50%;
-    height: 600px;
-    padding: 10px 15px 0;
-    border-radius: 3px;
-    border: 1px solid rgba(0,0,0,.06);
-  }
-  .left{
-    background: #292d3e;
-    position: relative;
-  }
-  .right{
-    overflow: scroll;
-    margin-left: 12px;
-  }
-  #textarea {
-    width: 100%;
-    display: block;
-    resize: none;
-    height: 100%;
-    outline: none;
-    border: none;
-    background: #292d3e;
-    color: #fff;
-    padding: 0;
-  }
-  blockquote {
-    margin: 0;
-  }
+  display: flex;
+  width: 100%;
+}
+.block {
+  width: 50%;
+  height: 600px;
+  padding: 10px 15px 0;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.left {
+  background: #292d3e;
+  position: relative;
+}
+.right {
+  overflow: scroll;
+  margin-left: 12px;
+}
+#textarea {
+  width: 100%;
+  display: block;
+  resize: none;
+  height: 100%;
+  outline: none;
+  border: none;
+  background: #292d3e;
+  color: #fff;
+  padding: 0;
+}
+blockquote {
+  margin: 0;
+}

@@ -1,6 +1,5 @@
 .templateWrapper {
   position: relative;
-  display: inline-block;
   width: 100%;
   margin: 0 0 16px;
   border: 1px solid rgba(0, 0, 0, 0.06);
@@ -34,6 +33,7 @@
   display: flex;
   justify-content: center;
   padding: 12px 0;
+  align-items: center;
 }
 
 .code-expand-icon-show {

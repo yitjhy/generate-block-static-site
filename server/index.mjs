@@ -1,5 +1,5 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
-import { readFileSync, rmSync, writeFileSync } from 'fs'
+import { readFileSync, rmSync, writeFileSync, lstatSync } from 'fs'
 import glob from 'glob'
 // import chokidar from 'chokidar'
 import pkg from 'fs-extra'
@@ -18,15 +18,82 @@ const { copySync } = pkg
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const indexTsxCode = `import React from 'react';
+import { createRoot } from 'react-dom/client';
+import Demo from './demo';
+
+createRoot(document.getElementById('root')).render(<Demo />);`
+
+const htmlCode = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+  </head>
+  <body>
+    <div id="root" style="padding: 24px" />
+  </body>
+</html>`
+
 const transform = () => {
   const highlightCodeData = {}
   const codeBlockNames = []
-  glob(path.join(__dirname, '../src/pages/**/*.*'), (err, files) => {
+  glob(path.join(__dirname, '../src/pages/**'), (err, files) => {
     files.forEach((file) => {
       const fileName = file.split('/').reverse()[0].split('.')[0]
       const parentFileName = file.split('/').reverse()[1]
       const blockName = file.split('/').reverse()[2]
       if (parentFileName === 'demo' && fileName === 'demo') {
+        const baseDemoPath = file.split('/').reverse().slice(1).reverse().join('/')
+        const demoPath = baseDemoPath + '/**'
+        glob(demoPath, (err, demoFiles) => {
+          const parameters = {
+            files: {
+              'index.tsx': indexTsxCode,
+              'index.html': htmlCode,
+              'package.json': {
+                content: {
+                  dependencies: {
+                    react: 'latest',
+                    'react-dom': 'latest',
+                    'react-contextmenu': 'latest',
+                    'styled-components': 'latest',
+                    '@types/react': 'latest',
+                    '@types/react-dom': 'latest',
+                    '@types/styled-components': 'latest',
+                  },
+                },
+              },
+            },
+          }
+          const dependencies = []
+          demoFiles.forEach((demoFile) => {
+            const stat = lstatSync(demoFile)
+            if (stat.isFile()) {
+              const codesandboxFileName = demoFile.replace(`${baseDemoPath}/`, '')
+              readFileSync(demoFile, { encoding: 'utf-8' })
+              let isBinary = true
+              if (codesandboxFileName.includes('/')) isBinary = false
+              const extensionName = demoFile.split('/').reverse()[0].split('.').reverse()[0]
+              const parseExtensionNames = ['jsx', 'tsx', 'js', 'ts']
+              if (parseExtensionNames.includes(extensionName)) {
+                // TODO 收集依赖
+                const getDependencies = () => {
+                  console.log(extensionName)
+                  console.log(dependencies)
+                }
+                getDependencies()
+              }
+              parameters.files[codesandboxFileName] = {
+                content: readFileSync(demoFile, { encoding: 'utf-8' }),
+                isBinary,
+              }
+            }
+          })
+          console.log(parameters)
+        })
+
         const componentName = `${blockName}${ToUpperCase(fileName)}`
         const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
         highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })

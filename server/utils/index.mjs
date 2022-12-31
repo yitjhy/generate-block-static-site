@@ -1,3 +1,10 @@
+import glob from 'glob'
+import path from 'path'
+import { rmdirSync, rmSync } from 'fs'
+import url from 'url'
+const __filename = url.fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 export const getMenuData = (componentNames) => {
   return componentNames.map((item) => {
     return {
@@ -51,6 +58,17 @@ export const getBlockIndexTsxTemplate = (mdStr, importStr, templateStr) => `
   }
 export default TemplateWrapper
 `
+
+export const rm = () => {
+  glob(path.join(__dirname, '../../src/pages/'), (err, files) => {
+    files.forEach((source) => {
+      rmdirSync(source, { recursive: true })
+    })
+  })
+  rmSync(path.join(__dirname, '../../src/codes.json'))
+  rmSync(path.join(__dirname, '../../src/menu.ts'))
+  rmSync(path.join(__dirname, '../../src/router.tsx'))
+}
 
 export const getRouterTemplate = (codeBlockNames) => {
   const routerImport = codeBlockNames.reduce((pre, cur) => {

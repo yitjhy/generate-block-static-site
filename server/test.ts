@@ -1,5 +1,5 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync, mkdirSync, rmdirSync } from 'fs'
 import glob from 'glob'
 // import chokidar from 'chokidar'
 import pkg from 'fs-extra'
@@ -17,6 +17,7 @@ const { copySync } = pkg
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const command = 'generateblock'
+// rmdirSync(path.join(__dirname, '../src/pages/'), { recursive: true })
 
 const transform = () => {
   const highlightCodeData: Record<string, string> = {}

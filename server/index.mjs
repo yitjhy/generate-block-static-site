@@ -5,7 +5,7 @@ import glob from 'glob'
 import pkg from 'fs-extra'
 import path from 'path'
 import url from 'url'
-import { getMenuData, ToUpperCase, getBlockIndexTsxTemplate, getRouterTemplate } from './utils/index.mjs'
+import { getMenuData, ToUpperCase, getBlockIndexTsxTemplate, getRouterTemplate, rm } from './utils/index.mjs'
 
 const { copySync } = pkg
 const __filename = url.fileURLToPath(import.meta.url)
@@ -29,7 +29,7 @@ const transform = () => {
 
         // 获取 [block]/README.md 信息 start
         let introductionMdStr = ''
-        const readmePath = path.join(__dirname, `../docs/${blockName}/README.md`)
+        const readmePath = path.join(__dirname, `../src/pages/${blockName}/README.md`)
         if (existsSync(readmePath)) {
           introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
           // 转义
@@ -56,7 +56,6 @@ const transform = () => {
     })
     writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
     writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
-    console.log(codeBlockNames)
     const menuData = getMenuData(codeBlockNames)
     writeFileSync(
       path.join(__dirname, '../src/menu.ts'),
@@ -66,6 +65,7 @@ const transform = () => {
   })
 }
 
+rm()
 glob(path.join(__dirname, '../docs/'), (err, files) => {
   files.forEach((source) => {
     copySync(source, path.join(__dirname, `../src/pages`), {

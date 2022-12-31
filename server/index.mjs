@@ -1,7 +1,7 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { existsSync, readFileSync, writeFileSync, rmSync } from 'fs'
 import glob from 'glob'
-import chokidar from 'chokidar'
+// import chokidar from 'chokidar'
 import pkg from 'fs-extra'
 import path from 'path'
 import url from 'url'
@@ -71,7 +71,7 @@ const transform = () => {
     writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
     const menuData = getMenuData(codeBlockNames)
     writeFileSync(
-      path.join(__dirname, '../src/constant/index.ts'),
+      path.join(__dirname, '../src/menu.ts'),
       `const menuData = ${JSON.stringify(menuData)}; export default menuData`,
       'utf-8'
     )

@@ -3,7 +3,7 @@ import './App.css'
 import { Layout, Menu, Row, Col } from 'antd'
 import Router from './router'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import menus from './constant/index'
+import menus from './menu'
 
 const { Header, Content } = Layout
 

@@ -1,7 +1,3 @@
-# test
-
-## generateblock contextmenu 下载使用
-
 ```tsx
 import Collapse from './components/collapse'
 const Demo = () => {
@@ -22,6 +18,4 @@ const Demo = () => {
   </>
 }
 export default Demo
-
-
 ```

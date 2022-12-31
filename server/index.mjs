@@ -28,13 +28,7 @@ const transform = () => {
         if (fileName === 'index') {
           writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo/demo.tsx`), jsxCode)
         }
-        // 获取框内标题信息,描述信息
-        const titleRes = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
-        const title = titleRes?.children[0]?.value
-        const describe = `generateblock ${codeBlockFolderName} 下载使用`
-
         highlightCodeData[componentName] = jsxCode
-
         // 获取 [block]/README.md 信息 start
         let introductionMdStr = ''
         if (existsSync(path.join(__dirname, `../docs/${codeBlockFolderName}/README.md`))) {
@@ -49,10 +43,7 @@ const transform = () => {
         const tsxCode = getBlockIndexTsxTemplate(
           introductionMdStr,
           `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
-          `<Template code={codes['${componentName}']}
-                                 describe={"${describe || '默认'}"}
-                                 title={"${title || '基本用法'}"}
-          >
+          `<Template code={codes['${componentName}']} >
             <${ToUpperCase(componentName)} />
           </Template>`
         )

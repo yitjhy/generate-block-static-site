@@ -1,7 +1,3 @@
-# 拖拽
-
-## generateblock dropdown 下载使用
-
 ```tsx
 import Dropdown, { MenuItemWrapper, MenuItemText } from './components/dropdown'
 const Demo = () => {

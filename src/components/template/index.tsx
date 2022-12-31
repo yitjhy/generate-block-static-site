@@ -6,20 +6,14 @@ import HighlightCode from './../../components/hightCode'
 type TemplateProps = {
   children: React.ReactNode
   code: string
-  title: React.ReactNode
-  describe: React.ReactNode
 }
 
-const Template: FC<TemplateProps> = ({ children, code, title, describe }) => {
+const Template: FC<TemplateProps> = ({ children, code }) => {
   const [isShowCode, setIsShowCode] = useState(false)
   return (
     <div className="template">
       <div className="templateWrapper">
         <div className="example">{children}</div>
-        <Divider orientation="left" orientationMargin={24}>
-          {title}
-        </Divider>
-        <div className="introduce">{describe}</div>
         <Divider dashed />
         <div className="operationWrapper">
           <Tooltip placement="top" title={!isShowCode ? '显示代码' : '收起代码'}>

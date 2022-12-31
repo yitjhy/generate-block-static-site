@@ -1,7 +1,3 @@
-# 拖拽
-
-## generateblock table 下载使用
-
 ```tsx
 import Table, {TableColumn} from './components/Table'
 

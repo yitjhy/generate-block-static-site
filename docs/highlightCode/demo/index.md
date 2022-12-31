@@ -1,11 +1,3 @@
-
-
-# 高亮jsx
-
-
-## generateblock hightlightCode 下载使用
-
-
 ```tsx
 import { useEffect, useState } from 'react'
 import './highlight.css'

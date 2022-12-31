@@ -1,7 +1,3 @@
-# 拖拽
-
-## generateblock popover 下载使用
-
 ```tsx
 import Popover from './components/popover'
 const Demo = () => {

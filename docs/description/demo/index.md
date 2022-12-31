@@ -1,7 +1,3 @@
-# 拖拽
-
-## generateblock description 下载使用
-
 ```tsx
 import Description from './components/description'
 const Demo = () => {

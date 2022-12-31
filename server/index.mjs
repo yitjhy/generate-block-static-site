@@ -1,5 +1,5 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync, rmSync } from 'fs'
 import glob from 'glob'
 import chokidar from 'chokidar'
 import pkg from 'fs-extra'
@@ -14,7 +14,7 @@ const __dirname = path.dirname(__filename)
 const transform = () => {
   const highlightCodeData = {}
   const codeBlockNames = []
-  glob(path.join(__dirname, '../docs/**/*.md'), (err, files) => {
+  glob(path.join(__dirname, '../src/pages/**/*.md'), (err, files) => {
     files.forEach((file) => {
       const fileName = file.split('/').reverse()[0].split('.')[0]
       const parentFileName = file.split('/').reverse()[1]
@@ -26,23 +26,14 @@ const transform = () => {
         const mdAst = fromMarkdown(mdString)
         const jsxCode = mdAst.children.find((item) => item.type === 'code').value
         if (fileName === 'index') {
-          writeFileSync(path.join(__dirname, `../docs/${codeBlockFolderName}/demo/index.tsx`), jsxCode)
+          writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo/demo.tsx`), jsxCode)
         }
-
         // 获取框内标题信息,描述信息
         const titleRes = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
         const title = titleRes?.children[0]?.value
         const describe = `generateblock ${codeBlockFolderName} 下载使用`
 
         highlightCodeData[componentName] = jsxCode
-
-        if (!existsSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}`))) {
-          mkdirSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}`))
-        }
-
-        if (!existsSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo`))) {
-          mkdirSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/demo`))
-        }
 
         // 获取 [block]/README.md 信息 start
         let introductionMdStr = ''
@@ -57,7 +48,7 @@ const transform = () => {
 
         const tsxCode = getBlockIndexTsxTemplate(
           introductionMdStr,
-          `import ${ToUpperCase(componentName)} from './demo/index'; \n`,
+          `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
           `<Template code={codes['${componentName}']}
                                  describe={"${describe || '默认'}"}
                                  title={"${title || '基本用法'}"}
@@ -66,12 +57,10 @@ const transform = () => {
           </Template>`
         )
         writeFileSync(path.join(__dirname, `../src/pages/${codeBlockFolderName}/index.tsx`), tsxCode)
-      } else {
-        // 获取代码块描述信息
-        const blockName = file.split('/').reverse()[1]
-        const mdString = readFileSync(file, { encoding: 'utf-8' })
-        const mdAst = fromMarkdown(mdString)
-        const res = mdAst.children.find((item) => item.type === 'heading' && item.depth === 1)
+
+        const blockName = file.split('/').reverse()[2]
+        const mdAst2 = fromMarkdown(introductionMdStr)
+        const res = mdAst2.children.find((item) => item.type === 'heading' && item.depth === 1)
         codeBlockNames.push({
           blockName,
           menuName: res?.children[0]?.value || blockName,
@@ -89,21 +78,34 @@ const transform = () => {
   })
 }
 
-glob(path.join(__dirname, '../docs/**/demo/'), (err, files) => {
+glob(path.join(__dirname, '../docs/'), (err, files) => {
   files.forEach((source) => {
-    const folderName = source.split('/').reverse()[2]
-    copySync(source, path.join(__dirname, `../src/pages/${folderName}/demo`), {
+    copySync(source, path.join(__dirname, `../src/pages`), {
       overwrite: true,
     })
   })
-
-  // TODO 监听这里有点问题,后续更改
-  // const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
-  //     ignoreInitial: true,
-  // });
-  // watcher.on('change', () => {
-  //     console.log('update');
-  //     transform()
-  // });
   transform()
+  glob(path.join(__dirname, '../src/pages/**/*.md'), (err, files) => {
+    files.forEach((source) => {
+      rmSync(source)
+    })
+  })
 })
+
+// glob(path.join(__dirname, '../docs/**/demo/'), (err, files) => {
+//   files.forEach((source) => {
+//     const folderName = source.split('/').reverse()[2]
+//     copySync(source, path.join(__dirname, `../src/pages/${folderName}/demo`), {
+//       overwrite: true,
+//     })
+//   })
+//   // TODO 监听这里有点问题,后续更改
+//   // const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
+//   //     ignoreInitial: true,
+//   // });
+//   // watcher.on('change', () => {
+//   //     console.log('update');
+//   //     transform()
+//   // });
+//   transform()
+// })

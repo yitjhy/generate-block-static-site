@@ -54,7 +54,7 @@ const HeaderTitle = styled.span`
 const HeaderArrowIcon = styled.img<{ isExpand: boolean }>`
   max-width: 14px;
   max-height: 12px;
-  transition: all linear 0.2s;
+  transition: all cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
   user-select: none;
   transform: ${({ isExpand }) => (isExpand ? 'rotate(180deg)' : 'rotate(0deg)')};
 `

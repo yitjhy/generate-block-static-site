@@ -55,7 +55,7 @@ const Collapse: FC<TCollapseProps> = ({
 const TableWrapper = styled.div<{ isExpand: boolean; height: number | undefined; maxHeight: number }>`
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
   margin-top: 0;
-  transition: all linear 0.2s;
+  transition: all cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
   transform-origin: 50% 0;
   height: ${({ isExpand, height }) => (isExpand ? `${height}px` : 0)};
   opacity: ${({ isExpand }) => (isExpand ? 1 : 0)};

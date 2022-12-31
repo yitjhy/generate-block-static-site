@@ -25,7 +25,7 @@ export const getRouteCom = (componentNames) => {
   return componentNames.reduce((pre, cur) => {
     pre += `<Route path="/${cur.blockName}" component={${ToUpperCase(cur.blockName)}} /> \n`
     return pre
-  }, `<Route path="/" exact render={() => <Redirect to="/${componentNames[0].blockName}" />} />`)
+  }, `<Route path="/" exact render={() => <Redirect to="/${componentNames[0]?.blockName}" />} />`)
 }
 
 export const getBlockIndexTsxTemplate = (mdStr, importStr, templateStr) => `

@@ -1,4 +1,3 @@
-```tsx
 import React, { useState } from 'react'
 import './index.css'
 import { marked } from 'marked'
@@ -26,4 +25,3 @@ const Md2Html = () => {
 }
 
 export default Md2Html
-```

@@ -1,4 +1,3 @@
-```tsx
 // @ts-nocheck
 import React from 'react'
 import './index.css'
@@ -41,4 +40,3 @@ const MyContextMenu = () => {
 }
 
 export default MyContextMenu
-```

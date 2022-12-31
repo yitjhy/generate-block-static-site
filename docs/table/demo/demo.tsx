@@ -1,5 +1,4 @@
-```tsx
-import Table, {TableColumn} from './components/Table'
+import Table, { TableColumn } from './components/Table'
 
 type TListItem = {
   price: number
@@ -32,14 +31,15 @@ const columns: TableColumn<TListItem>[] = [
 ]
 const Demo = () => {
   const tableData: TListItem[] = [
-    {price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市'},
-    {price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市'},
-    {price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市'},
-    {price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市'},
+    { price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市' },
+    { price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市' },
+    { price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市' },
+    { price: 23423, price_usd: 123123, expiration: '2022-09-15 18:36:28', from: '四川省成都市' },
   ]
-  return <>
-    <Table data={tableData} columns={columns} />
-  </>
+  return (
+    <>
+      <Table data={tableData} columns={columns} />
+    </>
+  )
 }
 export default Demo
-```

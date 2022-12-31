@@ -1,4 +1,3 @@
-```tsx
 import { useEffect, useState } from 'react'
 import './highlight.css'
 import { highlight, languages } from 'prismjs/components/prism-core'
@@ -40,4 +39,3 @@ const HighlightCode = () => {
 }
 
 export default HighlightCode
-```

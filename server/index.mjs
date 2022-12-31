@@ -1,11 +1,18 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
-import { existsSync, readFileSync, writeFileSync, rmSync } from 'fs'
+import { readFileSync, rmSync, writeFileSync } from 'fs'
 import glob from 'glob'
 // import chokidar from 'chokidar'
 import pkg from 'fs-extra'
 import path from 'path'
 import url from 'url'
-import { getMenuData, ToUpperCase, getBlockIndexTsxTemplate, getRouterTemplate, rm } from './utils/index.mjs'
+import {
+  getBlockIndexTsxTemplate,
+  getIntroductionMdStr,
+  getMenuData,
+  getRouterTemplate,
+  rm,
+  ToUpperCase,
+} from './utils/index.mjs'
 
 const { copySync } = pkg
 const __filename = url.fileURLToPath(import.meta.url)
@@ -22,21 +29,9 @@ const transform = () => {
       if (parentFileName === 'demo' && fileName === 'demo') {
         const componentName = `${blockName}${ToUpperCase(fileName)}`
         const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
-        if (existsSync(demoTsxPath)) {
-          const demoTsx = readFileSync(demoTsxPath, { encoding: 'utf-8' })
-          highlightCodeData[componentName] = demoTsx
-        }
+        highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })
 
-        // 获取 [block]/README.md 信息 start
-        let introductionMdStr = ''
-        const readmePath = path.join(__dirname, `../src/pages/${blockName}/README.md`)
-        if (existsSync(readmePath)) {
-          introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
-          // 转义
-          introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')
-        }
-        // 获取 [block]/README.md 信息 end
-
+        const introductionMdStr = getIntroductionMdStr(blockName)
         const tsxCode = getBlockIndexTsxTemplate(
           introductionMdStr,
           `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
@@ -87,13 +82,13 @@ glob(path.join(__dirname, '../docs/'), (err, files) => {
 //       overwrite: true,
 //     })
 //   })
-//   // TODO 监听这里有点问题,后续更改
-//   // const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
-//   //     ignoreInitial: true,
-//   // });
-//   // watcher.on('change', () => {
-//   //     console.log('update');
-//   //     transform()
-//   // });
-//   transform()
+// // TODO 监听这里有点问题,后续更改
+// const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
+//     ignoreInitial: true,
+// });
+// watcher.on('change', () => {
+//     console.log('update');
+//     transform()
+// });
+// transform()
 // })

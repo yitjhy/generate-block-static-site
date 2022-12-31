@@ -1,6 +1,6 @@
 import glob from 'glob'
 import path from 'path'
-import { rmdirSync, rmSync } from 'fs'
+import { rmdirSync, rmSync, existsSync, readFileSync } from 'fs'
 import url from 'url'
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -68,6 +68,18 @@ export const rm = () => {
   rmSync(path.join(__dirname, '../../src/codes.json'))
   rmSync(path.join(__dirname, '../../src/menu.ts'))
   rmSync(path.join(__dirname, '../../src/router.tsx'))
+}
+
+// 获取 [block]/README.md 信息
+export const getIntroductionMdStr = (blockName) => {
+  let introductionMdStr = ''
+  const readmePath = path.join(__dirname, `../../src/pages/${blockName}/README.md`)
+  if (existsSync(readmePath)) {
+    introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
+    // 转义
+    introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')
+  }
+  return introductionMdStr
 }
 
 export const getRouterTemplate = (codeBlockNames) => {

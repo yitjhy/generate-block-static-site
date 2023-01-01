@@ -1,5 +1,5 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
-import { readFileSync, rmSync, writeFileSync, lstatSync } from 'fs'
+import { readFileSync, rmSync, writeFileSync } from 'fs'
 import glob from 'glob'
 // import chokidar from 'chokidar'
 import pkg from 'fs-extra'
@@ -22,6 +22,7 @@ const __dirname = path.dirname(__filename)
 const transform = () => {
   const highlightCodeData = {}
   const codeBlockNames = []
+  const codeSandBoxParameters = {}
   glob(path.join(__dirname, '../src/pages/**'), (err, files) => {
     files.forEach((file) => {
       const fileName = file.split('/').reverse()[0].split('.')[0]
@@ -29,17 +30,22 @@ const transform = () => {
       const blockName = file.split('/').reverse()[2]
       if (parentFileName === 'demo' && fileName === 'demo') {
         const baseDemoPath = file.split('/').reverse().slice(1).reverse().join('/')
-        getCodeSandBoxParameters(baseDemoPath)
-
+        if (!codeSandBoxParameters[blockName]) {
+          const url = getCodeSandBoxParameters(baseDemoPath)
+          codeSandBoxParameters[blockName] = url
+        }
+        // console.log(codeSandBoxParameters)
         const componentName = `${blockName}${ToUpperCase(fileName)}`
         const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
         highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })
 
         const introductionMdStr = getIntroductionMdStr(blockName)
+        const url = codeSandBoxParameters[blockName]
+        console.log(url)
         const tsxCode = getBlockIndexTsxTemplate(
           introductionMdStr,
           `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
-          `<Template code={codes['${componentName}']} >
+          `<Template code={codes['${componentName}']} codeSandBoxUrl={'${codeSandBoxParameters[blockName]}'} >
             <${ToUpperCase(componentName)} />
           </Template>`
         )
@@ -53,6 +59,8 @@ const transform = () => {
         })
       }
     })
+    writeFileSync(path.join(__dirname, '../src/codeSandBoxParameters.json'), JSON.stringify(codeSandBoxParameters))
+
     writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
     writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
     const menuData = getMenuData(codeBlockNames)

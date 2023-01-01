@@ -1,7 +1,6 @@
 import styled from 'styled-components'
-import React, { useState, useLayoutEffect, useRef } from 'react'
+import React, { useState, useLayoutEffect, useRef, FC } from 'react'
 import Header from './Header'
-import { FC } from 'react'
 import { useSize } from 'ahooks'
 
 type TCollapseProps = {

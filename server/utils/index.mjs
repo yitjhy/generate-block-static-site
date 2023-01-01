@@ -1,9 +1,13 @@
 import glob from 'glob'
 import path from 'path'
-import { rmdirSync, rmSync, existsSync, readFileSync, lstatSync } from 'fs'
 import url from 'url'
+import LZString from 'lz-string'
+import { rmdirSync, rmSync, existsSync, readFileSync, lstatSync, writeFileSync } from 'fs'
+import getDependenciesFromFile from './getDependenciesFromFile/index.mjs'
+import getProjectDependencies from './getProjectDependencies/index.mjs'
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const projectDependencies = getProjectDependencies()
 
 export const getMenuData = (componentNames) => {
   return componentNames.map((item) => {
@@ -65,9 +69,9 @@ export const rm = () => {
       rmdirSync(source, { recursive: true })
     })
   })
-  rmSync(path.join(__dirname, '../../src/codes.json'))
-  rmSync(path.join(__dirname, '../../src/menu.ts'))
-  rmSync(path.join(__dirname, '../../src/router.tsx'))
+  // rmSync(path.join(__dirname, '../../src/codes.json'))
+  // rmSync(path.join(__dirname, '../../src/menu.ts'))
+  // rmSync(path.join(__dirname, '../../src/router.tsx'))
 }
 
 // 获取 [block]/README.md 信息
@@ -100,54 +104,88 @@ const htmlCode = `<!DOCTYPE html>
   </body>
 </html>`
 
+const compress = (string) => {
+  return LZString.compressToBase64(string)
+    .replace(/\+/g, `-`) // Convert '+' to '-'
+    .replace(/\//g, `_`) // Convert '/' to '_'
+    .replace(/=+$/, ``) // Remove ending '='
+}
+
 export const getCodeSandBoxParameters = (baseDemoPath) => {
   const demoPath = baseDemoPath + '/**'
-  glob(demoPath, (err, demoFiles) => {
-    const parameters = {
-      files: {
-        'index.tsx': indexTsxCode,
-        'index.html': htmlCode,
-        'package.json': {
-          content: {
-            dependencies: {
-              react: 'latest',
-              'react-dom': 'latest',
-              'react-contextmenu': 'latest',
-              'styled-components': 'latest',
-              '@types/react': 'latest',
-              '@types/react-dom': 'latest',
-              '@types/styled-components': 'latest',
-            },
+  let parameters = {
+    files: {
+      'index.tsx': {
+        content: indexTsxCode,
+        isBinary: true,
+      },
+      'index.html': {
+        content: htmlCode,
+        isBinary: true,
+      },
+      'package.json': {
+        content: {
+          dependencies: {
+            react: 'latest',
+            'react-dom': 'latest',
+            ahooks: 'latest',
+            'react-contextmenu': 'latest',
+            'styled-components': 'latest',
+            '@types/react': 'latest',
+            '@types/react-dom': 'latest',
+            '@types/styled-components': 'latest',
           },
         },
       },
-    }
-    const dependencies = []
-    demoFiles.forEach((demoFile) => {
-      const stat = lstatSync(demoFile)
-      if (stat.isFile()) {
-        const codesandboxFileName = demoFile.replace(`${baseDemoPath}/`, '')
-        readFileSync(demoFile, { encoding: 'utf-8' })
-        let isBinary = true
-        if (codesandboxFileName.includes('/')) isBinary = false
-        const extensionName = demoFile.split('/').reverse()[0].split('.').reverse()[0]
-        const parseExtensionNames = ['jsx', 'tsx', 'js', 'ts']
-        if (parseExtensionNames.includes(extensionName)) {
-          // TODO 收集依赖
-          const getDependencies = () => {
-            console.log(extensionName)
-            console.log(dependencies)
+    },
+  }
+  glob.sync(demoPath).map((demoFilePath) => {
+    const stat = lstatSync(demoFilePath)
+    if (stat.isFile()) {
+      const codesandboxFileName = demoFilePath.replace(`${baseDemoPath}/`, '')
+      readFileSync(demoFilePath, { encoding: 'utf-8' })
+      let isBinary = true
+      if (codesandboxFileName.includes('/')) isBinary = false
+      const extensionName = demoFilePath.split('/').reverse()[0].split('.').reverse()[0]
+      const parseExtensionNames = ['jsx', 'tsx', 'js', 'ts']
+      if (parseExtensionNames.includes(extensionName)) {
+        // TODO 收集依赖
+        const dependenciesFromFile = getDependenciesFromFile(demoFilePath)
+
+        const installDependencies = Object.keys(projectDependencies).reduce((pre, cur) => {
+          if (dependenciesFromFile.includes(cur)) {
+            const dependenciesVersion = projectDependencies[cur].replace('^', '')
+            pre[cur] = dependenciesVersion
           }
-          getDependencies()
-        }
-        parameters.files[codesandboxFileName] = {
-          content: readFileSync(demoFile, { encoding: 'utf-8' }),
-          isBinary,
-        }
+          if (cur.includes('@types')) {
+            if (dependenciesFromFile.includes(cur.split('/').slice(1).join('/'))) {
+              const dependenciesVersion = projectDependencies[cur].replace('^', '')
+              pre[cur] = dependenciesVersion
+            }
+          }
+          return pre
+        }, {})
+        installDependencies['react-dom'] = 'latest'
+        installDependencies['react'] = 'latest'
+        installDependencies['@types/react'] = 'latest'
+        installDependencies['@types/react-dom'] = 'latest'
+        installDependencies['prop-types'] = 'latest'
+        parameters.files['package.json'].content.dependencies = installDependencies
+        // console.log(installDependencies)
       }
-    })
-    console.log(parameters)
+      const content = readFileSync(demoFilePath, { encoding: 'utf-8' })
+      // .replace(/`/g, '\\`')
+      // .replace(/{/g, '\\{')
+      // .replace(/}/g, '\\}')
+      // .replace(/$/g, '\\$')
+      parameters.files[codesandboxFileName] = {
+        content: content,
+        isBinary,
+      }
+    }
   })
+  parameters = compress(JSON.stringify(parameters))
+  return `https://codesandbox.io/api/v1/sandboxes/define?parameters=${parameters}`
 }
 
 export const getRouterTemplate = (codeBlockNames) => {

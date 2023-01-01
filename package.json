@@ -4,6 +4,8 @@
   "private": false,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@babel/parser": "^7.20.7",
+    "@babel/traverse": "^7.20.10",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@testing-library/jest-dom": "^5.16.4",
@@ -18,6 +20,7 @@
     "chokidar": "^3.5.3",
     "fs-extra": "^11.1.0",
     "glob": "^7.2.0",
+    "lz-string": "^1.4.4",
     "marked": "^4.0.12",
     "mdast-util-from-markdown": "^1.2.0",
     "path": "^0.12.7",

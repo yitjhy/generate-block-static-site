@@ -33,3 +33,4 @@ yarn.lock
 /src/codes.json
 /src/menu.ts
 /src/router.tsx
+/src/codeSandBoxParameters.json

@@ -41,7 +41,6 @@ const transform = () => {
 
         const introductionMdStr = getIntroductionMdStr(blockName)
         const url = codeSandBoxParameters[blockName]
-        console.log(url)
         const tsxCode = getBlockIndexTsxTemplate(
           introductionMdStr,
           `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,

@@ -111,6 +111,22 @@ const compress = (string) => {
     .replace(/=+$/, ``) // Remove ending '='
 }
 
+const getDemoAllDependencies = (demoPath) => {
+  let res = ['@types/react-dom', '@types/react', 'react-dom', 'react']
+  glob.sync(demoPath).map((demoFilePath) => {
+    const stat = lstatSync(demoFilePath)
+    if (stat.isFile()) {
+      const extensionName = demoFilePath.split('/').reverse()[0].split('.').reverse()[0]
+      const parseExtensionNames = ['jsx', 'tsx', 'js', 'ts']
+      if (parseExtensionNames.includes(extensionName)) {
+        const dependenciesFromFile = getDependenciesFromFile(demoFilePath)
+        res = [...res, ...dependenciesFromFile]
+      }
+    }
+  })
+  return Array.from(new Set(res))
+}
+
 export const getCodeSandBoxParameters = (baseDemoPath) => {
   const demoPath = baseDemoPath + '/**'
   let parameters = {
@@ -125,16 +141,7 @@ export const getCodeSandBoxParameters = (baseDemoPath) => {
       },
       'package.json': {
         content: {
-          dependencies: {
-            react: 'latest',
-            'react-dom': 'latest',
-            ahooks: 'latest',
-            'react-contextmenu': 'latest',
-            'styled-components': 'latest',
-            '@types/react': 'latest',
-            '@types/react-dom': 'latest',
-            '@types/styled-components': 'latest',
-          },
+          dependencies: {},
         },
       },
     },
@@ -149,9 +156,8 @@ export const getCodeSandBoxParameters = (baseDemoPath) => {
       const extensionName = demoFilePath.split('/').reverse()[0].split('.').reverse()[0]
       const parseExtensionNames = ['jsx', 'tsx', 'js', 'ts']
       if (parseExtensionNames.includes(extensionName)) {
-        // TODO 收集依赖
-        const dependenciesFromFile = getDependenciesFromFile(demoFilePath)
-
+        // 收集依赖
+        const dependenciesFromFile = getDemoAllDependencies(demoPath)
         const installDependencies = Object.keys(projectDependencies).reduce((pre, cur) => {
           if (dependenciesFromFile.includes(cur)) {
             const dependenciesVersion = projectDependencies[cur].replace('^', '')
@@ -163,21 +169,21 @@ export const getCodeSandBoxParameters = (baseDemoPath) => {
               pre[cur] = dependenciesVersion
             }
           }
+          dependenciesFromFile.map((item) => {
+            const prefix = item.split('/')[0]
+            if (cur.split('/')[0] === prefix && cur.split('/')[0] !== '@types') {
+              const dependenciesVersion = projectDependencies[cur].replace('^', '')
+              pre[cur] = dependenciesVersion
+            }
+          })
           return pre
         }, {})
-        installDependencies['react-dom'] = 'latest'
-        installDependencies['react'] = 'latest'
-        installDependencies['@types/react'] = 'latest'
-        installDependencies['@types/react-dom'] = 'latest'
-        installDependencies['prop-types'] = 'latest'
-        parameters.files['package.json'].content.dependencies = installDependencies
-        // console.log(installDependencies)
+        parameters.files['package.json'].content.dependencies = {
+          ...installDependencies,
+          'prop-types': 'latest',
+        }
       }
       const content = readFileSync(demoFilePath, { encoding: 'utf-8' })
-      // .replace(/`/g, '\\`')
-      // .replace(/{/g, '\\{')
-      // .replace(/}/g, '\\}')
-      // .replace(/$/g, '\\$')
       parameters.files[codesandboxFileName] = {
         content: content,
         isBinary,

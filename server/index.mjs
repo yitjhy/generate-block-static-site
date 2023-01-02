@@ -31,10 +31,8 @@ const transform = () => {
       if (parentFileName === 'demo' && fileName === 'demo') {
         const baseDemoPath = file.split('/').reverse().slice(1).reverse().join('/')
         if (!codeSandBoxParameters[blockName]) {
-          const url = getCodeSandBoxParameters(baseDemoPath)
-          codeSandBoxParameters[blockName] = url
+          codeSandBoxParameters[blockName] = getCodeSandBoxParameters(baseDemoPath)
         }
-        // console.log(codeSandBoxParameters)
         const componentName = `${blockName}${ToUpperCase(fileName)}`
         const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
         highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })

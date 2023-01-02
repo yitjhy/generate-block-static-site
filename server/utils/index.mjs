@@ -98,7 +98,7 @@ export const getBlockIndexTsxTemplate = (mdStr, importStr, templateStr) => `
   import React from 'react';
   import { marked } from "marked";
   import Template from './../../components/template';
-  import codes from './../../codes.json';
+  import allDemoCodes from './../../allDemoCodes.json';
   ${importStr}
   
   const introductionMdStr = \`${mdStr}\`;
@@ -205,4 +205,21 @@ export const getRouterTemplate = (codeBlockNames) => {
       }
       export default Router
     `
+}
+
+export const getAllDemoCodes = (baseDemoPath) => {
+  const demoPath = baseDemoPath + '/**'
+  const blockName = baseDemoPath.split('/').reverse()[1]
+  const allDemoCodes = []
+  glob.sync(demoPath).map((demoFilePath) => {
+    const stat = lstatSync(demoFilePath)
+    if (stat.isFile()) {
+      const fileName = demoFilePath.replace(`${baseDemoPath}/`, '')
+      allDemoCodes.push({
+        title: fileName,
+        codes: readFileSync(demoFilePath, { encoding: 'utf-8' }),
+      })
+    }
+  })
+  return allDemoCodes
 }

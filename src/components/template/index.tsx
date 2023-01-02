@@ -1,18 +1,35 @@
 import React, { FC, useState, useRef } from 'react'
-import { Divider, Tooltip, Space } from 'antd'
-import { CodeSandboxOutlined } from '@ant-design/icons'
+import { Divider, Tooltip, Space, Tabs } from 'antd'
+import { CodeSandboxOutlined, CopyOutlined } from '@ant-design/icons'
 import './index.css'
 import HighlightCode from './../../components/hightCode'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 type TemplateProps = {
   children: React.ReactNode
-  code: string
   codeSandBoxParameter: string
+  allCodes: { title: string; codes: string }[]
 }
 
-const Template: FC<TemplateProps> = ({ children, code, codeSandBoxParameter }) => {
+const Template: FC<TemplateProps> = ({ children, codeSandBoxParameter, allCodes }) => {
   const [isShowCode, setIsShowCode] = useState(false)
   const codeSandboxIconRef = useRef(null)
+  const items = allCodes.map((item) => {
+    return {
+      label: item.title,
+      key: item.title,
+      children: (
+        <div className="code">
+          <Tooltip title="复制">
+            <CopyToClipboard text={item.codes}>
+              <CopyOutlined style={{ cursor: 'pointer', position: 'absolute', right: 15, top: 12 }} />
+            </CopyToClipboard>
+          </Tooltip>
+          <HighlightCode code={item.codes} />
+        </div>
+      ),
+    }
+  })
   return (
     <div className="template">
       <div className="templateWrapper">
@@ -50,9 +67,7 @@ const Template: FC<TemplateProps> = ({ children, code, codeSandBoxParameter }) =
         {isShowCode && (
           <div>
             <Divider dashed />
-            <div className="code">
-              <HighlightCode code={code} />
-            </div>
+            <Tabs defaultActiveKey="demo.tsx" type="card" tabPosition="left" items={items} />
           </div>
         )}
       </div>

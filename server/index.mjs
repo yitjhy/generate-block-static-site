@@ -15,6 +15,7 @@ import {
   rm,
   ToUpperCase,
   getCodeSandBoxParameters,
+  getAllDemoCodes,
 } from './utils/index.mjs'
 
 const { copySync } = pkg
@@ -25,6 +26,7 @@ const transform = () => {
   const highlightCodeData = {}
   const codeBlockNames = []
   const codeSandBoxParameters = {}
+  const allDemoCodes = {}
   glob.sync(path.join(__dirname, '../src/pages/**')).map((file) => {
     const fileName = file.split('/').reverse()[0].split('.')[0]
     const parentFileName = file.split('/').reverse()[1]
@@ -34,16 +36,20 @@ const transform = () => {
       if (!codeSandBoxParameters[blockName]) {
         codeSandBoxParameters[blockName] = getCodeSandBoxParameters(baseDemoPath)
       }
+      if (!allDemoCodes[blockName]) {
+        allDemoCodes[blockName] = getAllDemoCodes(baseDemoPath)
+      }
       const componentName = `${blockName}${ToUpperCase(fileName)}`
       const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
       highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })
 
       const introductionMdStr = getIntroductionMdStr(blockName)
-      const url = codeSandBoxParameters[blockName]
       const tsxCode = getBlockIndexTsxTemplate(
         introductionMdStr,
         `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
-        `<Template code={codes['${componentName}']} codeSandBoxParameter={'${codeSandBoxParameters[blockName]}'} >
+        `<Template codeSandBoxParameter={'${
+          codeSandBoxParameters[blockName]
+        }'} allCodes={allDemoCodes['${blockName}']} >
             <${ToUpperCase(componentName)} />
           </Template>`
       )
@@ -57,7 +63,8 @@ const transform = () => {
       })
     }
   })
-  writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
+  // writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
+  writeFileSync(path.join(__dirname, '../src/allDemoCodes.json'), JSON.stringify(allDemoCodes))
   writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
   const menuData = getMenuData(codeBlockNames)
   writeFileSync(

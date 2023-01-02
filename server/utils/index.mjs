@@ -183,7 +183,8 @@ export const getCodeSandBoxParameters = (baseDemoPath) => {
     }
   })
   codesandboxParameters = compress(JSON.stringify(codesandboxParameters))
-  return `https://codesandbox.io/api/v1/sandboxes/define?parameters=${codesandboxParameters}`
+  // return `https://codesandbox.io/api/v1/sandboxes/define?parameters=${codesandboxParameters}`
+  return codesandboxParameters
 }
 
 export const getRouterTemplate = (codeBlockNames) => {

@@ -43,7 +43,7 @@ const transform = () => {
       const tsxCode = getBlockIndexTsxTemplate(
         introductionMdStr,
         `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
-        `<Template code={codes['${componentName}']} codeSandBoxUrl={'${codeSandBoxParameters[blockName]}'} >
+        `<Template code={codes['${componentName}']} codeSandBoxParameter={'${codeSandBoxParameters[blockName]}'} >
             <${ToUpperCase(componentName)} />
           </Template>`
       )

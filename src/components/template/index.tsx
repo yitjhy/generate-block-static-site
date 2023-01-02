@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useRef } from 'react'
 import { Divider, Tooltip, Space } from 'antd'
 import { CodeSandboxOutlined } from '@ant-design/icons'
 import './index.css'
@@ -7,11 +7,12 @@ import HighlightCode from './../../components/hightCode'
 type TemplateProps = {
   children: React.ReactNode
   code: string
-  codeSandBoxUrl: string
+  codeSandBoxParameter: string
 }
 
-const Template: FC<TemplateProps> = ({ children, code, codeSandBoxUrl }) => {
+const Template: FC<TemplateProps> = ({ children, code, codeSandBoxParameter }) => {
   const [isShowCode, setIsShowCode] = useState(false)
+  const codeSandboxIconRef = useRef(null)
   return (
     <div className="template">
       <div className="templateWrapper">
@@ -19,10 +20,21 @@ const Template: FC<TemplateProps> = ({ children, code, codeSandBoxUrl }) => {
         <Divider dashed />
         <div className="operationWrapper">
           <Space style={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip placement="top" title={'在 CodeSandbox 中打开'}>
-              <a rel="noreferrer" target="_blank" href={codeSandBoxUrl} style={{ color: '#000000e0' }}>
-                <CodeSandboxOutlined />
-              </a>
+            <Tooltip title={'在 CodeSandbox 中打开'}>
+              <form
+                className="code-box-code-action"
+                action="https://codesandbox.io/api/v1/sandboxes/define"
+                method="POST"
+                target="_blank"
+                ref={codeSandboxIconRef}
+                onClick={() => {
+                  // @ts-ignore
+                  codeSandboxIconRef?.current?.submit()
+                }}
+              >
+                <input type="hidden" name="parameters" value={codeSandBoxParameter} />
+                <CodeSandboxOutlined style={{ cursor: 'pointer' }} />
+              </form>
             </Tooltip>
             <Tooltip placement="top" title={!isShowCode ? '显示代码' : '收起代码'}>
               <img

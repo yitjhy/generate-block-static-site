@@ -42,18 +42,18 @@ const Collapse: FC<TCollapseProps> = ({
     return <Header title={title} showOperation={showOperation} onClick={handleClickHeader} operation={operation} />
   }
   return (
-    <>
+    <div>
       <Header title={title} showOperation={showOperation} onClick={handleClickHeader} operation={operation} />
-      <TableWrapper isExpand={isExpand} height={offsetHeight} maxHeight={maxHeight} ref={ref}>
+      <ContentWrapper isExpand={isExpand} height={offsetHeight} maxHeight={maxHeight} ref={ref}>
         {children}
-      </TableWrapper>
-    </>
+      </ContentWrapper>
+    </div>
   )
 }
 
-const TableWrapper = styled.div<{ isExpand: boolean; height: number | undefined; maxHeight: number }>`
+const ContentWrapper = styled.div<{ isExpand: boolean; height: number | undefined; maxHeight: number }>`
   max-height: ${({ maxHeight }) => `${maxHeight}px`};
-  margin-top: 0;
+  padding-top: 16px;
   transition: all cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
   transform-origin: 50% 0;
   height: ${({ isExpand, height }) => (isExpand ? `${height}px` : 0)};

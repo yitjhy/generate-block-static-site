@@ -10,10 +10,7 @@ interface HeaderProps {
 }
 
 const DefaultOperation: FC<{ isExpand: boolean }> = ({ isExpand }) => (
-  <HeaderArrowIcon
-    src="https://img0.baidu.com/it/u=2212421746,3429509295&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
-    isExpand={isExpand}
-  />
+  <HeaderArrowIcon isExpand={isExpand}>&#9650;</HeaderArrowIcon>
 )
 
 const Header: FC<HeaderProps> = ({ title, onClick, showOperation = true, className, operation }) => {
@@ -33,7 +30,7 @@ const Header: FC<HeaderProps> = ({ title, onClick, showOperation = true, classNa
 }
 
 const HeaderWrapper = styled.div<{ showOperation: boolean }>`
-  width: 100%;
+  //width: 100%;
   background: #fafafa;
   border-radius: 8px;
   padding: 13px 19px 13px 28px;
@@ -50,9 +47,7 @@ const HeaderTitle = styled.span`
   color: #252525;
 `
 
-const HeaderArrowIcon = styled.img<{ isExpand: boolean }>`
-  max-width: 14px;
-  max-height: 12px;
+const HeaderArrowIcon = styled.div<{ isExpand: boolean }>`
   transition: all cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
   user-select: none;
   transform: ${({ isExpand }) => (isExpand ? 'rotate(180deg)' : 'rotate(0deg)')};

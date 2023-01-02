@@ -29,7 +29,7 @@ const App: FC<RouteComponentProps> = ({ history, location }) => {
           <span className="docs">介绍</span>
           <span
             className="github"
-            onClick={() => window.open('https://github.com/yitjhy/generate-block-static-site', '_blank')}
+            onClick={() => window.open('https://gitee.com/yitjhy/block/tree/master', '_blank')}
           />
         </div>
       </Header>

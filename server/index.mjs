@@ -47,11 +47,11 @@ const transform = () => {
       const tsxCode = getBlockIndexTsxTemplate(
         introductionMdStr,
         `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
-        `<Template codeSandBoxParameter={'${
-          codeSandBoxParameters[blockName]
-        }'} allCodes={allDemoCodes['${blockName}']} >
-            <${ToUpperCase(componentName)} />
-          </Template>`
+        `<Template codeSandBoxParameter={'${codeSandBoxParameters[blockName]}'} 
+                                allCodes={allDemoCodes['${blockName}']}
+                      >
+                        <${ToUpperCase(componentName)} />
+                      </Template>`
       )
 
       writeFileSync(path.join(__dirname, `../src/pages/${blockName}/index.tsx`), tsxCode)

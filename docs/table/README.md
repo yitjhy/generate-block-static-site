@@ -10,4 +10,4 @@
 ## 其他
 - 命令式生成:  `generateblock table`
 
-- [代码地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/table/demo)
+- [代码地址](https://gitee.com/yitjhy/block/tree/master/docs/table)

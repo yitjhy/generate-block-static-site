@@ -3,5 +3,5 @@
 
 - 命令式生成:  `generateblock hightlightCode`
 
-- [代码地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/hightlightCode/demo)
+- [代码地址](https://gitee.com/yitjhy/block/tree/master/docs/hightlightCode)
 

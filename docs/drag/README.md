@@ -3,4 +3,4 @@
 
 - 命令式生成:  `generateblock drag`
 
-- [代码地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/drag/demo)
+- [代码地址](https://gitee.com/yitjhy/block/tree/master/docs/drag)

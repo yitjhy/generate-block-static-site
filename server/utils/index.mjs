@@ -6,6 +6,7 @@ import { rmdirSync, rmSync, existsSync, readFileSync, lstatSync } from 'fs'
 import getDependenciesFromFile from './getDependenciesFromFile/index.mjs'
 import getProjectDependencies from './getProjectDependencies/index.mjs'
 import { indexTsxCode, htmlCode } from '../constant.mjs'
+import { fromMarkdown } from 'mdast-util-from-markdown'
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -130,8 +131,21 @@ export const getIntroductionMdStr = (blockName) => {
   return introductionMdStr
 }
 
+const getCodeSandBoxTitle = (readmePath) => {
+  let codeSandBoxTitle = readmePath.split('/').reverse()[1]
+  if (existsSync(readmePath)) {
+    const introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
+    const introductionAst = fromMarkdown(introductionMdStr)
+    const res = introductionAst.children.find((item) => item.type === 'heading' && item.depth === 1)
+    codeSandBoxTitle = res?.children[0]?.value
+  }
+  return codeSandBoxTitle
+}
+
 export const getCodeSandBoxParameters = (baseDemoPath) => {
   const demoPath = baseDemoPath + '/**'
+  const blockPath = baseDemoPath.split('/').reverse().slice(1).reverse().join('/')
+  const readmePath = blockPath + '/README.md'
   let codesandboxParameters = {
     files: {
       'index.tsx': {
@@ -144,6 +158,7 @@ export const getCodeSandBoxParameters = (baseDemoPath) => {
       },
       'package.json': {
         content: {
+          title: getCodeSandBoxTitle(readmePath),
           dependencies: {},
         },
       },

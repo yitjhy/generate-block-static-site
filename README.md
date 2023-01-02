@@ -1,8 +1,8 @@
 
 ## 方便静态资源发布
 
-- 代码片段示例代码为 `docs/**/demo` 文件夹下
-- 代码片段说明为 `docs/**/README.md` 文件
+- 代码片段示例代码为 `docs/[blockName]/demo` 文件夹下
+- 代码片段说明为 `docs/[blockName]/README.md` 文件
 
 ## 优点
 

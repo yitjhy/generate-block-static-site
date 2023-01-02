@@ -1,10 +1,12 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { readFileSync, rmSync, writeFileSync } from 'fs'
 import glob from 'glob'
-// import chokidar from 'chokidar'
+import chokidar from 'chokidar'
 import pkg from 'fs-extra'
 import path from 'path'
 import url from 'url'
+import ora from 'ora'
+import child_process from 'child_process'
 import {
   getBlockIndexTsxTemplate,
   getIntroductionMdStr,
@@ -23,81 +25,70 @@ const transform = () => {
   const highlightCodeData = {}
   const codeBlockNames = []
   const codeSandBoxParameters = {}
-  glob(path.join(__dirname, '../src/pages/**'), (err, files) => {
-    files.forEach((file) => {
-      const fileName = file.split('/').reverse()[0].split('.')[0]
-      const parentFileName = file.split('/').reverse()[1]
-      const blockName = file.split('/').reverse()[2]
-      if (parentFileName === 'demo' && fileName === 'demo') {
-        const baseDemoPath = file.split('/').reverse().slice(1).reverse().join('/')
-        if (!codeSandBoxParameters[blockName]) {
-          codeSandBoxParameters[blockName] = getCodeSandBoxParameters(baseDemoPath)
-        }
-        const componentName = `${blockName}${ToUpperCase(fileName)}`
-        const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
-        highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })
+  glob.sync(path.join(__dirname, '../src/pages/**')).map((file) => {
+    const fileName = file.split('/').reverse()[0].split('.')[0]
+    const parentFileName = file.split('/').reverse()[1]
+    const blockName = file.split('/').reverse()[2]
+    if (parentFileName === 'demo' && fileName === 'demo') {
+      const baseDemoPath = file.split('/').reverse().slice(1).reverse().join('/')
+      if (!codeSandBoxParameters[blockName]) {
+        codeSandBoxParameters[blockName] = getCodeSandBoxParameters(baseDemoPath)
+      }
+      const componentName = `${blockName}${ToUpperCase(fileName)}`
+      const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
+      highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })
 
-        const introductionMdStr = getIntroductionMdStr(blockName)
-        const url = codeSandBoxParameters[blockName]
-        const tsxCode = getBlockIndexTsxTemplate(
-          introductionMdStr,
-          `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
-          `<Template code={codes['${componentName}']} codeSandBoxUrl={'${codeSandBoxParameters[blockName]}'} >
+      const introductionMdStr = getIntroductionMdStr(blockName)
+      const url = codeSandBoxParameters[blockName]
+      const tsxCode = getBlockIndexTsxTemplate(
+        introductionMdStr,
+        `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
+        `<Template code={codes['${componentName}']} codeSandBoxUrl={'${codeSandBoxParameters[blockName]}'} >
             <${ToUpperCase(componentName)} />
           </Template>`
-        )
-        writeFileSync(path.join(__dirname, `../src/pages/${blockName}/index.tsx`), tsxCode)
+      )
 
-        const introductionAst = fromMarkdown(introductionMdStr)
-        const res = introductionAst.children.find((item) => item.type === 'heading' && item.depth === 1)
-        codeBlockNames.push({
-          blockName: blockName,
-          menuName: res?.children[0]?.value || blockName,
-        })
-      }
-    })
-    writeFileSync(path.join(__dirname, '../src/codeSandBoxParameters.json'), JSON.stringify(codeSandBoxParameters))
-
-    writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
-    writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
-    const menuData = getMenuData(codeBlockNames)
-    writeFileSync(
-      path.join(__dirname, '../src/menu.ts'),
-      `const menuData = ${JSON.stringify(menuData)}; export default menuData`,
-      'utf-8'
-    )
+      writeFileSync(path.join(__dirname, `../src/pages/${blockName}/index.tsx`), tsxCode)
+      const introductionAst = fromMarkdown(introductionMdStr)
+      const res = introductionAst.children.find((item) => item.type === 'heading' && item.depth === 1)
+      codeBlockNames.push({
+        blockName: blockName,
+        menuName: res?.children[0]?.value || blockName,
+      })
+    }
   })
+  writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
+  writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
+  const menuData = getMenuData(codeBlockNames)
+  writeFileSync(
+    path.join(__dirname, '../src/menu.ts'),
+    `const menuData = ${JSON.stringify(menuData)}; export default menuData`,
+    'utf-8'
+  )
 }
 
-rm()
-glob(path.join(__dirname, '../docs/'), (err, files) => {
-  files.forEach((source) => {
-    copySync(source, path.join(__dirname, `../src/pages`), {
-      overwrite: true,
-    })
+const start = () => {
+  let transformSpinner = ora({ text: `转换中...`, color: 'red', isEnabled: true }).start()
+  rm()
+  copySync(path.join(__dirname, '../docs/'), path.join(__dirname, `../src/pages`), {
+    overwrite: true,
   })
   transform()
-  glob(path.join(__dirname, '../src/pages/**/*.md'), (err, files) => {
-    files.forEach((source) => {
-      rmSync(source)
-    })
+  glob.sync(path.join(__dirname, '../src/pages/**/*.md')).map((source) => {
+    rmSync(source)
   })
-})
+  transformSpinner.succeed('转换完成')
+  let codeFormatSpinner = ora({ text: `代码格式化中...`, color: 'red', isEnabled: true }).start()
+  child_process.execSync('prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx} ./**/*.{mjs,css,js,json,ts,tsx}')
+  codeFormatSpinner.succeed('格式化完成')
+}
 
-// glob(path.join(__dirname, '../docs/**/demo/'), (err, files) => {
-//   files.forEach((source) => {
-//     const folderName = source.split('/').reverse()[2]
-//     copySync(source, path.join(__dirname, `../src/pages/${folderName}/demo`), {
-//       overwrite: true,
-//     })
-//   })
-// // TODO 监听这里有点问题,后续更改
-// const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
-//     ignoreInitial: true,
-// });
-// watcher.on('change', () => {
-//     console.log('update');
-//     transform()
-// });
-// transform()
-// })
+start()
+
+const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
+  ignoreInitial: true,
+})
+watcher.on('change', () => {
+  console.log('update')
+  start()
+})

@@ -36,6 +36,10 @@
   align-items: center;
 }
 
+.operationWrapper .ant-space-item:last-child {
+  font-size: 0;
+}
+
 .code-expand-icon-show {
   opacity: 0.55;
   pointer-events: auto;

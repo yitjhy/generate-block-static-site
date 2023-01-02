@@ -34,7 +34,6 @@ const Header: FC<HeaderProps> = ({ title, onClick, showOperation = true, classNa
 
 const HeaderWrapper = styled.div<{ showOperation: boolean }>`
   width: 100%;
-  height: 50px;
   background: #fafafa;
   border-radius: 8px;
   padding: 13px 19px 13px 28px;

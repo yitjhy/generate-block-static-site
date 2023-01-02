@@ -22,6 +22,7 @@ const TriggerWrapper = styled.div`
 
 const PopoverWrapper = styled.div`
   position: relative;
+  display: inline-block;
   &:hover > div:nth-child(2) {
     opacity: 1;
     z-index: 3;

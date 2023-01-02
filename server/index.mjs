@@ -1,7 +1,7 @@
 import { fromMarkdown } from 'mdast-util-from-markdown'
 import { readFileSync, rmSync, writeFileSync } from 'fs'
 import glob from 'glob'
-import chokidar from 'chokidar'
+// import chokidar from 'chokidar'
 import pkg from 'fs-extra'
 import path from 'path'
 import url from 'url'
@@ -85,10 +85,10 @@ const start = () => {
 
 start()
 
-const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
-  ignoreInitial: true,
-})
-watcher.on('change', () => {
-  console.log('update')
-  start()
-})
+// const watcher = chokidar.watch(path.join(__dirname, '../docs'), {
+//   ignoreInitial: true,
+// })
+// watcher.on('change', () => {
+//   console.log('update')
+//   start()
+// })

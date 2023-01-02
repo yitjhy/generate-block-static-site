@@ -30,6 +30,7 @@ const TriggerWrapper = styled.div``
 
 const DropdownWrapper = styled.div`
   position: relative;
+  display: inline-block;
   &:hover > div:nth-child(2) {
     opacity: 1;
     transform: scale(1);

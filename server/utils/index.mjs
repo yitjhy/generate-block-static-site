@@ -53,6 +53,17 @@ const getCodeSandBoxDependencies = (demoPath) => {
   return codeSandBoxDependencies
 }
 
+const getCodeSandBoxTitle = (readmePath) => {
+  let codeSandBoxTitle = readmePath.split('/').reverse()[1]
+  if (existsSync(readmePath)) {
+    const introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
+    const introductionAst = fromMarkdown(introductionMdStr)
+    const res = introductionAst.children.find((item) => item.type === 'heading' && item.depth === 1)
+    codeSandBoxTitle = res?.children[0]?.value
+  }
+  return codeSandBoxTitle
+}
+
 export const getMenuData = (componentNames) => {
   return componentNames.map((item) => {
     return {
@@ -129,17 +140,6 @@ export const getIntroductionMdStr = (blockName) => {
     introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')
   }
   return introductionMdStr
-}
-
-const getCodeSandBoxTitle = (readmePath) => {
-  let codeSandBoxTitle = readmePath.split('/').reverse()[1]
-  if (existsSync(readmePath)) {
-    const introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
-    const introductionAst = fromMarkdown(introductionMdStr)
-    const res = introductionAst.children.find((item) => item.type === 'heading' && item.depth === 1)
-    codeSandBoxTitle = res?.children[0]?.value
-  }
-  return codeSandBoxTitle
 }
 
 export const getCodeSandBoxParameters = (baseDemoPath) => {

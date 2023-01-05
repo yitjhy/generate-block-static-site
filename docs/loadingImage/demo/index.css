@@ -1,0 +1,17 @@
+.contextmenu {
+  background: #e1e2e2;
+  width: 150px;
+  padding: 8px;
+  border-radius: 6px;
+  z-index: 5;
+}
+.react-contextmenu-item--selected .in_wrapper {
+  background: #5da0fb;
+  border-radius: 4px;
+  color: #fff;
+}
+.react-contextmenu-item .in_wrapper {
+  cursor: pointer;
+  margin-bottom: 4px;
+  padding: 0 9px;
+}

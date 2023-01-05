@@ -23,11 +23,18 @@ const CardBottom = () => {
 const Demo = () => {
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 206px)', gridGap: '15px 17px' }}>
-      <CardTemplate header={<div>yitjhy</div>} bottom={<CardBottom />} />
-      <CardTemplate header={<div>yitjhy</div>} bottom={<CardBottom />} />
-      <CardTemplate header={<div>yitjhy</div>} bottom={<CardBottom />} />
-      <CardTemplate header={<div>yitjhy</div>} bottom={<CardBottom />} />
-      <CardTemplate header={<div>yitjhy</div>} bottom={<CardBottom />} />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
     </div>
   )
 }
@@ -43,7 +50,6 @@ const CardBottomWrapper = styled.div`
     margin-bottom: 7px;
   }
   .cardBottomWrapper {
-    width: 100%;
     height: 82px;
     background: #f8f8f8;
     border-radius: 13px;

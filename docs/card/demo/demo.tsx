@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import styled from 'styled-components'
 import CardTemplate from './card'
 
@@ -50,7 +49,6 @@ const CardBottomWrapper = styled.div`
     margin-bottom: 7px;
   }
   .cardBottomWrapper {
-    height: 82px;
     background: #f8f8f8;
     border-radius: 13px;
     padding: 17px 14px 16px 20px;

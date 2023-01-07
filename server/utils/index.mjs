@@ -141,6 +141,13 @@ export const getIntroductionMdStr = (blockName) => {
   const readmePath = path.join(__dirname, `../../src/pages/${blockName}/README.md`)
   if (existsSync(readmePath)) {
     introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
+    introductionMdStr = `${introductionMdStr}
+  
+## 其他
+- 命令式生成:  \`generateblock ${blockName}\`
+
+- [代码地址](https://gitee.com/yitjhy/block/tree/master/docs/${blockName})
+  `
     // 转义
     introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')
   }
@@ -214,7 +221,6 @@ export const getRouterTemplate = (codeBlockNames) => {
 
 export const getAllDemoCodes = (baseDemoPath) => {
   const demoPath = baseDemoPath + '/**'
-  const blockName = baseDemoPath.split('/').reverse()[1]
   const allDemoCodes = []
   glob.sync(demoPath).map((demoFilePath) => {
     const stat = lstatSync(demoFilePath)

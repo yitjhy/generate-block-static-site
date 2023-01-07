@@ -6,8 +6,3 @@
 - 当有大量结构化的数据需要展现时；
 
 - 当需要对数据进行排序、搜索、分页、自定义操作等复杂行为时。
-
-## 其他
-- 命令式生成:  `generateblock table`
-
-- [代码地址](https://gitee.com/yitjhy/block/tree/master/docs/table)

@@ -4,8 +4,3 @@
 
 ## 何时使用
 对复杂区域进行分组和隐藏，保持页面的整洁。
-
-## 其他
-- 命令式生成:  `generateblock collapse`
-
-- [代码地址](https://gitee.com/yitjhy/block/tree/master/docs/collapse)

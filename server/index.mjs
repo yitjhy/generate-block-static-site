@@ -43,13 +43,9 @@ const transform = () => {
       const demoTsxPath = path.join(__dirname, `../src/pages/${blockName}/demo/demo.tsx`)
       highlightCodeData[componentName] = readFileSync(demoTsxPath, { encoding: 'utf-8' })
       const introductionMdStr = getIntroductionMdStr(blockName)
-      if (blockName === 'card') {
-        writeFileSync(path.join(__dirname, `../docs/${blockName}/README.md`), introductionMdStr)
-      }
-
       const tsxCode = getBlockIndexTsxTemplate(
         introductionMdStr,
-        `import ${ToUpperCase(componentName)} from './demo/demo'; \n`,
+        `import ${ToUpperCase(componentName)} from './demo/demo';`,
         `<Template codeSandBoxParameter={'${codeSandBoxParameters[blockName]}'} 
                                 allCodes={allDemoCodes['${blockName}']}
                       >

@@ -89,7 +89,7 @@ export const ToUpperCase = (str) => {
 
 export const getRouteCom = (componentNames) => {
   return componentNames.reduce((pre, cur) => {
-    pre += `<Route path="/${cur.blockName}" component={${ToUpperCase(cur.blockName)}} /> \n`
+    pre += `<Route path="/${cur.blockName}" component={${ToUpperCase(cur.blockName)}} />`
     return pre
   }, `<Route path="/" exact render={() => <Redirect to="/${componentNames[0]?.blockName}" />} />`)
 }
@@ -141,15 +141,13 @@ export const getIntroductionMdStr = (blockName) => {
   const readmePath = path.join(__dirname, `../../src/pages/${blockName}/README.md`)
   if (existsSync(readmePath)) {
     introductionMdStr = readFileSync(readmePath, { encoding: 'utf-8' })
-    if (!introductionMdStr.includes('## 其他\n- 命令式生成:  `generateblock')) {
-      introductionMdStr = `${introductionMdStr}
+    introductionMdStr = `${introductionMdStr}
   
 ## 其他
 - 命令式生成:  \`generateblock ${blockName}\`
 
 - [代码地址](https://gitee.com/yitjhy/block/tree/master/docs/${blockName})
   `
-    }
     // 转义
     introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')
   }
@@ -203,7 +201,7 @@ export const getCodeSandBoxParameters = (baseDemoPath) => {
 
 export const getRouterTemplate = (codeBlockNames) => {
   const routerImport = codeBlockNames.reduce((pre, cur) => {
-    pre += `const ${ToUpperCase(cur.blockName)} =  lazy(() => import('./pages/${cur.blockName}')); \n`
+    pre += `const ${ToUpperCase(cur.blockName)} =  lazy(() => import('./pages/${cur.blockName}'));`
     return pre
   }, '')
   return `

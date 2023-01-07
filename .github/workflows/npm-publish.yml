@@ -20,7 +20,7 @@ jobs:
       - name: page build
         working-directory: ./
         run: |
-          npm install
+          yarn
           npm run publish2ghpages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

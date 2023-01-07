@@ -49,7 +49,7 @@
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "prepare": "husky install",
-    "syncToGitee": "git push gitee master",
+    "sync2gitee": "git push gitee master",
     "publish": "npm run create && npm run build && npm run scp",
     "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx} ./**/*.{mjs,css,js,json,ts,tsx}",
     "scp": "scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block && scp -r ./build/static/* root@101.43.248.55:/usr/local/nginx/html/cdnfile/block-static-site"

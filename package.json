@@ -49,9 +49,9 @@
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "prepare": "husky install",
-    "publish2release": "git add . && git commit -m '发布' && git push prod release",
-    "publish2private": "npm run create && npm run build && scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block",
-    "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx} ./**/*.{mjs,css,js,json,ts,tsx}"
+    "publish": "npm run create && npm run build && npm run scp",
+    "prettier": "prettier --write ./**/**/*.{mjs,css,js,json,ts,tsx} ./**/*.{mjs,css,js,json,ts,tsx}",
+    "scp": "scp -r ./build/* root@101.43.248.55:/usr/local/nginx/html/block && scp -r ./build/static/* root@101.43.248.55:/usr/local/nginx/html/cdnfile/block-static-site"
   },
   "eslintConfig": {
     "extends": [

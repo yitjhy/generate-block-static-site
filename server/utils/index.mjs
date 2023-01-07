@@ -146,9 +146,10 @@ export const getIntroductionMdStr = (blockName) => {
 ## 其他
 - 命令式生成:  \`generateblock ${blockName}\`
 
-- [github地址](https://gitee.com/yitjhy/block/tree/master/docs/${blockName})
+- [github地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/${blockName})
 
-- [gitee 代码地址](https://github.com/yitjhy/generate-block-static-site/tree/master/docs/${blockName})
+- [gitee代码地址](https://gitee.com/yitjhy/block/tree/master/docs/${blockName})
+
   `
     // 转义
     introductionMdStr = introductionMdStr.replace(/`/g, '\\`').replace(/{/g, '\\{')

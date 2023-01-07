@@ -53,7 +53,11 @@
 }
 .templateWrapper .ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane,
 .ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane {
-  padding-left: 10px;
+  padding-left: 4px;
+}
+
+.template .codes .ant-divider-horizontal {
+  margin-bottom: 15px !important;
 }
 
 .template p > code,

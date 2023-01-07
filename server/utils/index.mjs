@@ -108,6 +108,11 @@ export const getBlockIndexTsxTemplate = (mdStr, importStr, templateStr) => `
      breaks: false
   });
   
+  html = html.replace(
+    /<a([^>]+?)>([^<]+?)<\\/a>/g,
+    '<a $1 target="_blank">$2</a>',
+  );
+  
   const TemplateWrapper = () => {
      return <div className="template">
        <div dangerouslySetInnerHTML={{__html: html}} />

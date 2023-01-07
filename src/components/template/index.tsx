@@ -65,7 +65,7 @@ const Template: FC<TemplateProps> = ({ children, codeSandBoxParameter, allCodes 
           </Space>
         </div>
         {isShowCode && (
-          <div>
+          <div className="codes">
             <Divider dashed />
             <Tabs defaultActiveKey="demo.tsx" type="card" tabPosition="left" items={items} />
           </div>

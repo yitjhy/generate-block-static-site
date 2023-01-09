@@ -1,16 +1,18 @@
 import styled from 'styled-components'
-import React, { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 export interface PopoverProps {
-  content: React.ReactNode
-  children: React.ReactNode
+  content: ReactNode
+  children: ReactNode
 }
 
 const Popover: FC<PopoverProps> = ({ content, children }) => {
   return (
     <PopoverWrapper>
       <TriggerWrapper>{children}</TriggerWrapper>
-      <Content>{content}</Content>
+      <ContentWrapper>
+        <Content>{content}</Content>
+      </ContentWrapper>
     </PopoverWrapper>
   )
 }
@@ -22,28 +24,28 @@ const TriggerWrapper = styled.div`
 
 const PopoverWrapper = styled.div`
   position: relative;
-  display: inline-block;
   &:hover > div:nth-child(2) {
     opacity: 1;
-    z-index: 3;
     transform: scale(1);
   }
 `
-
-const Content = styled.div`
+const ContentWrapper = styled.div`
   position: absolute;
-  z-index: -1;
-  white-space: nowrap;
-  top: calc(100% + 13px);
+  top: 100%;
   left: 10px;
+  z-index: 2;
+  transform-origin: 0 0;
+  transition: all cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;
+  transform: scale(0);
   opacity: 0;
-  transition: all ease-in 0.2s;
+`
+const Content = styled.div`
+  position: relative;
+  margin-top: 9px;
   padding: 13px 23px 13px 15px;
   background: #fff;
   box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%), 0 9px 28px 8px rgb(0 0 0 / 5%);
   border-radius: 8px;
-  transform-origin: 0 0;
-  transform: scale(0);
   &:after {
     content: '';
     position: absolute;

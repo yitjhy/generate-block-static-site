@@ -12,7 +12,7 @@ jobs:
         with:
           src: 'github/yitjhy'
           dst: 'gitee/yitjhy'
-          dst_key: ${{ secrets.PERSONAL_TOKEN }}
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token:  ${{ secrets.GITEE_TOKEN }}
           static_list: "generate-block-static-site"
           force_update: true

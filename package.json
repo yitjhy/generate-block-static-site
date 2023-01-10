@@ -41,7 +41,7 @@
   },
   "homepage": ".",
   "scripts": {
-    "start": "npm run create && react-app-rewired start",
+    "start": "npm run create && set PORT=8888 && react-app-rewired start",
     "create": "node server/index.mjs",
     "build": "npm run create && CI=false && react-app-rewired build",
     "justbuild": "CI=false && react-app-rewired build",

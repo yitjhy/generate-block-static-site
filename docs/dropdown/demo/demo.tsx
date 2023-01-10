@@ -1,4 +1,5 @@
 import Dropdown, { MenuItemWrapper, MenuItemText } from './components/dropdown'
+import { CopyOutlined, EyeOutlined } from '@ant-design/icons'
 const Demo = () => {
   const onCopy = () => {}
   const onViewENS = () => {}
@@ -10,8 +11,8 @@ const Demo = () => {
             key: 'copy',
             label: (
               <MenuItemWrapper onClick={onCopy}>
-                {/*<MenuItemIcon src={Images.SHOP.COPY2_PNG} />*/}
-                <MenuItemText>Copy share link</MenuItemText>
+                <CopyOutlined />
+                <MenuItemText style={{ marginLeft: 5 }}>Copy share link</MenuItemText>
               </MenuItemWrapper>
             ),
           },
@@ -19,8 +20,8 @@ const Demo = () => {
             key: 'viewExternalLink',
             label: (
               <MenuItemWrapper onClick={onViewENS}>
-                {/*<MenuItemIcon src={Images.SHOP.EYE_PNG} />*/}
-                <MenuItemText>View on ENS</MenuItemText>
+                <EyeOutlined />
+                <MenuItemText style={{ marginLeft: 5 }}>View on ENS</MenuItemText>
               </MenuItemWrapper>
             ),
           },

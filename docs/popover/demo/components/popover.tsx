@@ -32,7 +32,7 @@ const PopoverWrapper = styled.div`
 const ContentWrapper = styled.div`
   position: absolute;
   top: 100%;
-  left: 10px;
+  left: 0;
   z-index: 2;
   transform-origin: 0 0;
   transition: all cubic-bezier(0.39, 0.58, 0.57, 1) 0.2s;

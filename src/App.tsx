@@ -15,7 +15,12 @@ const App: FC<RouteComponentProps> = ({ history, location }) => {
   return (
     <div className="App">
       <Header style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div>
+        <div
+          style={{ cursor: 'pointer' }}
+          onClick={() => {
+            history.push('/')
+          }}
+        >
           <img
             className="logo"
             alt="logo"

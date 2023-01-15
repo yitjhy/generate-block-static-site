@@ -21,7 +21,7 @@ const CardBottom = () => {
 
 const Demo = () => {
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 206px)', gridGap: '15px 17px' }}>
+    <CardListWrapper>
       <CardTemplate
         header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
         bottom={<CardBottom />}
@@ -34,10 +34,39 @@ const Demo = () => {
         header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
         bottom={<CardBottom />}
       />
-    </div>
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+      <CardTemplate
+        header={<div style={{ marginLeft: '13px', fontSize: 25, color: '#fff' }}>Card</div>}
+        bottom={<CardBottom />}
+      />
+    </CardListWrapper>
   )
 }
-
+const CardListWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 206px);
+  grid-gap: 10px;
+  justify-content: space-between;
+`
 const CardBottomWrapper = styled.div`
   .domainName {
     font-style: normal;

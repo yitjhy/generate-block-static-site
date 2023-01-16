@@ -5,7 +5,7 @@ import LZString from 'lz-string'
 import { rmdirSync, rmSync, existsSync, readFileSync, lstatSync } from 'fs'
 import getDependenciesFromFile from './getDependenciesFromFile/index.mjs'
 import getProjectDependencies from './getProjectDependencies/index.mjs'
-import { indexTsxCode, htmlCode } from '../constant.mjs'
+import { indexTsxCode, htmlCode, tsconfigJsonCode } from '../constant.mjs'
 import { fromMarkdown } from 'mdast-util-from-markdown'
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -196,6 +196,35 @@ export const getCodeSandBoxParameters = (baseDemoPath) => {
   })
   codesandboxParameters = compress(JSON.stringify(codesandboxParameters))
   // return `https://codesandbox.io/api/v1/sandboxes/define?parameters=${codesandboxParameters}`
+  return codesandboxParameters
+}
+
+export const getStackblitzParameters = (baseDemoPath) => {
+  const demoPath = baseDemoPath + '/**'
+  const blockPath = baseDemoPath.split('/').reverse().slice(1).reverse().join('/')
+  const readmePath = blockPath + '/README.md'
+  let codesandboxParameters = {
+    title: getCodeSandBoxTitle(readmePath),
+    template: 'create-react-app',
+    dependencies: {},
+    files: {
+      'index.tsx': indexTsxCode,
+      'index.html': htmlCode,
+      'tsconfig.json': tsconfigJsonCode,
+    },
+  }
+  glob.sync(demoPath).map((demoFilePath) => {
+    const stat = lstatSync(demoFilePath)
+    if (stat.isFile()) {
+      const codesandboxFileName = demoFilePath.replace(`${baseDemoPath}/`, '')
+      const codeSandBoxDependencies = getCodeSandBoxDependencies(demoPath)
+      codesandboxParameters.dependencies = {
+        ...codeSandBoxDependencies,
+        'prop-types': 'latest',
+      }
+      codesandboxParameters.files[codesandboxFileName] = readFileSync(demoFilePath, { encoding: 'utf-8' })
+    }
+  })
   return codesandboxParameters
 }
 

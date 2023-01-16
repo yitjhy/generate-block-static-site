@@ -15,3 +15,15 @@ export const htmlCode = `<!DOCTYPE html>
     <div id="root" style="padding: 24px" />
   </body>
 </html>`
+
+export const tsconfigJsonCode = `
+    {
+      "compilerOptions": {
+        "jsx": "react-jsx",
+        "target": "esnext",
+        "module": "esnext",
+        "esModuleInterop": true,
+        "moduleResolution": "node",
+      }
+    }
+  `

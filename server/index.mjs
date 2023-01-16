@@ -16,6 +16,7 @@ import {
   ToUpperCase,
   getCodeSandBoxParameters,
   getAllDemoCodes,
+  getStackblitzParameters,
 } from './utils/index.mjs'
 
 const { copySync } = pkg
@@ -26,6 +27,7 @@ const transform = () => {
   const highlightCodeData = {}
   const codeBlockNames = []
   const codeSandBoxParameters = {}
+  const stackblitzParameters = {}
   const allDemoCodes = {}
   glob.sync(path.join(__dirname, '../src/pages/**')).map((file) => {
     const fileName = file.split('/').reverse()[0].split('.')[0]
@@ -35,6 +37,9 @@ const transform = () => {
       const baseDemoPath = file.split('/').reverse().slice(1).reverse().join('/')
       if (!codeSandBoxParameters[blockName]) {
         codeSandBoxParameters[blockName] = getCodeSandBoxParameters(baseDemoPath)
+      }
+      if (!stackblitzParameters[blockName]) {
+        stackblitzParameters[blockName] = getStackblitzParameters(baseDemoPath)
       }
       if (!allDemoCodes[blockName]) {
         allDemoCodes[blockName] = getAllDemoCodes(baseDemoPath)
@@ -48,6 +53,7 @@ const transform = () => {
         `import ${ToUpperCase(componentName)} from './demo/demo';`,
         `<Template codeSandBoxParameter={'${codeSandBoxParameters[blockName]}'} 
                                 allCodes={allDemoCodes['${blockName}']}
+                                blockName={'${blockName}'}
                       >
                         <${ToUpperCase(componentName)} />
                       </Template>`
@@ -62,7 +68,7 @@ const transform = () => {
       })
     }
   })
-  // writeFileSync(path.join(__dirname, '../src/codes.json'), JSON.stringify(highlightCodeData))
+  writeFileSync(path.join(__dirname, '../src/stackblitzParameters.json'), JSON.stringify(stackblitzParameters))
   writeFileSync(path.join(__dirname, '../src/allDemoCodes.json'), JSON.stringify(allDemoCodes))
   writeFileSync(path.join(__dirname, '../src/router.tsx'), getRouterTemplate(codeBlockNames), 'utf-8')
   const menuData = getMenuData(codeBlockNames)

@@ -132,7 +132,7 @@ const TabsItem = styled.div<{ isChecked: boolean }>`
 const Line = styled.div<{ left: number; width: number }>`
   width: 100%;
   height: 1px;
-  background: #1677ff;
+  background: #e2e2e2;
   position: relative;
   margin-top: 10px;
   &::after {
@@ -140,7 +140,7 @@ const Line = styled.div<{ left: number; width: number }>`
     position: absolute;
     width: ${({ width }) => width + 'px'};
     height: 2px;
-    background: #73d37b;
+    background: #1677ff;
     left: ${({ left }) => left + 'px'};
     top: 0;
     transition: all linear 0.15s;

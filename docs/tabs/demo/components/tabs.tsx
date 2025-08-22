@@ -16,10 +16,8 @@ interface TabsProps {
 }
 
 const Tabs: FC<TabsProps> = ({ items, onChange, defaultTab }) => {
-  const [hadRenderTabPane, setHadRenderTabPane] = useState<(string | number)[]>(
-    defaultTab ? [defaultTab] : [items[0].key]
-  )
-  const [checkedId, setCheckedId] = useState<string | number>(defaultTab || items[0].key)
+  const [hadRenderTabPane, setHadRenderTabPane] = useState<React.Key[]>(defaultTab ? [defaultTab] : [items[0].key])
+  const [checkedId, setCheckedId] = useState<React.Key>(defaultTab || items[0].key)
   const [offsetLeft, setOffsetLeft] = useState(0)
   const [offsetWidth, setOffsetWidth] = useState(0)
 

@@ -27,7 +27,6 @@ yarn-error.log*
 src/pages
 /.vscode
 
-package-lock.json
 yarn.lock
 
 /src/codes.json

@@ -4,7 +4,6 @@ import { CodeSandboxOutlined, CopyOutlined } from '@ant-design/icons'
 import sdk from '@stackblitz/sdk'
 import './index.css'
 import HighlightCode from './../../components/hightCode'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import stackblitzParametersJson from './../../stackblitzParameters.json'
 
 type TemplateProps = {

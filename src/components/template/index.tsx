@@ -1,5 +1,5 @@
 import React, { FC, useState, useRef } from 'react'
-import { Divider, Tooltip, Space, Tabs } from 'antd'
+import { Divider, Tooltip, Space, Tabs, message } from 'antd'
 import { CodeSandboxOutlined, CopyOutlined } from '@ant-design/icons'
 import sdk from '@stackblitz/sdk'
 import './index.css'
@@ -24,9 +24,13 @@ const Template: FC<TemplateProps> = ({ children, blockName, codeSandBoxParameter
       children: (
         <div className="code">
           <Tooltip title="复制">
-            <CopyToClipboard text={item.codes}>
-              <CopyOutlined style={{ cursor: 'pointer', position: 'absolute', right: 15, top: 12 }} />
-            </CopyToClipboard>
+            <CopyOutlined
+              style={{ cursor: 'pointer', position: 'absolute', right: 15, top: 12 }}
+              onClick={() => {
+                window.navigator.clipboard.writeText(item.codes)
+                message.success('复制成功')
+              }}
+            />
           </Tooltip>
           <HighlightCode code={item.codes} />
         </div>

@@ -1,5 +1,4 @@
 import { useEffect, FC, useState, ReactNode, CSSProperties } from 'react'
-import styled from 'styled-components'
 import { LoadingOutlined } from '@ant-design/icons'
 
 type TLoadingImageProps = {
@@ -30,32 +29,17 @@ const LoadingImage: FC<TLoadingImageProps> = (props) => {
     loadImg()
   }, [props.src])
   return (
-    <ImageWrapper background={src} style={props.style}>
+    <div
+      className="w-[260px] h-[260px] bg-no-repeat bg-top bg-cover shadow-[0_4px_4px_rgba(0,0,0,0.1)] rounded-[14px] flex flex-col justify-between"
+      style={{ ...(props?.style || {}), backgroundImage: `url(${src})` }}
+    >
       {!isFlag && (
-        <div className="loaderWrapper">
+        <div className="w-full h-full flex items-center justify-center text-[25px]">
           <LoadingOutlined />
         </div>
       )}
       {props.children}
-    </ImageWrapper>
+    </div>
   )
 }
-const ImageWrapper = styled.div<{ background: string }>`
-  width: 260px;
-  height: 260px;
-  background: ${({ background }) => `url(${background}) no-repeat top / cover`};
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 14px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  .loaderWrapper {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
-  }
-`
 export default LoadingImage

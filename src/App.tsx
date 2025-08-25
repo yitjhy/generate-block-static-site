@@ -16,7 +16,7 @@ const App: FC<RouteComponentProps> = ({ history, location }) => {
     <div className="App">
       <Header style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div
-          style={{ cursor: 'pointer' }}
+          className="flex cursor-pointer items-center"
           onClick={() => {
             history.push('/')
           }}

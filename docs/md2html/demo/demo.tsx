@@ -16,8 +16,14 @@ const Md2Html = () => {
   }
   return (
     <div className="md2html">
-      <div className="left block">
-        <textarea name="" id="textarea" onChange={onTextareaChange} placeholder="请输入md" />
+      <div className="left block bg-[#f8f8f8]">
+        <textarea
+          className="bg-[#f8f8f8] text-[#000]"
+          name=""
+          id="textarea"
+          onChange={onTextareaChange}
+          placeholder="请输入md"
+        />
       </div>
       <div className="right block" dangerouslySetInnerHTML={{ __html: html }} />
     </div>

@@ -48,7 +48,10 @@ const App: FC<RouteComponentProps> = ({ history, location }) => {
           <div
             style={{
               paddingLeft: 0,
-              height: 'max(calc(100%), calc(100vh - 75px))',
+              position: 'sticky',
+              top: 75,
+              height: 'calc(100vh - 75px)',
+              overflowY: 'auto',
               display: 'flex',
               flexDirection: 'column',
             }}

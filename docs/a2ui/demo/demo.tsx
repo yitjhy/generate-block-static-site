@@ -73,7 +73,7 @@ export default function A2uiXCardPage() {
       <div className="flex items-stretch gap-[16px]">
         <section className="flex min-h-[500px] w-[35%] shrink-0">
           <Input.TextArea
-            className="min-w-0 w-full font-mono text-[12px]"
+            className="min-w-0 w-full font-mono text-[12px] !bg-[#f8f8f8] !text-[#000]"
             value={inputValue}
             onChange={(event) => handleInputChange(event.target.value)}
             placeholder="粘贴 XAgentCommand JSON 数组..."

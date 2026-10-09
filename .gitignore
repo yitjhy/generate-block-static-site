@@ -35,3 +35,4 @@ yarn.lock
 /src/codeSandBoxParameters.json
 /src/allDemoCodes.json
 /src/stackblitzParameters.json
+/logs

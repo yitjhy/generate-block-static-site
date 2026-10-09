@@ -15,11 +15,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 22.0
+          node-version: 22.22.1
       - name: page build
         working-directory: ./
         run: |
-          yarn
+          npm ci --legacy-peer-deps
           npm run publish2ghpages
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

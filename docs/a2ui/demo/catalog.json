@@ -1,0 +1,1869 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "local://a2ui-x-card-demo.json",
+  "title": "A2UI X-Card Demo Catalog (Spec)",
+  "description": "对齐 A2UI v0.9 catalog 结构的完整版：组件用 allOf 组合 ComponentCommon/Checkable，含 component 判别字段、unevaluatedProperties、anyComponent/anyFunction/discriminator、完整函数 schema 与 theme。属性严格按本渲染器（@ant-design/x-card）实际实现收敛：仅保留组件真正读取的属性（accessibility 仅 hidden，不含 label/description；无 weight），含扩展组件（Select/SwitchField）与本地约定（fieldPath、Button.text、Tabs.titles+children、Modal.children）。用于驱动 Agent 生成合法 A2UI 指令。",
+  "catalogId": "local://a2ui-x-card-demo.json",
+  "components": {
+    "Text": {
+      "type": "object",
+      "description": "文本展示，支持基础 Markdown（加粗/斜体/删除线/行内代码/列表/引用/标题/表格，不含链接与图片）。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Text"
+            },
+            "text": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "要展示的文本。"
+            },
+            "variant": {
+              "type": "string",
+              "description": "文本样式。",
+              "enum": ["h1", "h2", "h3", "h4", "h5", "caption", "body"],
+              "default": "body"
+            }
+          },
+          "required": ["component", "text"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Image": {
+      "type": "object",
+      "description": "图片展示。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Image"
+            },
+            "url": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "图片地址。"
+            },
+            "description": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "无障碍描述。"
+            },
+            "fit": {
+              "type": "string",
+              "description": "对应 CSS object-fit。",
+              "enum": ["contain", "cover", "fill", "none", "scaleDown"],
+              "default": "fill"
+            }
+          },
+          "required": ["component", "url"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Icon": {
+      "type": "object",
+      "description": "图标（Material 风格内置图标名，或用 svgPath 自定义）。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Icon"
+            },
+            "name": {
+              "description": "内置图标名枚举，或 { svgPath }，或数据绑定。",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "accountCircle",
+                    "add",
+                    "arrowBack",
+                    "arrowForward",
+                    "attachFile",
+                    "calendarToday",
+                    "call",
+                    "camera",
+                    "check",
+                    "close",
+                    "delete",
+                    "download",
+                    "edit",
+                    "event",
+                    "error",
+                    "fastForward",
+                    "favorite",
+                    "favoriteOff",
+                    "folder",
+                    "help",
+                    "home",
+                    "info",
+                    "locationOn",
+                    "lock",
+                    "lockOpen",
+                    "mail",
+                    "menu",
+                    "moreVert",
+                    "moreHoriz",
+                    "notificationsOff",
+                    "notifications",
+                    "pause",
+                    "payment",
+                    "person",
+                    "phone",
+                    "photo",
+                    "play",
+                    "print",
+                    "refresh",
+                    "rewind",
+                    "search",
+                    "send",
+                    "settings",
+                    "share",
+                    "shoppingCart",
+                    "skipNext",
+                    "skipPrevious",
+                    "star",
+                    "starHalf",
+                    "starOff",
+                    "stop",
+                    "upload",
+                    "visibility",
+                    "visibilityOff",
+                    "volumeDown",
+                    "volumeMute",
+                    "volumeOff",
+                    "volumeUp",
+                    "warning"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "svgPath": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["svgPath"],
+                  "additionalProperties": false
+                },
+                {
+                  "$ref": "#/$defs/DataBinding"
+                }
+              ]
+            }
+          },
+          "required": ["component", "name"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Video": {
+      "type": "object",
+      "description": "视频播放。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Video"
+            },
+            "url": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "视频地址。"
+            }
+          },
+          "required": ["component", "url"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "AudioPlayer": {
+      "type": "object",
+      "description": "音频播放。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "AudioPlayer"
+            },
+            "url": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "音频地址。"
+            },
+            "description": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "音频描述。"
+            }
+          },
+          "required": ["component", "url"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Row": {
+      "type": "object",
+      "description": "水平布局容器。子组件用 id 引用，不能内联。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Row"
+            },
+            "children": {
+              "$ref": "#/$defs/ChildList",
+              "description": "子组件 id 列表。"
+            },
+            "justify": {
+              "type": "string",
+              "enum": ["start", "center", "end", "spaceBetween", "spaceAround", "spaceEvenly"],
+              "default": "start"
+            }
+          },
+          "required": ["component", "children"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Column": {
+      "type": "object",
+      "description": "垂直布局容器。子组件用 id 引用，不能内联。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Column"
+            },
+            "children": {
+              "$ref": "#/$defs/ChildList",
+              "description": "子组件 id 列表。"
+            }
+          },
+          "required": ["component", "children"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "List": {
+      "type": "object",
+      "description": "列表容器。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "List"
+            },
+            "children": {
+              "$ref": "#/$defs/ChildList"
+            },
+            "direction": {
+              "type": "string",
+              "enum": ["vertical", "horizontal"],
+              "default": "vertical"
+            },
+            "align": {
+              "type": "string",
+              "enum": ["start", "center", "end", "stretch"],
+              "default": "stretch"
+            }
+          },
+          "required": ["component", "children"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Card": {
+      "type": "object",
+      "description": "卡片容器，包裹单个子组件。多个元素需先用 Column/Row 包起来再传入 id。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Card"
+            },
+            "child": {
+              "$ref": "#/$defs/ComponentId",
+              "description": "唯一子组件 id。"
+            }
+          },
+          "required": ["component", "child"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Tabs": {
+      "type": "object",
+      "description": "标签页容器。本渲染器约定（非标准）：titles 为标签标题数组，children 为各标签对应的子组件 id 数组，按顺序一一对应。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Tabs"
+            },
+            "titles": {
+              "type": "array",
+              "description": "标签标题列表。",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/DynamicString"
+              }
+            },
+            "children": {
+              "description": "各标签对应的子组件 id 列表，顺序与 titles 对应。",
+              "$ref": "#/$defs/ChildList"
+            }
+          },
+          "required": ["component", "titles", "children"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Modal": {
+      "type": "object",
+      "description": "弹窗容器。本渲染器约定（非标准）：children[0] 为触发器（点击打开），children[1] 为弹窗内容。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Modal"
+            },
+            "children": {
+              "type": "array",
+              "description": "[triggerId, contentId]，恰好 2 项。",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "$ref": "#/$defs/ComponentId"
+              }
+            }
+          },
+          "required": ["component", "children"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Divider": {
+      "type": "object",
+      "description": "分割线。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Divider"
+            },
+            "axis": {
+              "type": "string",
+              "enum": ["horizontal", "vertical"],
+              "default": "horizontal"
+            }
+          },
+          "required": ["component"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Button": {
+      "type": "object",
+      "description": "按钮。本渲染器约定（非标准）：用 text 直接渲染文案（标准 protocol 用 child 引用 Text/Icon）。action 触发服务端事件或客户端函数。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "$ref": "#/$defs/Checkable"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Button"
+            },
+            "text": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "按钮文案。"
+            },
+            "variant": {
+              "type": "string",
+              "description": "按钮样式。primary 为主操作，borderless 无边框。",
+              "enum": ["default", "primary", "borderless"],
+              "default": "default"
+            },
+            "action": {
+              "$ref": "#/$defs/Action"
+            }
+          },
+          "required": ["component", "text", "action"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "TextField": {
+      "type": "object",
+      "description": "文本输入框，双向绑定。fieldPath 为本渲染器扩展：写回数据模型的路径（不含前导 /）。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "$ref": "#/$defs/Checkable"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "TextField"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "字段标签。"
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "值。"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /，如 form/name）。"
+            },
+            "variant": {
+              "type": "string",
+              "description": "输入类型。",
+              "enum": ["longText", "number", "shortText", "obscured"],
+              "default": "shortText"
+            },
+            "placeholder": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "占位文本。"
+            }
+          },
+          "required": ["component", "label", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "CheckBox": {
+      "type": "object",
+      "description": "复选框，双向绑定布尔值。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "CheckBox"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "复选框文本。"
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicBoolean",
+              "description": "当前状态。"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            }
+          },
+          "required": ["component", "label", "value", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "ChoicePicker": {
+      "type": "object",
+      "description": "单选或多选。value 始终是数组。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "$ref": "#/$defs/Checkable"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "ChoicePicker"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "选项组标签。"
+            },
+            "variant": {
+              "type": "string",
+              "description": "单选或多选。",
+              "enum": ["mutuallyExclusive", "multipleSelection"],
+              "default": "mutuallyExclusive"
+            },
+            "options": {
+              "type": "array",
+              "description": "可选项。",
+              "items": {
+                "$ref": "#/$defs/Option"
+              }
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicStringList",
+              "description": "当前选中值数组。"
+            },
+            "direction": {
+              "type": "string",
+              "description": "排列方向。",
+              "enum": ["vertical", "horizontal"],
+              "default": "horizontal"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            }
+          },
+          "required": ["component", "options", "value", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Select": {
+      "type": "object",
+      "description": "下拉选择（本渲染器扩展组件）。value 始终是数组。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Select"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "标签。"
+            },
+            "options": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Option"
+              }
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicStringList"
+            },
+            "multiple": {
+              "type": "boolean",
+              "description": "是否多选。",
+              "default": false
+            },
+            "placeholder": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            }
+          },
+          "required": ["component", "options", "value", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "CountrySelect": {
+      "type": "object",
+      "description": "国家/地区下拉（本渲染器扩展组件，选项内置自 country-region-data，共 249 项）。value 始终是国家名数组。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "$ref": "#/$defs/Checkable"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "CountrySelect"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "标签。"
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicStringList",
+              "description": "选中的国家名数组（如 [\"China\"]）。"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            },
+            "multiple": {
+              "type": "boolean",
+              "description": "是否多选。",
+              "default": false
+            },
+            "placeholder": {
+              "$ref": "#/$defs/DynamicString"
+            }
+          },
+          "required": ["component", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "LanguageSelect": {
+      "type": "object",
+      "description": "语言下拉（本渲染器扩展组件，选项来自 getLanguageList API）。value 始终是语言代码（string）数组。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "$ref": "#/$defs/Checkable"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "LanguageSelect"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "标签。"
+            },
+            "options": {
+              "type": "array",
+              "description": "可选语言项；省略时用组件内置默认语言列表。",
+              "items": {
+                "$ref": "#/$defs/Option"
+              }
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicStringList",
+              "description": "选中的语言代码数组（如 [\"en\"]）。"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            },
+            "multiple": {
+              "type": "boolean",
+              "description": "是否多选。",
+              "default": false
+            },
+            "placeholder": {
+              "$ref": "#/$defs/DynamicString"
+            }
+          },
+          "required": ["component", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "Slider": {
+      "type": "object",
+      "description": "滑块，双向绑定数值。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "$ref": "#/$defs/Checkable"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "Slider"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "min": {
+              "type": "number",
+              "description": "最小值。",
+              "default": 0
+            },
+            "max": {
+              "type": "number",
+              "description": "最大值。"
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicNumber"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            }
+          },
+          "required": ["component", "value", "max", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "DateTimeInput": {
+      "type": "object",
+      "description": "日期/时间输入，值为 ISO 8601 字符串。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "$ref": "#/$defs/Checkable"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "DateTimeInput"
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "ISO 8601 值，未设置时为空字符串。"
+            },
+            "enableDate": {
+              "type": "boolean",
+              "description": "允许选择日期。",
+              "default": false
+            },
+            "enableTime": {
+              "type": "boolean",
+              "description": "允许选择时间。",
+              "default": false
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            }
+          },
+          "required": ["component", "value", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    },
+    "SwitchField": {
+      "type": "object",
+      "description": "开关，双向绑定布尔值（本渲染器扩展组件）。",
+      "allOf": [
+        {
+          "$ref": "#/$defs/ComponentCommon"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "component": {
+              "const": "SwitchField"
+            },
+            "label": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "value": {
+              "$ref": "#/$defs/DynamicBoolean"
+            },
+            "fieldPath": {
+              "type": "string",
+              "description": "写回路径（不含前导 /）。"
+            }
+          },
+          "required": ["component", "label", "fieldPath"]
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "functions": {
+    "required": {
+      "type": "object",
+      "description": "值非 null、undefined 或空。",
+      "properties": {
+        "call": {
+          "const": "required"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "description": "要检查的值。"
+            }
+          },
+          "required": ["value"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "regex": {
+      "type": "object",
+      "description": "值匹配正则。",
+      "properties": {
+        "call": {
+          "const": "regex"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "pattern": {
+              "type": "string",
+              "description": "正则表达式。"
+            }
+          },
+          "required": ["value", "pattern"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "length": {
+      "type": "object",
+      "description": "字符串长度约束。",
+      "properties": {
+        "call": {
+          "const": "length"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "min": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "最小长度。"
+            },
+            "max": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "最大长度。"
+            }
+          },
+          "required": ["value"],
+          "anyOf": [
+            {
+              "required": ["min"]
+            },
+            {
+              "required": ["max"]
+            }
+          ],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "numeric": {
+      "type": "object",
+      "description": "数值范围约束。",
+      "properties": {
+        "call": {
+          "const": "numeric"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicNumber"
+            },
+            "min": {
+              "type": "number",
+              "description": "最小值。"
+            },
+            "max": {
+              "type": "number",
+              "description": "最大值。"
+            }
+          },
+          "required": ["value"],
+          "anyOf": [
+            {
+              "required": ["min"]
+            },
+            {
+              "required": ["max"]
+            }
+          ],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "email": {
+      "type": "object",
+      "description": "是否合法邮箱。",
+      "properties": {
+        "call": {
+          "const": "email"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicString"
+            }
+          },
+          "required": ["value"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "and": {
+      "type": "object",
+      "description": "逻辑与。",
+      "properties": {
+        "call": {
+          "const": "and"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "values": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "$ref": "#/$defs/DynamicBoolean"
+              }
+            }
+          },
+          "required": ["values"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "or": {
+      "type": "object",
+      "description": "逻辑或。",
+      "properties": {
+        "call": {
+          "const": "or"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "values": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "$ref": "#/$defs/DynamicBoolean"
+              }
+            }
+          },
+          "required": ["values"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "not": {
+      "type": "object",
+      "description": "逻辑非。",
+      "properties": {
+        "call": {
+          "const": "not"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicBoolean"
+            }
+          },
+          "required": ["value"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "eq": {
+      "type": "object",
+      "description": "严格相等（扩展函数）。",
+      "properties": {
+        "call": {
+          "const": "eq"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "description": "要比较的值。"
+            },
+            "equals": {
+              "description": "比较目标字面量。"
+            }
+          },
+          "required": ["value", "equals"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "contains": {
+      "type": "object",
+      "description": "数组是否包含某项（扩展函数）。",
+      "properties": {
+        "call": {
+          "const": "contains"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "description": "要搜索的数组。"
+            },
+            "item": {
+              "description": "要查找的项。"
+            }
+          },
+          "required": ["value", "item"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "boolean"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "formatNumber": {
+      "type": "object",
+      "description": "数字格式化。",
+      "properties": {
+        "call": {
+          "const": "formatNumber"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicNumber",
+              "description": "要格式化的数字。"
+            },
+            "decimals": {
+              "$ref": "#/$defs/DynamicNumber",
+              "description": "小数位数。"
+            },
+            "grouping": {
+              "$ref": "#/$defs/DynamicBoolean",
+              "description": "是否千分位。"
+            }
+          },
+          "required": ["value"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "string"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "formatCurrency": {
+      "type": "object",
+      "description": "货币格式化。",
+      "properties": {
+        "call": {
+          "const": "formatCurrency"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicNumber",
+              "description": "金额。"
+            },
+            "currency": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "ISO 4217 货币码。"
+            },
+            "decimals": {
+              "$ref": "#/$defs/DynamicNumber"
+            },
+            "grouping": {
+              "$ref": "#/$defs/DynamicBoolean"
+            }
+          },
+          "required": ["currency", "value"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "string"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "formatDate": {
+      "type": "object",
+      "description": "用模式串格式化日期。",
+      "properties": {
+        "call": {
+          "const": "formatDate"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicValue",
+              "description": "要格式化的日期。"
+            },
+            "format": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "Unicode TR35 模式串（如 yyyy-MM-dd、HH:mm）。"
+            }
+          },
+          "required": ["format", "value"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "string"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "pluralize": {
+      "type": "object",
+      "description": "按 CLDR 复数类别返回字符串，需提供 other 兜底。",
+      "properties": {
+        "call": {
+          "const": "pluralize"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicNumber",
+              "description": "决定复数类别的数值。"
+            },
+            "zero": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "one": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "two": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "few": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "many": {
+              "$ref": "#/$defs/DynamicString"
+            },
+            "other": {
+              "$ref": "#/$defs/DynamicString",
+              "description": "兜底字符串。"
+            }
+          },
+          "required": ["value", "other"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "string"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "formatString": {
+      "type": "object",
+      "description": "字符串插值，支持 ${/path} 与 ${fn(args)} 表达式。",
+      "properties": {
+        "call": {
+          "const": "formatString"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "$ref": "#/$defs/DynamicString"
+            }
+          },
+          "required": ["value"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "string"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    },
+    "openUrl": {
+      "type": "object",
+      "description": "在新标签打开 URL（无返回值）。",
+      "properties": {
+        "call": {
+          "const": "openUrl"
+        },
+        "args": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "要打开的 URL。"
+            }
+          },
+          "required": ["url"],
+          "additionalProperties": false
+        },
+        "returnType": {
+          "const": "void"
+        }
+      },
+      "required": ["call", "args"],
+      "unevaluatedProperties": false
+    }
+  },
+  "$defs": {
+    "ComponentCommon": {
+      "type": "object",
+      "description": "所有组件的公共字段。",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/ComponentId"
+        },
+        "accessibility": {
+          "$ref": "#/$defs/AccessibilityAttributes"
+        }
+      },
+      "required": ["id"]
+    },
+    "theme": {
+      "type": "object",
+      "description": "surface 主题参数。",
+      "properties": {
+        "primaryColor": {
+          "type": "string",
+          "description": "品牌主色（十六进制）。",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        },
+        "iconUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Agent/工具标识图。"
+        },
+        "agentDisplayName": {
+          "type": "string",
+          "description": "Agent/工具展示名。"
+        }
+      },
+      "additionalProperties": true
+    },
+    "AccessibilityAttributes": {
+      "type": "object",
+      "description": "无障碍属性。本渲染器仅实现 hidden 条件显隐；label/description 未实现，故不收录。",
+      "properties": {
+        "hidden": {
+          "$ref": "#/$defs/DynamicBoolean",
+          "description": "为 true 时渲染器不渲染该组件（条件显隐）。本渲染器支持。"
+        }
+      }
+    },
+    "ComponentId": {
+      "type": "string",
+      "description": "同一 surface 内的组件唯一 id。"
+    },
+    "ChildList": {
+      "description": "子组件引用列表。注意：本渲染器（@ant-design/x-card 2.9.0）仅支持静态数组形式，不支持模板迭代；模板形式仅为规范完整性保留。",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ComponentId"
+          },
+          "description": "静态子组件 id 列表。"
+        },
+        {
+          "type": "object",
+          "description": "（规范保留）从数据模型列表生成子组件的模板；当前渲染器不支持。",
+          "properties": {
+            "componentId": {
+              "$ref": "#/$defs/ComponentId"
+            },
+            "path": {
+              "type": "string",
+              "description": "数据模型中组件属性对象列表的路径。"
+            }
+          },
+          "required": ["componentId", "path"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Option": {
+      "type": "object",
+      "description": "可选项。",
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/DynamicString"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["label", "value"],
+      "additionalProperties": false
+    },
+    "DataBinding": {
+      "type": "object",
+      "description": "数据绑定：JSON Pointer 路径。以 / 开头为绝对路径，否则相对当前作用域。",
+      "properties": {
+        "path": {
+          "type": "string"
+        }
+      },
+      "required": ["path"],
+      "additionalProperties": false
+    },
+    "DynamicValue": {
+      "description": "字面量 | 数据绑定 | 任意返回类型的函数调用。",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "array"
+        },
+        {
+          "$ref": "#/$defs/DataBinding"
+        },
+        {
+          "$ref": "#/$defs/FunctionCall"
+        }
+      ]
+    },
+    "DynamicString": {
+      "description": "字符串 | 数据绑定 | 返回 string 的函数调用。",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "#/$defs/DataBinding"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/FunctionCall"
+            },
+            {
+              "properties": {
+                "returnType": {
+                  "const": "string"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "DynamicNumber": {
+      "description": "数值 | 数据绑定 | 返回 number 的函数调用。",
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/DataBinding"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/FunctionCall"
+            },
+            {
+              "properties": {
+                "returnType": {
+                  "const": "number"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "DynamicBoolean": {
+      "description": "布尔 | 数据绑定 | 返回 boolean 的函数调用。",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "$ref": "#/$defs/DataBinding"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/FunctionCall"
+            },
+            {
+              "properties": {
+                "returnType": {
+                  "const": "boolean"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "DynamicStringList": {
+      "description": "字符串数组 | 数据绑定 | 返回 array 的函数调用。",
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "$ref": "#/$defs/DataBinding"
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/FunctionCall"
+            },
+            {
+              "properties": {
+                "returnType": {
+                  "const": "array"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "FunctionCall": {
+      "type": "object",
+      "description": "客户端函数调用。",
+      "properties": {
+        "call": {
+          "type": "string",
+          "description": "函数名。"
+        },
+        "args": {
+          "type": "object",
+          "description": "函数参数。",
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/DynamicValue"
+              },
+              {
+                "type": "object",
+                "description": "字面对象参数（如配置）。"
+              }
+            ]
+          }
+        },
+        "returnType": {
+          "type": "string",
+          "description": "期望返回类型。",
+          "enum": ["string", "number", "boolean", "array", "object", "any", "void"],
+          "default": "boolean"
+        }
+      },
+      "required": ["call"],
+      "oneOf": [
+        {
+          "$ref": "#/$defs/anyFunction"
+        }
+      ]
+    },
+    "CheckRule": {
+      "type": "object",
+      "description": "单条校验规则：condition 为假时展示 message。",
+      "properties": {
+        "condition": {
+          "$ref": "#/$defs/DynamicBoolean"
+        },
+        "message": {
+          "type": "string",
+          "description": "校验失败时的提示。"
+        }
+      },
+      "required": ["condition", "message"],
+      "additionalProperties": false
+    },
+    "Checkable": {
+      "type": "object",
+      "description": "支持客户端校验的组件公共字段。",
+      "properties": {
+        "checks": {
+          "type": "array",
+          "description": "校验规则列表（函数调用，返回 boolean 表示是否有效）。",
+          "items": {
+            "$ref": "#/$defs/CheckRule"
+          }
+        }
+      }
+    },
+    "Action": {
+      "description": "交互声明：event 回传服务端；functionCall 客户端本地执行。",
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "触发服务端事件。",
+          "properties": {
+            "event": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "事件名。"
+                },
+                "context": {
+                  "type": "object",
+                  "description": "事件上下文，值可为字面量或路径绑定。路径在此表示写入目标。",
+                  "additionalProperties": {
+                    "$ref": "#/$defs/DynamicValue"
+                  }
+                }
+              },
+              "required": ["name"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["event"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "description": "执行本地客户端函数。",
+          "properties": {
+            "functionCall": {
+              "$ref": "#/$defs/FunctionCall"
+            }
+          },
+          "required": ["functionCall"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "anyComponent": {
+      "description": "任意组件的联合（按 component 字段判别）。",
+      "oneOf": [
+        {
+          "$ref": "#/components/Text"
+        },
+        {
+          "$ref": "#/components/Image"
+        },
+        {
+          "$ref": "#/components/Icon"
+        },
+        {
+          "$ref": "#/components/Video"
+        },
+        {
+          "$ref": "#/components/AudioPlayer"
+        },
+        {
+          "$ref": "#/components/Row"
+        },
+        {
+          "$ref": "#/components/Column"
+        },
+        {
+          "$ref": "#/components/List"
+        },
+        {
+          "$ref": "#/components/Card"
+        },
+        {
+          "$ref": "#/components/Tabs"
+        },
+        {
+          "$ref": "#/components/Modal"
+        },
+        {
+          "$ref": "#/components/Divider"
+        },
+        {
+          "$ref": "#/components/Button"
+        },
+        {
+          "$ref": "#/components/TextField"
+        },
+        {
+          "$ref": "#/components/CheckBox"
+        },
+        {
+          "$ref": "#/components/ChoicePicker"
+        },
+        {
+          "$ref": "#/components/Select"
+        },
+        {
+          "$ref": "#/components/CountrySelect"
+        },
+        {
+          "$ref": "#/components/LanguageSelect"
+        },
+        {
+          "$ref": "#/components/Slider"
+        },
+        {
+          "$ref": "#/components/DateTimeInput"
+        },
+        {
+          "$ref": "#/components/SwitchField"
+        }
+      ],
+      "discriminator": {
+        "propertyName": "component"
+      }
+    },
+    "anyFunction": {
+      "description": "任意客户端函数的联合。",
+      "oneOf": [
+        {
+          "$ref": "#/functions/required"
+        },
+        {
+          "$ref": "#/functions/regex"
+        },
+        {
+          "$ref": "#/functions/length"
+        },
+        {
+          "$ref": "#/functions/numeric"
+        },
+        {
+          "$ref": "#/functions/email"
+        },
+        {
+          "$ref": "#/functions/and"
+        },
+        {
+          "$ref": "#/functions/or"
+        },
+        {
+          "$ref": "#/functions/not"
+        },
+        {
+          "$ref": "#/functions/eq"
+        },
+        {
+          "$ref": "#/functions/contains"
+        },
+        {
+          "$ref": "#/functions/formatNumber"
+        },
+        {
+          "$ref": "#/functions/formatCurrency"
+        },
+        {
+          "$ref": "#/functions/formatDate"
+        },
+        {
+          "$ref": "#/functions/pluralize"
+        },
+        {
+          "$ref": "#/functions/formatString"
+        },
+        {
+          "$ref": "#/functions/openUrl"
+        }
+      ]
+    },
+    "anyCommand": {
+      "description": "服务端→客户端命令信封（A2UI v0.9）。每条命令必须携带 version:'v0.9'。",
+      "oneOf": [
+        {
+          "type": "object",
+          "description": "创建 surface。",
+          "properties": {
+            "version": { "const": "v0.9" },
+            "createSurface": {
+              "type": "object",
+              "properties": {
+                "surfaceId": { "type": "string" },
+                "catalogId": { "type": "string", "description": "catalog 标识（本地 local://... 或远程 URL）。" },
+                "theme": { "$ref": "#/$defs/theme", "description": "主题参数（x-card 2.9.0 未应用）。" },
+                "sendDataModel": { "type": "boolean", "description": "action 时是否回传完整数据模型（x-card 2.9.0 未实现）。" }
+              },
+              "required": ["surfaceId", "catalogId"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["version", "createSurface"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "description": "更新/合并 surface 上的组件（邻接表，按 id 合并）。",
+          "properties": {
+            "version": { "const": "v0.9" },
+            "updateComponents": {
+              "type": "object",
+              "properties": {
+                "surfaceId": { "type": "string" },
+                "components": {
+                  "type": "array",
+                  "description": "组件列表。约束：至少 1 项；第 0 项 id 必须为 'root'；且整个数组恰好有且仅有一个 id 为 'root'。",
+                  "minItems": 1,
+                  "prefixItems": [
+                    {
+                      "allOf": [
+                        { "properties": { "id": { "const": "root" } }, "required": ["id"] },
+                        { "$ref": "#/$defs/anyComponent" }
+                      ]
+                    }
+                  ],
+                  "items": { "$ref": "#/$defs/anyComponent" },
+                  "contains": { "properties": { "id": { "const": "root" } }, "required": ["id"] },
+                  "minContains": 1,
+                  "maxContains": 1
+                }
+              },
+              "required": ["surfaceId", "components"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["version", "updateComponents"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "description": "更新数据模型。",
+          "properties": {
+            "version": { "const": "v0.9" },
+            "updateDataModel": {
+              "type": "object",
+              "properties": {
+                "surfaceId": { "type": "string" },
+                "path": { "type": "string", "description": "JSON Pointer 路径（本渲染器不支持 path:'/' 全量替换）。" },
+                "value": { "description": "新值；省略表示按 path 删除。" }
+              },
+              "required": ["surfaceId"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["version", "updateDataModel"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "description": "删除 surface。",
+          "properties": {
+            "version": { "const": "v0.9" },
+            "deleteSurface": {
+              "type": "object",
+              "properties": {
+                "surfaceId": { "type": "string" }
+              },
+              "required": ["surfaceId"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["version", "deleteSurface"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "commandList": {
+      "type": "array",
+      "description": "命令流：按顺序执行的命令数组。",
+      "items": { "$ref": "#/$defs/anyCommand" }
+    }
+  }
+}

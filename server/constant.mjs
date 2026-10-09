@@ -2,6 +2,15 @@ export const indexTsxCode = `import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Demo from './demo';
 
+const antdStyle = document.createElement('link');
+antdStyle.rel = 'stylesheet';
+antdStyle.href = 'https://cdn.jsdelivr.net/npm/antd@4.23.0/dist/antd.min.css';
+document.head.appendChild(antdStyle);
+
+const tailwindScript = document.createElement('script');
+tailwindScript.src = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4';
+document.head.appendChild(tailwindScript);
+
 createRoot(document.getElementById('root')).render(<Demo />);`
 
 export const htmlCode = `<!DOCTYPE html>
